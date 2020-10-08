@@ -1,11 +1,14 @@
-.msg500 {
+@import 'util/base.css';
+
+.msg404 {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.msg500-title {
+.msg404-title {
     margin-bottom: 2.4rem;
 }
-.msg500-text {
+.msg404-text {
     margin-bottom: 2.4rem;
 }
+

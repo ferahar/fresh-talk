@@ -1,4 +1,9 @@
-.body {
+@import 'var.css';
+@import 'container.css';
+@import 'typo.css';
+@import 'button.css';
+
+body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -14,15 +19,6 @@
     padding: 0;
     box-sizing: border-box;
     overflow: auto;
-}
-
-/* .main_addNav     {
-    height: calc(100% - 60px);
-} */
-
-.article {
-    width: 320px;
-    width: 100%;
 }
 
 .splitter {

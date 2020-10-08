@@ -7,6 +7,7 @@ const log = e => {
 }
 
 const form = document.querySelector('form');
-form.onsubmit = log
+form ? form.onsubmit = log : undefined
 
-const save = document.getElementById('save')? save.onclick = log : undefined
+const save = document.getElementById('save')
+save ? save.onclick = log : undefined
