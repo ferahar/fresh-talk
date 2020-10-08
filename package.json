@@ -1,0 +1,22 @@
+{
+  "name": "mf.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "ferahar messanger",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ferahar/mf.messenger.praktikum.yandex.git"
+  },
+  "author": "ferahar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ferahar/mf.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/ferahar/mf.messenger.praktikum.yandex#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

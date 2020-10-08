@@ -1,0 +1,19 @@
+@import 'style/var.css';
+@import 'style/icons.css';
+@import 'style/typo.css';
+@import 'style/base.css';
+@import 'style/container.css';
+@import 'style/button.css';
+@import 'style/inputText.css';
+@import 'style/list.css';
+@import 'style/form.css';
+@import 'style/404.css';
+@import 'style/500.css';
+@import 'style/header.css';
+@import 'style/avatar.css';
+@import 'style/chat.css';
+@import 'style/lenta.css';
+@import 'style/message.css';
+
+/* important */
+@import 'style/important.css';

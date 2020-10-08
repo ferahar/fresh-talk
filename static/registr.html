@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+</head>
+<body class="body">
+    <main class="main container container_centerStart">
+        <form class="form form_themeLogin">
+
+                <h3 class="h3">Регистрация</h3>
+                <label class="form-label">
+                    Почта
+                    <input class="inputText form-input" type="email" placeholder="Введите адрес почты" name="email" >
+                </label>
+                <label class="form-label">
+                    Номер телефона
+                    <input class="inputText form-input" type="tel" placeholder="000-00-00..." name="phone">
+                </label>
+                <label class="form-label">
+                    Имя
+                    <input class="inputText form-input" type="text" placeholder="first name" name="first_name" >
+                </label>
+                <label class="form-label">
+                    Фамилия
+                    <input class="inputText form-input" type="text" placeholder="second name" name="second_name" >
+                </label>
+                <label class="form-label">
+                    Логин
+                    <input class="inputText form-input" type="text" placeholder="login" name="login" >
+                </label>
+                <label class="form-label">
+                    Пароль
+                    <input class="inputText form-input" type="password" placeholder="@23%:.!#00." name="password" >
+                </label>
+                <label class="form-label">
+                    Пароль еще раз
+                    <input class="inputText form-input" type="password" placeholder="@23%:.!#00." name="password" >
+                </label>
+                <div class="container container_isColumn">
+                    <button class="button button_primary form-button" type="submit">Авторизоваться</button>
+                    <a href="/login.html" class="button">Войти</a>
+                </div>
+
+        </form>
+    </main>
+    <script>
+        const form = document.querySelector('form');
+        form.onsubmit = e => {
+            e.preventDefault();
+            let data = new FormData(form)
+            for(let [name, value] of data) {
+                console.log(`${name} = ${value}`)
+            }
+        };
+    </script> 
+</body>
+</html>

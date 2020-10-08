@@ -1,0 +1,12 @@
+.msg404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.msg404-title {
+    margin-bottom: 2.4rem;
+}
+.msg404-text {
+    margin-bottom: 2.4rem;
+}
+
