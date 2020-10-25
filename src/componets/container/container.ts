@@ -1,15 +1,21 @@
 import {Component} from "../../core/Component.js"
 
-export class Container<T> extends Component<T> {
+export class Container extends Component {
     
-    constructor(tagname: string, components: Component<T>[] = [], style?: string[]) {
+    constructor(tagname: string, components?: Component[], style?: string) {
         super(tagname);
         if (style) {
-            style.forEach( style => {
-                this.element!.addClass(style)
-            })
+            this.element!.setClass(style)
         }
-        this.append(components)
+        if (components) {
+            this.append(components)    
+        }
+    }
+
+    addComponent(components: Component[],) {
+        if (components) {
+            this.append(components)    
+        }
     }
 
 }

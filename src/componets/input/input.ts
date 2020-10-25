@@ -1,19 +1,21 @@
 import {Component} from "../../core/Component.js"
 declare var nunjucks: any;
  
+interface Props {
+    [index: string]: string | {} | number | undefined
+  }
 
-export class Input<T> extends Component<T> {
+export class Input extends Component {
     
     static TEMPLATE = `
     {{label}}
     <input class="inputText form-input" type="{{type}}" placeholder="{{placeholder}}" name="{{name}}" value="{{value}}" >
     `
 
-    constructor(props: T) {
-        super("label", props, {
-            'keydown': 'printConsole'
-        });
+    constructor(props: Props) {
+        super("label", props);
         this.element!.addClass("form-label")
+
     }
   
     render() {        
@@ -27,10 +29,6 @@ export class Input<T> extends Component<T> {
             })
             this.element.html(tmpl);
         }
-    }
-
-    printConsole():void {
-        console.log('key press');
     }
 }
 

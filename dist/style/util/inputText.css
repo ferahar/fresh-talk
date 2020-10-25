@@ -15,6 +15,10 @@
     padding-left: 36px;
 }
 
+.inputText_error{
+    border: 1px solid var(--error-color);
+}
+
 .inputText-icon {
     position: absolute;
     left: 8px;

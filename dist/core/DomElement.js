@@ -6,15 +6,25 @@ export class DomElement {
         }
         this.nativeElement = el;
     }
-    on(eventName, func) {
+    on(eventName, func, context) {
+        const fun = func.bind(context);
         if (this.nativeElement)
-            this.nativeElement.addEventListener(eventName, func);
+            this.nativeElement.addEventListener(eventName, fun);
         return this;
     }
     off(eventName, func) {
         if (this.nativeElement)
             this.nativeElement.removeEventListener(eventName, func);
         return this;
+    }
+    parent() {
+        if (this.nativeElement)
+            return $(this.nativeElement.parentElement);
+    }
+    text(text) {
+        if (util.isString(text) && this.nativeElement) {
+            this.nativeElement.textContent = text;
+        }
     }
     html(html) {
         if (util.isString(html) && this.nativeElement) {
@@ -38,7 +48,7 @@ export class DomElement {
     find(selector) {
         if (this.nativeElement) {
             const node = this.nativeElement.querySelector(selector);
-            $(node);
+            return $(node);
         }
         return this;
     }
@@ -68,6 +78,9 @@ export class DomElement {
         if (this.nativeElement)
             this.nativeElement.classList.add(className);
         return this;
+    }
+    setClass(style) {
+        this.nativeElement.className = style;
     }
     removeClass(className) {
         if (this.nativeElement)

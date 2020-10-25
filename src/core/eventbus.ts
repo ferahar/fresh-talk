@@ -1,21 +1,21 @@
-type fun<T> = (...rest: T[])=>void 
+type fun = (...rest: any[])=>void 
 
-interface List<T> {
-    [key:string]: Array<fun<T>>;
+interface List {
+    [key:string]: Array<fun>;
 }
 
 
-export class EventBus<T> {
-    private listeners: List<T> = {}
+export class EventBus {
+    private listeners: List = {}
 
-    on(event:keyof List<T>, callback: fun<T>) {
+    on(event:keyof List, callback: fun) {
         if (!this.listeners[event]) {
             this.listeners[event]=[];
         }
     this.listeners[event].push(callback);
     }
 
-    off(event:keyof List<T>, callback:object) {
+    off(event:keyof List, callback:object) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }
@@ -25,7 +25,7 @@ export class EventBus<T> {
         );
     }
 
-    emit(event:keyof List<T>, ...data:Array<T>) {
+    emit(event:keyof List, ...data: any[]) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }

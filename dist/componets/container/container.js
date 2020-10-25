@@ -1,13 +1,18 @@
 import { Component } from "../../core/Component.js";
 export class Container extends Component {
-    constructor(tagname, components = [], style) {
+    constructor(tagname, components, style) {
         super(tagname);
         if (style) {
-            style.forEach(style => {
-                this.element.addClass(style);
-            });
+            this.element.setClass(style);
         }
-        this.append(components);
+        if (components) {
+            this.append(components);
+        }
+    }
+    addComponent(components) {
+        if (components) {
+            this.append(components);
+        }
     }
 }
 //# sourceMappingURL=container.js.map

@@ -22,10 +22,15 @@ export class Component {
         if (this.listeners) {
             Object.keys(this.listeners).forEach(eventName => {
                 const nameMethod = this.listeners[eventName];
-                const method = this[nameMethod].bind(this);
-                this._element.on(eventName, method);
+                if (this[nameMethod]) {
+                    const method = this[nameMethod].bind(this);
+                    this._element.on(eventName, method, this);
+                }
             });
         }
+    }
+    get element() {
+        return this._element;
     }
     _registerEvents(eventBus) {
         eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
@@ -45,24 +50,17 @@ export class Component {
     _ComponentDidMount() {
         this.ComponentDidMount();
     }
-    ComponentDidMount(oldProps) {
-        if (oldProps) {
-            console.log(oldProps);
-        }
-        else {
-            console.log("ComponentDidMount");
-        }
+    ComponentDidMount() {
+        console.log("ComponentDidMount");
     }
     _ComponentDidUpdate(oldProps, newProps) {
         return this.ComponentDidUpdate(oldProps, newProps);
     }
     ComponentDidUpdate(oldProps, newProps) {
+        console.log(oldProps, newProps);
         if (oldProps || newProps) {
             return true;
         }
-    }
-    get element() {
-        return this._element;
     }
     _render() {
         if (this._element) {
@@ -70,8 +68,7 @@ export class Component {
             this.eventBus.emit(Component.EVENTS.FLOW_CDM);
         }
     }
-    render() {
-    }
+    render() { }
     append(components) {
         components.forEach(component => {
             if (this.element && component.element) {

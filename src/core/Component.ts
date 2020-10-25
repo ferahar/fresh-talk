@@ -1,8 +1,11 @@
 import {EventBus} from "./eventbus.js"
 import {DomElement, $} from "./DomElement.js"
 
+interface Props {
+  [index: string]: string | {} | number | undefined
+}
 
-export class Component<T> {
+export class Component {
     static EVENTS = {
       INIT: "init",
       FLOW_CDM: "flow:Component-did-mount",
@@ -13,10 +16,10 @@ export class Component<T> {
     private _element: DomElement | null = null;
     private _tagName: string
     
-    eventBus: EventBus<T>
-    props: any
+    eventBus: EventBus
+    props: Props
     
-    private listeners: {[key: string]: keyof Component<T>}
+    private listeners: {[key: string]: keyof Component}
 
     constructor(
         tagName = "div", 
@@ -36,13 +39,19 @@ export class Component<T> {
       if (this.listeners) {
         Object.keys(this.listeners).forEach(eventName => {
           const nameMethod = this.listeners![eventName];
-          const method = this[nameMethod]!.bind(this)
-          this._element!.on(eventName, method)
+          if (this[nameMethod]) {
+            const method = (this[nameMethod] as Function).bind(this)
+            this._element!.on(eventName, method, this)
+          }
         })
       }
     }
+
+    get element(): DomElement | null {
+      return this._element
+    }
   
-    private _registerEvents(eventBus: EventBus<T>) {
+    private _registerEvents(eventBus: EventBus) {
       eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
       eventBus.on(Component.EVENTS.FLOW_CDM, this._ComponentDidMount.bind(this));
       eventBus.on(Component.EVENTS.FLOW_CDU, this._ComponentDidUpdate.bind(this));
@@ -65,14 +74,10 @@ export class Component<T> {
       this.ComponentDidMount();
     }
   
-    //   // Может переопределять пользователь, необязательно трогать
-    ComponentDidMount<T>(oldProps?: T) {
-        if (oldProps) {
-            console.log(oldProps)
-        } else {
-            console.log("ComponentDidMount")
-        }
-
+    // Может переопределять пользователь, необязательно трогать
+    // вызывается после рендеринга компонента. Здесь можно выполнять запросы к удаленным ресурсам
+    ComponentDidMount() {
+        console.log("ComponentDidMount")
     }
   
     private _ComponentDidUpdate<T,R>(oldProps: T, newProps: R) {
@@ -81,7 +86,8 @@ export class Component<T> {
   
       // Может переопределять пользователь, необязательно трогать
     ComponentDidUpdate<T,R>(oldProps: T, newProps: R) {
-        if (oldProps||newProps) {
+      console.log(oldProps, newProps);  
+      if (oldProps||newProps) {
             return true;
         }
     }
@@ -95,28 +101,16 @@ export class Component<T> {
         
     }
   
-    get element() {
-      return this._element;
-    }
-  
     private _render(): void {
-      // const render = this.render()? this.render(): 'render false';
-      // Этот небезопасный метод для упрощения логики
-      // Используйте шаблонизатор из npm или напишите свой безопасный
-      // Нужно не в строку компилировать (или делать это правильно),
-      // либо сразу в DOM-элементы возвращать из compile DOM-ноду
         if (this._element) {
             this.render()
             this.eventBus.emit(Component.EVENTS.FLOW_CDM)
         }
     }
   
-      // Может переопределять пользователь, необязательно трогать
-    render() {
+    render() {}
 
-    }
-
-    append(components: any[]) {
+    protected append(components: any[]) {
       components.forEach( component => {
          if (this.element&&component.element) {
           this.element.append(component.element)
@@ -131,13 +125,13 @@ export class Component<T> {
         return null
     }
   
-    private _makePropsProxy<T extends object>(props: T): object {
+    private _makePropsProxy(props: Props): Props {
         const event = this.eventBus
         return new Proxy(props, {
-            get(target, prop: keyof T) {
+            get(target, prop: keyof Props) {
                 return target[prop]
             },
-            set(target, prop: keyof T, value) {
+            set(target, prop: keyof Props, value) {
                 target[prop] = value
                 if (event.emit(Component.EVENTS.FLOW_CDU), props, target) {
                     event.emit(Component.EVENTS.FLOW_RENDER)    
@@ -152,7 +146,6 @@ export class Component<T> {
     }
   
     private _createDocumentElement(tagName:string) {
-      // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
       return $(document.createElement(tagName));
     }
   

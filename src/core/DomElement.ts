@@ -16,8 +16,9 @@ export class DomElement {
     //     return this
     // }
 
-    on(eventName: string, func: EventListener){
-        if (this.nativeElement) this.nativeElement.addEventListener(eventName, func)
+    on<T>(eventName: string, func: EventListener, context: T){
+        const fun = func.bind(context)
+        if (this.nativeElement) this.nativeElement.addEventListener(eventName, fun)
         return this
     }
 
@@ -26,11 +27,15 @@ export class DomElement {
         return this
     }
 
-    // html(html) {
-    //     if(html.isWfm) html.innerHTML = html
-    //     this.nativeElement.innerHTML = html
-    //     return this
-    // }
+    parent() {
+        if (this.nativeElement) return $(this.nativeElement.parentElement as HTMLElement)
+    }
+
+    text(text: string) {
+        if (util.isString(text) && this.nativeElement) {
+             this.nativeElement.textContent = text as string
+        }
+      }
 
     html(html: string) {
         if (util.isString(html) && this.nativeElement) {
@@ -56,7 +61,7 @@ export class DomElement {
     find(selector: string) {
         if (this.nativeElement) {
             const node: Node | null = this.nativeElement.querySelector(selector)
-            $(node as HTMLElement)
+            return $(node as HTMLElement)
         }
         return this
     }
@@ -89,6 +94,11 @@ export class DomElement {
         if (this.nativeElement) this.nativeElement.classList.add(className);
         return this;
     }
+
+    setClass(style: string) {
+        this.nativeElement!.className = style
+    }
+
 
     removeClass(className: string) {
         if (this.nativeElement) this.nativeElement.classList.remove(className);

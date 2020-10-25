@@ -1,46 +1,32 @@
 import {Component} from "../../core/Component.js"
 declare var nunjucks: any;
 
-export class Button<T> extends Component<T> {
+interface Props {
+    [index: string]: string | {} | number | undefined
+  }
+
+export class Button extends Component {
     
     static TEMPLATE = "{{text}}"
 
-    constructor(props: T) {
-        
-        super(
-            "button", 
-            props, 
-            {
-                'click': 'onClick'
-            }
-        );
-        
-        this.element!.addClass("button")
+    constructor(props: Props, events = {}) {
 
+        super( "button", props, events);
+        this.element!.addClass("button")
     }
   
     render() {        
         if (this.props && this.element) {            
-            const tmpl = nunjucks.renderString(Button.TEMPLATE, {
-                text: this.props.text
-            })
+            const tmpl = nunjucks.renderString(Button.TEMPLATE, this.props)
             this.element.html(tmpl);
         }
     }
 
-    onClick(e:Event):void {
-        e.preventDefault();
-        // const form = document.querySelector('form');
-        // let data = new FormData(form!)
-        // console.log("data:", data);
-        
-        // for(let [name, value] of data) {
-        //     console.log(`=>   ${name} = ${value}`)
-        // }
-        
-        console.log(this);
-        alert(this.props.text)
-    }
+    // onClick():void {
+    //     // e.preventDefault();
+    //     console.log(this);
+    //     alert(this.props.text)
+    // }
 }
 
 

@@ -1,9 +1,7 @@
 import { Component } from "../../core/Component.js";
 export class Input extends Component {
     constructor(props) {
-        super("label", props, {
-            'keydown': 'printConsole'
-        });
+        super("label", props);
         this.element.addClass("form-label");
     }
     render() {
@@ -17,9 +15,6 @@ export class Input extends Component {
             });
             this.element.html(tmpl);
         }
-    }
-    printConsole() {
-        console.log('key press');
     }
 }
 Input.TEMPLATE = `
