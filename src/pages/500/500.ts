@@ -4,7 +4,7 @@ export function loginPage(): void {
 
     const blockerror = new Blockerror({
         title: "500",
-        message: "Не туда попали"
+        message: "Мы уже фиксим"
     })
 
     const root = document.getElementById('root')

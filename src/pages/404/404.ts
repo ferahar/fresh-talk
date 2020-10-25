@@ -3,8 +3,8 @@ import {Blockerror} from "../../componets/blockerror/blockerror.js"
 export function systemPage(): void {
 
     const blockerror = new Blockerror({
-        title: "500",
-        message: "Мы уже фиксим"
+        title: "404",
+        message: "Ложки не существует"
     })
 
     const root = document.getElementById('root')

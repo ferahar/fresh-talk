@@ -15,6 +15,7 @@ export class Forms extends Component {
     }
     ComponentDidMount() {
         this.initBlur();
+        this.initFocus();
     }
     initBlur() {
         const fields = this.element.findAll('input');
@@ -25,12 +26,20 @@ export class Forms extends Component {
     initFocus() {
         const fields = this.element.findAll('input');
         fields.forEach(field => {
-            field.on('blur', this.checkForm, this);
+            field.on('focus', this.clearForm, this);
         });
     }
     onSubmit(e) {
         e.preventDefault();
-        console.log('SUBMIT!!', this.props);
+        console.log("SUBMIT");
+        const fields = this.element.findAll('input');
+        fields.forEach(field => {
+            const checkField = this.checkField(field.nativeElement);
+            if (checkField.test) {
+                field.parent().find('span').show();
+                field.parent().find('span').text(checkField.message);
+            }
+        });
         let data = new FormData(this.element.nativeElement);
         for (let [name, value] of data) {
             console.log(`${name} = ${value}`);
@@ -46,6 +55,12 @@ export class Forms extends Component {
         }
         return res;
     }
+    ComponentDidUpdate(newProps, oldProps) {
+        if (newProps || oldProps) {
+            return true;
+        }
+        return false;
+    }
     checkForm(e) {
         const field = e.target;
         const checkField = this.checkField(field);
@@ -54,8 +69,14 @@ export class Forms extends Component {
             $(field).parent().find('span').text(checkField.message);
         }
         else {
-            field.parentElement.querySelector('span').style.display = "none";
+            $(field).parent().find('span').hide();
+            $(field).parent().find('span').text('');
         }
+    }
+    clearForm(e) {
+        const field = e.target;
+        $(field).parent().find('span').hide();
+        $(field).parent().find('span').text('');
     }
     checkField(fieldName) {
         let test = false;

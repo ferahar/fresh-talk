@@ -51,16 +51,17 @@ export class Component {
         this.ComponentDidMount();
     }
     ComponentDidMount() {
-        console.log("ComponentDidMount");
+        console.log(`Render ${this._tagName}`);
     }
-    _ComponentDidUpdate(oldProps, newProps) {
-        return this.ComponentDidUpdate(oldProps, newProps);
+    _ComponentDidUpdate(newProps, oldProps) {
+        return this.ComponentDidUpdate(newProps, oldProps);
     }
-    ComponentDidUpdate(oldProps, newProps) {
-        console.log(oldProps, newProps);
-        if (oldProps || newProps) {
+    ComponentDidUpdate(newProps, oldProps) {
+        if (newProps || oldProps) {
+            console.log(newProps, oldProps);
             return true;
         }
+        return false;
     }
     _render() {
         if (this._element) {
@@ -84,13 +85,15 @@ export class Component {
     }
     _makePropsProxy(props) {
         const event = this.eventBus;
+        const ComponentDidUpdate = this._ComponentDidUpdate.bind(this);
         return new Proxy(props, {
             get(target, prop) {
                 return target[prop];
             },
             set(target, prop, value) {
-                target[prop] = value;
-                if (event.emit(Component.EVENTS.FLOW_CDU), props, target) {
+                const check = ComponentDidUpdate(value, target[prop]);
+                if (check) {
+                    target[prop] = value;
                     event.emit(Component.EVENTS.FLOW_RENDER);
                 }
                 return true;

@@ -25,6 +25,7 @@ export class Forms extends Component {
 
     ComponentDidMount() {
         this.initBlur();
+        this.initFocus();
     }
 
     initBlur() {
@@ -37,17 +38,26 @@ export class Forms extends Component {
     initFocus() {
         const fields = this.element!.findAll('input')
         fields!.forEach(field => {
-            field.on('blur', this.checkForm, this)
+            field.on('focus', this.clearForm, this)
         });
     }
 
     onSubmit(e: Event) {
         e.preventDefault();
-        console.log('SUBMIT!!', this.props);
+        console.log("SUBMIT");
+        
+        const fields = this.element!.findAll('input')
+        fields!.forEach(field => {
+            const checkField: Props = this.checkField(field.nativeElement as HTMLInputElement)
+            if (checkField.test) {
+                field.parent()!.find('span').show()
+                field.parent()!.find('span').text(checkField.message as string)
+            }
+        });
         let data = new FormData(this.element!.nativeElement as HTMLFormElement)
         for(let [name, value] of data) {
             console.log(`${name} = ${value}`)
-        }
+        }    
     }
 
     formProps() {
@@ -60,27 +70,30 @@ export class Forms extends Component {
         return res;
     }
 
+    ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
+        if (newProps||oldProps) {
+              return true;
+          }
+        return false
+    }
+
 
     checkForm(e: Event) {
-
         const field = e.target as HTMLInputElement
-        // const props: Props = this.formProps()
-        // const formErrors: Props = {}
         const checkField: Props = this.checkField(field)
         if (checkField.test) {
-            // field.parentElement!.querySelector('span')!.style.display = "block"
             $(field).parent()!.find('span').show()
             $(field).parent()!.find('span').text(checkField.message as string)
-            // formErrors[field.name]= checkField.message 
-            // props.formErrors = formErrors
-            // this.setProps(props)
         } else{
-            field.parentElement!.querySelector('span')!.style.display = "none"
-            // formErrors[field.name]= ''
-            // props[field.name] = { value: field.value }
-            // props.formErrors = formErrors
-            // this.setProps(props)
+            $(field).parent()!.find('span').hide()
+            $(field).parent()!.find('span').text('')
         }
+    }
+
+    clearForm(e: Event) {
+        const field = e.target as HTMLInputElement
+        $(field).parent()!.find('span').hide()
+        $(field).parent()!.find('span').text('')
     }
     
     checkField(fieldName: HTMLInputElement): Props {
@@ -112,18 +125,27 @@ export class Forms extends Component {
 
 }
 
+
 // checkForm(e: Event) {
 
 //     const field = e.target as HTMLInputElement
+//     const props: Props = this.formProps()
+//     const formErrors: Props = {}
 //     const checkField: Props = this.checkField(field)
-//     console.log(field.name);
-    
 //     if (checkField.test) {
-//         // field.parentElement!.querySelector('span')!.style.display = "block"
-//         $(field).parent()!.find('span').show()
-//         field.parentElement!.querySelector('span')!.textContent = checkField.message as string
+//         // $(field).parent()!.find('span').show()
+//         // $(field).parent()!.find('span').text(checkField.message as string)
+//         formErrors[field.name] = checkField.message 
+//         props.formErrors = formErrors
+//         props.focus = field.name            
+//         this.setProps(props)
+        
 //     } else{
-//         field.parentElement!.querySelector('span')!.style.display = "none"
+//         // field.parentElement!.querySelector('span')!.style.display = "none"
+//         // formErrors[field.name]= ''
+//         // props[field.name] = { value: field.value }
+//         // props.formErrors = formErrors
+//         // this.setProps(props)
 //     }
 // }
 

@@ -76,29 +76,30 @@ export class Component {
   
     // Может переопределять пользователь, необязательно трогать
     // вызывается после рендеринга компонента. Здесь можно выполнять запросы к удаленным ресурсам
-    ComponentDidMount() {
-        console.log("ComponentDidMount")
+    ComponentDidMount() { 
+      console.log(`Render ${this._tagName}`);
     }
   
-    private _ComponentDidUpdate<T,R>(oldProps: T, newProps: R) {
-       return this.ComponentDidUpdate(oldProps, newProps);
+    private _ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
+        return this.ComponentDidUpdate(newProps, oldProps);
     }
   
       // Может переопределять пользователь, необязательно трогать
-    ComponentDidUpdate<T,R>(oldProps: T, newProps: R) {
-      console.log(oldProps, newProps);  
-      if (oldProps||newProps) {
-            return true;
+    ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
+      
+      if (newProps||oldProps) {
+          console.log(newProps, oldProps);
+          return true;
         }
+      return false
     }
   
-    setProps = (nextProps: object) => {
+    setProps = (nextProps: Props) => {
       if (!nextProps) {
         return;
       } else if (this.ComponentDidUpdate(this.props, nextProps) ) {
         Object.assign(this.props, nextProps);
       }
-        
     }
   
     private _render(): void {
@@ -126,23 +127,24 @@ export class Component {
     }
   
     private _makePropsProxy(props: Props): Props {
-        const event = this.eventBus
-        return new Proxy(props, {
-            get(target, prop: keyof Props) {
-                return target[prop]
-            },
-            set(target, prop: keyof Props, value) {
+      const event = this.eventBus
+      const ComponentDidUpdate = this._ComponentDidUpdate.bind(this)
+      return new Proxy(props, {
+          get(target, prop: keyof Props) {
+              return target[prop]
+          },
+          set(target, prop: keyof Props, value) {
+            const check: boolean = ComponentDidUpdate(value, target[prop] as Props)
+            if (check) {
                 target[prop] = value
-                if (event.emit(Component.EVENTS.FLOW_CDU), props, target) {
-                    event.emit(Component.EVENTS.FLOW_RENDER)    
-                }
-                return true;
-            },
-            deleteProperty() {
-                throw new Error('Нет прав');
+                event.emit(Component.EVENTS.FLOW_RENDER)    
             }
-        });
-
+            return true;
+          },
+          deleteProperty() {
+              throw new Error('Нет прав');
+          }
+      });
     }
   
     private _createDocumentElement(tagName:string) {
