@@ -1,12 +1,7 @@
 import {Button} from "./componets/button/button.js"
 console.log('-= ʕ ᵔᴥᵔ ʔ =-')
 
-const btn = new Button(
-    {
-        text: 'I am Button'
-    }
-);
-
+const btn = new Button({text: 'I am Button'});
 btn.element!.addClass('button_primary')
 
 document.body.appendChild(btn.getContent() as Node)
