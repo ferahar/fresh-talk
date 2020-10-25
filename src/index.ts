@@ -4,7 +4,8 @@ console.log('-= ʕ ᵔᴥᵔ ʔ =-')
 const btn = new Button({text: 'I am Button'});
 btn.element!.addClass('button_primary')
 
-document.body.appendChild(btn.getContent() as Node)
+const root = document.getElementById('root')
+root!.appendChild(btn.getContent() as Node)
 
 setTimeout(() => {
     console.log('5sec Button');
