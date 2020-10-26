@@ -51,7 +51,6 @@ export class Component {
         this.ComponentDidMount();
     }
     ComponentDidMount() {
-        console.log(`Render ${this._tagName}`);
     }
     _ComponentDidUpdate(newProps, oldProps) {
         return this.ComponentDidUpdate(newProps, oldProps);

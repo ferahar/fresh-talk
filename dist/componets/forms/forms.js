@@ -91,7 +91,8 @@ export class Forms extends Component {
         const props = {};
         const oldProps = Object.assign({}, this.props[field.name]);
         const checkField = this.checkField(field);
-        console.log(field.value);
+        if (next && next.tagName === "BUTTON")
+            return;
         if (checkField.test) {
             Object.assign(oldProps, {
                 value: field.value,

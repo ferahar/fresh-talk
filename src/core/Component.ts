@@ -77,7 +77,7 @@ export class Component {
     // Может переопределять пользователь, необязательно трогать
     // вызывается после рендеринга компонента. Здесь можно выполнять запросы к удаленным ресурсам
     ComponentDidMount() { 
-      console.log(`Render ${this._tagName}`);
+      // console.log(`Render ${this._tagName}`);
     }
   
     private _ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
