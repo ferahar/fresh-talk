@@ -1,34 +1,27 @@
-
-.lenta {
-
-}
-
 .lenta-send {
-    font: inherit;
-    height: 6rem;
-    width: 100%;
-    background: #363636;
-    border: none;
-    border-top: 1px solid #505050;
-    color: #fff;
-    box-sizing: border-box;
-    font-size: 14px;
-    line-height: 14px;
-    outline: none;
-    padding: 24px 6rem;
-    color: inherit;
-    resize: none;
-    overflow: hidden;
+  font: inherit;
+  height: 6rem;
+  width: 100%;
+  background: #363636;
+  border: none;
+  border-top: 1px solid #505050;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 14px;
+  outline: none;
+  padding: 24px 6rem;
+  color: inherit;
+  resize: none;
+  overflow: hidden;
 }
-
 .lenta-sendButton {
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
 }
-
 .lenta-sendButtonLeft {
-    position: absolute;
-    left: 12px;
-    bottom: 12px;
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
 }

@@ -1,11 +1,9 @@
 .hidden {
-    display: none;
+  display: none;
 }
-
 .show {
-    display: block;
+  display: block;
 }
-
 .showFlex {
-    display: flex;
+  display: flex;
 }

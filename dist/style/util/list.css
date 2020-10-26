@@ -1,21 +1,19 @@
 .list {
-    width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    background: #404040;
-    border-radius: 12px;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: #404040;
+  border-radius: 12px;
 }
-
 .list-item {
-    display: flex;
-    padding: 12px;
-    text-decoration: none;
+  display: flex;
+  padding: 12px;
+  text-decoration: none;
 }
-
 .list-item a {
-    text-decoration: none;
+  text-decoration: none;
 }

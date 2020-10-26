@@ -1,0 +1,90 @@
+{% if title %}
+<h3 class="h3">{{title}}</h3>
+{% endif %}
+{% if avatar %}    
+    <label class="form-label">
+        Портрет
+        <div class="avatar avatar_large">
+            <img src="{{avatar.image}}" alt="">
+            <input class="avatar-input" type="file" name="avatar" >
+        </div>
+    </label>
+{% endif %}
+{% if email %} 
+    <label class="form-label">
+        Почта
+        <input autofocus class="inputText form-input" type="email" placeholder="Введите адрес почты" value="{{email.value}}" name="email" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if phone %}
+    <label class="form-label">
+        Номер телефона
+        <input class="inputText form-input" type="tel" value="+7 937 888-88-88" placeholder="000-00-00..." name="phone">
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if firstname %}
+    <label class="form-label">
+        Имя
+        <input class="inputText form-input" type="text" value="Cool" placeholder="first name" name="first_name" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if secondtname %}
+    <label class="form-label">
+        Фамилия
+        <input id="jedi" class="inputText form-input" type="text" value="Jedi" placeholder="second name" name="second_name" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if displayname %}
+    <label class="form-label">
+        Display name
+        <input class="inputText form-input" type="text" value="Jedi" placeholder="display name" name="display_name" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if login %}
+    <label class="form-label">
+        Логин
+        <input class="inputText form-input" type="text" value="{{login.value}}" placeholder="login" name="login" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if psw %}
+    <label class="form-label">
+        Пароль
+        <input class="inputText form-input" type="password" value="{{psw.value}}" placeholder="@23%:.!#00." name="psw" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if pswdouble %}
+    <label class="form-label">
+        Пароль еще раз
+        <input class="inputText form-input" type="password" value="{{psw.value}}" placeholder="@23%:.!#00." name="pswdouble" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if pswold %}
+    <label class="form-label">
+        Старый пароль
+        <input class="inputText form-input" type="password" placeholder="@23%:.!#00." name="pswold" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if pswnew %}
+    <label class="form-label">
+        Новый пароль
+        <input class="inputText form-input" type="password" placeholder="@23%:.!#00." name="pswnew" >
+        <span class="form-textErorr"></span>
+    </label>
+{% endif %}
+{% if button %}
+<div class="container container_isColumn">
+    <button class="button button_primary form-button" type="submit">{{button.text}}</button>
+    {% if button.link %}
+    <a href="{{button.link}}" class="button">{{button.textlink}}</a>
+    {% endif %}
+</div>
+{% endif %}

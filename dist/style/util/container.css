@@ -1,31 +1,27 @@
-
 .container {
-    display: flex;
-    overflow: auto;
-    align-items: stretch;
-    position: relative;
+  display: flex;
+  overflow: auto;
+  align-items: stretch;
+  position: relative;
 }
 .container_isColumn {
-    flex-direction: column;
-    flex-wrap: nowrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 .container_center {
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 .container_centerStart {
-    justify-content: center;
-    align-items: flex-start;
+  justify-content: center;
+  align-items: flex-start;
 }
-
 .container_size_auto {
   flex-grow: 1;
 }
-
 .container_size_fix {
   flex-shrink: 0;
 }
-  
 .container_size_1 {
   flex: 0 0 8.333333333333334%;
   min-width: 0;
