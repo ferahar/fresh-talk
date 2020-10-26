@@ -2,10 +2,10 @@
   font: inherit;
   height: 6rem;
   width: 100%;
-  background: #363636;
+  background: var(--defoult-bg-color);
   border: none;
-  border-top: 1px solid #505050;
-  color: #fff;
+  border-top: 1px solid var(--defoult-border-color);
+  color: var(--primary-color);
   box-sizing: border-box;
   font-size: 14px;
   line-height: 14px;

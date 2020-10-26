@@ -8,42 +8,45 @@
     position: relative;
     border-radius: 24px;
     flex-shrink: 0;
+    
+    & img {
+        position: relative;
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+    }
+
+    &-input {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+        text-indent: -1000em;
+        opacity: 0;
+    }
+
+    &_large {
+        width: 156px;
+        height: 156px;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        background: #ffffff1f;
+        position: relative;
+        border-radius: 12px;
+        flex-shrink: 0;
+    }
+
+    &_large img {
+        position: relative;
+        width: 156px;
+        height: 156px;
+        object-fit: cover;
+    }
+
 }
 
-.avatar img {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-}
 
-.avatar-input {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-    text-indent: -1000em;
-    opacity: 0;
-}
-
-.avatar_large {
-    width: 156px;
-    height: 156px;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    background: #ffffff1f;
-    position: relative;
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
-.avatar_large img {
-    position: relative;
-    width: 156px;
-    height: 156px;
-    object-fit: cover;
-}
 

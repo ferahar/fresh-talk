@@ -1,8 +1,8 @@
 .chat {
   width: 320px;
   height: 100%;
-  background: #404040;
-  color: #cbcbcb;
+  background: var(--secondary-bg-color);
+  color: var(--defoult-color);
 }
 .chat-list {
   flex-grow: 2;
@@ -20,8 +20,8 @@
   justify-content: space-between;
 }
 .chatItem_selected {
-  background: #5c8aff;
-  color: #fff;
+  background: var(--primary-bg-color);
+  color: var(--primary-color);
 }
 .chatItem-intro {
   padding-left: 8px;
@@ -42,7 +42,7 @@
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  background: #5c8aff;
-  color: #fff;
+  background: var(--primary-bg-color);
+  color: var(--primary-color);
   border-radius: 12px;
 }
