@@ -5,9 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "build": "npx stylus src/style --out dist/style && npx stylus src/style/util --out dist/style/util && node staticBuild.js && tsc",
     "dev": "tsc -w",
-    "clean": "rm -rf dist",
     "html": "find /src -name '*.html' -exec  cp --parents {} /dist  \\;"
   },
   "repository": {
