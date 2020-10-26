@@ -1,7 +1,7 @@
 import { Component } from "../../core/Component.js";
 export class Title extends Component {
-    constructor(tagname, props) {
-        super(tagname, props);
+    constructor(props) {
+        super("h3", props);
         this.element.addClass("h3");
     }
     render() {

@@ -58,7 +58,6 @@ export class Component {
     }
     ComponentDidUpdate(newProps, oldProps) {
         if (newProps || oldProps) {
-            console.log(newProps, oldProps);
             return true;
         }
         return false;

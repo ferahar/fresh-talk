@@ -21,6 +21,13 @@ export class Forms extends Component {
             const tmpl = nunjucks.render(Forms.TEMPLATE, this.props);
             this.element.html(tmpl);
         }
+        const focus = this.props.focus
+        setTimeout(() => {
+            if (focus) {
+                document.getElementsByName(focus as string)![0].focus()
+            }
+        }, 0);
+
     }
 
     ComponentDidMount() {
@@ -31,7 +38,7 @@ export class Forms extends Component {
     initBlur() {
         const fields = this.element!.findAll('input')
         fields!.forEach(field => {
-            field.on('blur', this.checkForm, this)
+            field.on('blur', this.checkForm as EventListener, this)
         });
     }
 
@@ -44,16 +51,28 @@ export class Forms extends Component {
 
     onSubmit(e: Event) {
         e.preventDefault();
-        console.log("SUBMIT");
-        
+
+        const props: Props = {}
         const fields = this.element!.findAll('input')
-        fields!.forEach(field => {
-            const checkField: Props = this.checkField(field.nativeElement as HTMLInputElement)
+        fields!.forEach(element => {            
+            const field = element.nativeElement as HTMLInputElement
+            const checkField: Props = this.checkField(field)
+            const oldProps = Object.assign({},this.props[field.name])
             if (checkField.test) {
-                field.parent()!.find('span').show()
-                field.parent()!.find('span').text(checkField.message as string)
+                Object.assign(oldProps, {
+                    value: field.value,
+                    error: checkField.message
+                });
+                props[field.name] = oldProps            
+            } else{
+                Object.assign(oldProps, {
+                    value: field.value,
+                    error: ''
+                });
+                props[field.name] = oldProps
             }
         });
+        this.setProps(props)
         let data = new FormData(this.element!.nativeElement as HTMLFormElement)
         for(let [name, value] of data) {
             console.log(`${name} = ${value}`)
@@ -72,22 +91,11 @@ export class Forms extends Component {
 
     ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
         if (newProps||oldProps) {
-              return true;
+            // return newProps.value!==oldProps.value
+            // coming son
+            return true;
           }
         return false
-    }
-
-
-    checkForm(e: Event) {
-        const field = e.target as HTMLInputElement
-        const checkField: Props = this.checkField(field)
-        if (checkField.test) {
-            $(field).parent()!.find('span').show()
-            $(field).parent()!.find('span').text(checkField.message as string)
-        } else{
-            $(field).parent()!.find('span').hide()
-            $(field).parent()!.find('span').text('')
-        }
     }
 
     clearForm(e: Event) {
@@ -95,10 +103,41 @@ export class Forms extends Component {
         $(field).parent()!.find('span').hide()
         $(field).parent()!.find('span').text('')
     }
-    
+
+
+    checkForm(e: Event & FocusEvent) {
+
+        const next = e.relatedTarget as HTMLInputElement
+        const field = e.target as HTMLInputElement
+        const props: Props = {}
+        const oldProps = Object.assign({},this.props[field.name])
+        const checkField: Props = this.checkField(field)
+
+        console.log(field.value);
+        
+        
+        if (checkField.test) {
+            Object.assign(oldProps, {
+                value: field.value,
+                error: checkField.message
+            });
+            props[field.name] = oldProps            
+        } else{
+            Object.assign(oldProps, {
+                value: field.value,
+                error: ''
+            });
+            props[field.name] = oldProps
+        }
+        props.focus = next ? next.name : ''
+        this.setProps(props)
+    }
+
+
     checkField(fieldName: HTMLInputElement): Props {
         let test: boolean = false
         let message: string = ''
+        
         switch (fieldName.name) {
             case 'email':
                 const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -107,47 +146,31 @@ export class Forms extends Component {
                     message = "Не верный формат почты"    
                 }    
                 break;
+            case 'phone':
+                const phoneRegExp = /(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))/;
+                if (fieldName.value.length === 0 || !phoneRegExp.test(fieldName.value)) {
+                    test = true
+                    message = "Не верный формат телефона"    
+                }    
+                break;
             case 'psw':
                 if (fieldName.value.length < 6) {
                     test = true
                     message = "Пароль должен содержать более 6 символов"    
                 }    
                 break;
+            case 'avatar':
+                test = false   
+                break;
             default:
+                console.log(fieldName.name,fieldName.value, fieldName.value.length);
+                
                 if (fieldName.value.length === 0) {
                     test = true
-                    message = "Поле не должно быть пустым"    
+                    message = "Поле не должно быть пустым"  
                 }
             break;
         }
         return {test:test, message:message}
     }
-
 }
-
-
-// checkForm(e: Event) {
-
-//     const field = e.target as HTMLInputElement
-//     const props: Props = this.formProps()
-//     const formErrors: Props = {}
-//     const checkField: Props = this.checkField(field)
-//     if (checkField.test) {
-//         // $(field).parent()!.find('span').show()
-//         // $(field).parent()!.find('span').text(checkField.message as string)
-//         formErrors[field.name] = checkField.message 
-//         props.formErrors = formErrors
-//         props.focus = field.name            
-//         this.setProps(props)
-        
-//     } else{
-//         // field.parentElement!.querySelector('span')!.style.display = "none"
-//         // formErrors[field.name]= ''
-//         // props[field.name] = { value: field.value }
-//         // props.formErrors = formErrors
-//         // this.setProps(props)
-//     }
-// }
-
-
-

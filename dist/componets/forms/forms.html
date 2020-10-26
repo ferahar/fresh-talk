@@ -12,72 +12,92 @@
 {% endif %}
 {% if email %} 
     <label class="form-label">
-        Почта
+        Почта 
         <input autofocus class="inputText form-input" type="email" placeholder="Введите адрес почты" value="{{email.value}}" name="email" >
-        <span class="form-textErorr"></span>
+        {% if email.error %}
+            <span class="form-textErorr">{{email.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if phone %}
     <label class="form-label">
-        Номер телефона
+        Номер телефона {{phone.error}}
         <input class="inputText form-input" type="tel" value="+7 937 888-88-88" placeholder="000-00-00..." name="phone">
-        <span class="form-textErorr"></span>
+        {% if phone.error %}
+            <span class="form-textErorr">{{phone.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if firstname %}
     <label class="form-label">
         Имя
         <input class="inputText form-input" type="text" value="Cool" placeholder="first name" name="first_name" >
-        <span class="form-textErorr"></span>
+        {% if firstname.error %}
+            <span class="form-textErorr">{{firstname.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if secondtname %}
     <label class="form-label">
         Фамилия
         <input id="jedi" class="inputText form-input" type="text" value="Jedi" placeholder="second name" name="second_name" >
-        <span class="form-textErorr"></span>
+        {% if secondtname.error %}
+            <span class="form-textErorr">{{secondtname.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if displayname %}
     <label class="form-label">
         Display name
         <input class="inputText form-input" type="text" value="Jedi" placeholder="display name" name="display_name" >
-        <span class="form-textErorr"></span>
+        {% if displayname.error %}
+            <span class="form-textErorr">{{displayname.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if login %}
     <label class="form-label">
         Логин
         <input class="inputText form-input" type="text" value="{{login.value}}" placeholder="login" name="login" >
-        <span class="form-textErorr"></span>
+        {% if login.error %}
+            <span class="form-textErorr">{{login.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if psw %}
     <label class="form-label">
         Пароль
         <input class="inputText form-input" type="password" value="{{psw.value}}" placeholder="@23%:.!#00." name="psw" >
-        <span class="form-textErorr"></span>
+        {% if psw.error %}
+            <span class="form-textErorr">{{psw.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if pswdouble %}
     <label class="form-label">
         Пароль еще раз
         <input class="inputText form-input" type="password" value="{{psw.value}}" placeholder="@23%:.!#00." name="pswdouble" >
-        <span class="form-textErorr"></span>
+        {% if pswdouble.error %}
+            <span class="form-textErorr">{{pswdouble.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if pswold %}
     <label class="form-label">
         Старый пароль
         <input class="inputText form-input" type="password" placeholder="@23%:.!#00." name="pswold" >
-        <span class="form-textErorr"></span>
+        {% if pswold.error %}
+            <span class="form-textErorr">{{pswold.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if pswnew %}
     <label class="form-label">
         Новый пароль
         <input class="inputText form-input" type="password" placeholder="@23%:.!#00." name="pswnew" >
-        <span class="form-textErorr"></span>
+        {% if pswnew.error %}
+            <span class="form-textErorr">{{pswnew.error}}</span>
+        {% endif %}
     </label>
 {% endif %}
 {% if button %}

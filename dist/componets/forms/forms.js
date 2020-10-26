@@ -12,6 +12,12 @@ export class Forms extends Component {
             const tmpl = nunjucks.render(Forms.TEMPLATE, this.props);
             this.element.html(tmpl);
         }
+        const focus = this.props.focus;
+        setTimeout(() => {
+            if (focus) {
+                document.getElementsByName(focus)[0].focus();
+            }
+        }, 0);
     }
     ComponentDidMount() {
         this.initBlur();
@@ -31,15 +37,28 @@ export class Forms extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-        console.log("SUBMIT");
+        const props = {};
         const fields = this.element.findAll('input');
-        fields.forEach(field => {
-            const checkField = this.checkField(field.nativeElement);
+        fields.forEach(element => {
+            const field = element.nativeElement;
+            const checkField = this.checkField(field);
+            const oldProps = Object.assign({}, this.props[field.name]);
             if (checkField.test) {
-                field.parent().find('span').show();
-                field.parent().find('span').text(checkField.message);
+                Object.assign(oldProps, {
+                    value: field.value,
+                    error: checkField.message
+                });
+                props[field.name] = oldProps;
+            }
+            else {
+                Object.assign(oldProps, {
+                    value: field.value,
+                    error: ''
+                });
+                props[field.name] = oldProps;
             }
         });
+        this.setProps(props);
         let data = new FormData(this.element.nativeElement);
         for (let [name, value] of data) {
             console.log(`${name} = ${value}`);
@@ -61,22 +80,34 @@ export class Forms extends Component {
         }
         return false;
     }
-    checkForm(e) {
-        const field = e.target;
-        const checkField = this.checkField(field);
-        if (checkField.test) {
-            $(field).parent().find('span').show();
-            $(field).parent().find('span').text(checkField.message);
-        }
-        else {
-            $(field).parent().find('span').hide();
-            $(field).parent().find('span').text('');
-        }
-    }
     clearForm(e) {
         const field = e.target;
         $(field).parent().find('span').hide();
         $(field).parent().find('span').text('');
+    }
+    checkForm(e) {
+        const next = e.relatedTarget;
+        const field = e.target;
+        const props = {};
+        const oldProps = Object.assign({}, this.props[field.name]);
+        const checkField = this.checkField(field);
+        console.log(field.value);
+        if (checkField.test) {
+            Object.assign(oldProps, {
+                value: field.value,
+                error: checkField.message
+            });
+            props[field.name] = oldProps;
+        }
+        else {
+            Object.assign(oldProps, {
+                value: field.value,
+                error: ''
+            });
+            props[field.name] = oldProps;
+        }
+        props.focus = next ? next.name : '';
+        this.setProps(props);
     }
     checkField(fieldName) {
         let test = false;
@@ -89,13 +120,24 @@ export class Forms extends Component {
                     message = "Не верный формат почты";
                 }
                 break;
+            case 'phone':
+                const phoneRegExp = /(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))/;
+                if (fieldName.value.length === 0 || !phoneRegExp.test(fieldName.value)) {
+                    test = true;
+                    message = "Не верный формат телефона";
+                }
+                break;
             case 'psw':
                 if (fieldName.value.length < 6) {
                     test = true;
                     message = "Пароль должен содержать более 6 символов";
                 }
                 break;
+            case 'avatar':
+                test = false;
+                break;
             default:
+                console.log(fieldName.name, fieldName.value, fieldName.value.length);
                 if (fieldName.value.length === 0) {
                     test = true;
                     message = "Поле не должно быть пустым";

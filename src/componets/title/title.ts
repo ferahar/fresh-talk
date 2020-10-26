@@ -9,8 +9,8 @@ export class Title extends Component {
     
     static TEMPLATE = `{{text}}`
 
-    constructor(tagname:string, props: Props) {
-        super(tagname, props);
+    constructor(props: Props) {
+        super("h3", props);
         this.element!.addClass("h3")
     }
   

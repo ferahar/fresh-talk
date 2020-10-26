@@ -88,7 +88,6 @@ export class Component {
     ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
       
       if (newProps||oldProps) {
-          console.log(newProps, oldProps);
           return true;
         }
       return false
