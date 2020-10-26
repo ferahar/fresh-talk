@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "tsc -w",
-    "html": "find /src -name '*.html' -exec  cp --parents {} /dist  \\;"
+    "build": "npx stylus src/style --out dist/style && npx stylus src/style/util --out dist/style/util && node build.js && tsc"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/nunjucks": "3.1.3",
+    "ncp": "^2.0.0",
     "stylus": "0.54.8",
     "typescript": "4.0.3"
   }
