@@ -93,6 +93,8 @@ export class Forms extends Component {
         if (newProps||oldProps) {
             // return newProps.value!==oldProps.value
             // coming son
+            // console.log(newProps.value, oldProps.value);
+            
             return true;
           }
         return false
@@ -115,15 +117,12 @@ export class Forms extends Component {
         if (next && next.tagName==="BUTTON") return
         
         if (checkField.test) {
-            console.log("ПОЛЕ==========> ",field.name);
-            
             Object.assign(oldProps, {
                 value: field.value,
                 error: checkField.message
             });
             props[field.name] = oldProps            
         } else{
-            console.log("ПОЛЕ ==========> ", oldProps, field.name, field.value);
             Object.assign(oldProps, {
                 value: field.value,
                 error: ''
