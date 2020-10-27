@@ -21,8 +21,8 @@
 {% endif %}
 {% if phone %}
     <label class="form-label">
-        Номер телефона {{phone.error}}
-        <input class="inputText form-input" type="tel" value="+7 937 888-88-88" placeholder="000-00-00..." name="phone">
+        Номер телефона
+        <input class="inputText form-input" type="tel" value="{{phone.value}}" placeholder="+7(000)000-00-00" name="phone">
         {% if phone.error %}
             <span class="form-textErorr">{{phone.error}}</span>
         {% endif %}
@@ -31,7 +31,7 @@
 {% if firstname %}
     <label class="form-label">
         Имя
-        <input class="inputText form-input" type="text" value="Cool" placeholder="first name" name="first_name" >
+        <input class="inputText form-input" type="text" value="Cool" placeholder="first name" name="firstname" >
         {% if firstname.error %}
             <span class="form-textErorr">{{firstname.error}}</span>
         {% endif %}
@@ -40,7 +40,7 @@
 {% if secondtname %}
     <label class="form-label">
         Фамилия
-        <input id="jedi" class="inputText form-input" type="text" value="Jedi" placeholder="second name" name="second_name" >
+        <input id="jedi" class="inputText form-input" type="text" value="{{secondtname.value}}" placeholder="second name" name="secondtname" >
         {% if secondtname.error %}
             <span class="form-textErorr">{{secondtname.error}}</span>
         {% endif %}
@@ -49,7 +49,7 @@
 {% if displayname %}
     <label class="form-label">
         Display name
-        <input class="inputText form-input" type="text" value="Jedi" placeholder="display name" name="display_name" >
+        <input class="inputText form-input" type="text" value="{{displayname.value}}" placeholder="display name" name="displayname" >
         {% if displayname.error %}
             <span class="form-textErorr">{{displayname.error}}</span>
         {% endif %}

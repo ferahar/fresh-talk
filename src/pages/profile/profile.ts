@@ -17,7 +17,7 @@ export function profilePage(): void {
                 value: "user@mail.ru"
             },
             phone: {
-                value: '8-937-888-888-888'
+                value: '8(800)959-65-79'
             },
             firstname: {
                 value: 'John'

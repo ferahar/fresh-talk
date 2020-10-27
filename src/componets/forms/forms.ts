@@ -115,17 +115,21 @@ export class Forms extends Component {
         if (next && next.tagName==="BUTTON") return
         
         if (checkField.test) {
+            console.log("ПОЛЕ==========> ",field.name);
+            
             Object.assign(oldProps, {
                 value: field.value,
                 error: checkField.message
             });
             props[field.name] = oldProps            
         } else{
+            console.log("ПОЛЕ ==========> ", oldProps, field.name, field.value);
             Object.assign(oldProps, {
                 value: field.value,
                 error: ''
             });
             props[field.name] = oldProps
+            console.log("props ==> ", props);
         }
         props.focus = next ? next.name : ''
         this.setProps(props)
@@ -145,10 +149,10 @@ export class Forms extends Component {
                 }    
                 break;
             case 'phone':
-                const phoneRegExp = /(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))/;
+                const phoneRegExp = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/;
                 if (fieldName.value.length === 0 || !phoneRegExp.test(fieldName.value)) {
                     test = true
-                    message = "Не верный формат телефона"    
+                    message = "Не верный формат телефона или пустое поле"    
                 }    
                 break;
             case 'psw':
@@ -161,8 +165,6 @@ export class Forms extends Component {
                 test = false   
                 break;
             default:
-                console.log(fieldName.name,fieldName.value, fieldName.value.length);
-                
                 if (fieldName.value.length === 0) {
                     test = true
                     message = "Поле не должно быть пустым"  
