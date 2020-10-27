@@ -128,7 +128,6 @@ export class Forms extends Component {
                 error: ''
             });
             props[field.name] = oldProps
-            console.log("props ==> ", props);
         }
         props.focus = next ? next.name : ''
         this.setProps(props)
