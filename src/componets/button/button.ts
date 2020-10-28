@@ -21,12 +21,6 @@ export class Button extends Component {
             this.element.html(tmpl);
         }
     }
-
-    // onClick():void {
-    //     // e.preventDefault();
-    //     console.log(this);
-    //     alert(this.props.text)
-    // }
 }
 
 

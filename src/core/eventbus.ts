@@ -1,6 +1,6 @@
 type fun = (...rest: any[])=>void 
 
-interface List {
+type List = {
     [key:string]: Array<fun>;
 }
 

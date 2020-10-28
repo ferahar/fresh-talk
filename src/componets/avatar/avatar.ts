@@ -2,8 +2,8 @@ import {Component} from "../../core/Component.js"
 
 declare var nunjucks: any;
 interface Props {
-    image?: "string",
-    name?: "string"
+    image: "string",
+    name: "string"
     [index: string]: string | {} | number | boolean | undefined 
 }
 

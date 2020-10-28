@@ -13,7 +13,10 @@ export const util = {
     },
 
     isEmpty<T extends isLengt>(value: T): boolean {
-        return (value.length)? true: (value.length === 0)? true : false
+        if (value.length && (value.length === 0)) {
+            return false
+        }
+        return true
     }
 }
 

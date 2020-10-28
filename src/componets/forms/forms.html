@@ -31,7 +31,7 @@
 {% if firstname %}
     <label class="form-label">
         Имя
-        <input class="inputText form-input" type="text" value="Cool" placeholder="first name" name="firstname" >
+        <input class="inputText form-input" type="text" value="{{firstname.value}}" placeholder="first name" name="firstname" >
         {% if firstname.error %}
             <span class="form-textErorr">{{firstname.error}}</span>
         {% endif %}

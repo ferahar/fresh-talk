@@ -16,7 +16,9 @@ export class Forms extends Component {
         this.element!.setClass("form container container_isColumn")   
     }
     
-    render() {        
+    render() {
+        console.log('Render');
+                
         if (this.props && this.element) {            
             const tmpl = nunjucks.render(Forms.TEMPLATE, this.props);
             this.element.html(tmpl);
@@ -30,7 +32,7 @@ export class Forms extends Component {
 
     }
 
-    ComponentDidMount() {
+    componentDidMount() {
         this.initBlur();
         this.initFocus();
     }
@@ -89,15 +91,12 @@ export class Forms extends Component {
         return res;
     }
 
-    ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
-        if (newProps||oldProps) {
-            // return newProps.value!==oldProps.value
-            // coming son
-            // console.log(newProps.value, oldProps.value);
-            
-            return true;
-          }
-        return false
+    componentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
+        if (newProps.value && oldProps.value) {
+            console.log(newProps.value, oldProps.value);
+            return newProps.value !== oldProps.value
+        }
+        return true;
     }
 
     clearForm(e: Event) {

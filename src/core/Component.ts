@@ -1,5 +1,5 @@
-import {EventBus} from "./eventbus.js"
-import {DomElement, $} from "./DomElement.js"
+import { EventBus } from "./eventbus.js"
+import { DomElement, $ } from "./DomElement.js"
 
 interface Props {
   [index: string]: string | {} | number | undefined
@@ -24,7 +24,7 @@ export class Component {
     constructor(
         tagName = "div", 
         props = {}, 
-        listeners={}
+        listeners= {}
       ) {
       this.eventBus = new EventBus();
       this._tagName = tagName
@@ -36,15 +36,14 @@ export class Component {
 
 
     private _initDomListeners() {
-      if (this.listeners) {
-        Object.keys(this.listeners).forEach(eventName => {
-          const nameMethod = this.listeners![eventName];
-          if (this[nameMethod]) {
-            const method = (this[nameMethod] as Function).bind(this)
-            this._element!.on(eventName, method, this)
-          }
-        })
-      }
+      if (!this.listeners) return
+      Object.keys(this.listeners).forEach(eventName => {
+        const nameMethod = this.listeners![eventName];
+        if (this[nameMethod]) {
+          const method = (this[nameMethod] as Function).bind(this)
+          this._element!.on(eventName, method, this)
+        }
+      })
     }
 
     get element(): DomElement | null {
@@ -53,8 +52,8 @@ export class Component {
   
     private _registerEvents(eventBus: EventBus) {
       eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
-      eventBus.on(Component.EVENTS.FLOW_CDM, this._ComponentDidMount.bind(this));
-      eventBus.on(Component.EVENTS.FLOW_CDU, this._ComponentDidUpdate.bind(this));
+      eventBus.on(Component.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+      eventBus.on(Component.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
       eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
   
@@ -70,33 +69,32 @@ export class Component {
       this._initDomListeners()
     }
   
-    private _ComponentDidMount(): void {
-      this.ComponentDidMount();
+    private _componentDidMount(): void {
+      this.componentDidMount();
     }
   
     // Может переопределять пользователь, необязательно трогать
     // вызывается после рендеринга компонента. Здесь можно выполнять запросы к удаленным ресурсам
-    ComponentDidMount() { 
+    componentDidMount() { 
       // console.log(`Render ${this._tagName}`);
     }
   
-    private _ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
-        return this.ComponentDidUpdate(newProps, oldProps);
+    private _componentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
+        return this.componentDidUpdate(newProps, oldProps);
     }
   
       // Может переопределять пользователь, необязательно трогать
-    ComponentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
-      
+    componentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
       if (newProps||oldProps) {
-          return true;
-        }
+        return true;
+      }
       return false
     }
   
     setProps = (nextProps: Props) => {
       if (!nextProps) {
         return;
-      } else if (this.ComponentDidUpdate(this.props, nextProps) ) {
+      } else if (this.componentDidUpdate(this.props, nextProps) ) {
         Object.assign(this.props, nextProps);
       }
     }
@@ -127,20 +125,19 @@ export class Component {
   
     private _makePropsProxy(props: Props): Props {
       const event = this.eventBus
-      const ComponentDidUpdate = this._ComponentDidUpdate.bind(this)
       return new Proxy(props, {
-          get(target, prop: keyof Props) {
+          get: (target, prop: keyof Props) => {
               return target[prop]
           },
-          set(target, prop: keyof Props, value) {
-            const check: boolean = ComponentDidUpdate(value, target[prop] as Props)
+          set: (target, prop: keyof Props, value) => {
+            const check: boolean = this._componentDidUpdate(value, target[prop] as Props)
             if (check) {
                 target[prop] = value
                 event.emit(Component.EVENTS.FLOW_RENDER)    
             }
             return true;
           },
-          deleteProperty() {
+          deleteProperty: () => {
               throw new Error('Нет прав');
           }
       });
