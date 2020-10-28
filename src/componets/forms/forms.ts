@@ -17,8 +17,6 @@ export class Forms extends Component {
     }
     
     render() {
-        console.log('Render');
-                
         if (this.props && this.element) {            
             const tmpl = nunjucks.render(Forms.TEMPLATE, this.props);
             this.element.html(tmpl);
@@ -93,7 +91,6 @@ export class Forms extends Component {
 
     componentDidUpdate<T extends Props>(newProps: T, oldProps: T): boolean {
         if (newProps.value && oldProps.value) {
-            console.log(newProps.value, oldProps.value);
             return newProps.value !== oldProps.value
         }
         return true;
