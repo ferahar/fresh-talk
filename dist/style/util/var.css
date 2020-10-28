@@ -1,0 +1,18 @@
+:root {
+  --secondary-bg-color: #404040;
+  --secondary-color: #5c8aff;
+  --primary-bg-color: #5c8aff;
+  --primary-color: #fff;
+  --success-bg-color: #147c4a;
+  --success-color: #fff;
+  --error-color: #ff6c6c;
+  --ghost-bg-color: transparent;
+  --ghost-color: #cbcbcb;
+  --defoult-bg-color: #363636;
+  --defoult-color: #cbcbcb;
+  --defoult-border-color: #505050;
+  --successInvert-bg-color: transparent;
+  --successInvert-color: #8cf38c;
+  --dark-bg-color: #202020;
+  --focus-border-color: #fff;
+}

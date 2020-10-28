@@ -1,0 +1,44 @@
+.avatar {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  background: rgba(255,255,255,0.122);
+  position: relative;
+  border-radius: 24px;
+  flex-shrink: 0;
+}
+.avatar img {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+.avatar-input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  text-indent: -1000em;
+  opacity: 0;
+}
+.avatar_large {
+  width: 156px;
+  height: 156px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  background: rgba(255,255,255,0.122);
+  position: relative;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.avatar_large img {
+  position: relative;
+  width: 156px;
+  height: 156px;
+  object-fit: cover;
+}
