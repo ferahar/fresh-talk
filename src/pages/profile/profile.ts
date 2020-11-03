@@ -53,7 +53,8 @@ export function profilePage(): void {
         [form],
         "main container container_centerStart"
     )
-
+    
+    root!.appendChild(header.element!.nativeElement as Node)
     root!.appendChild(main.element!.nativeElement as Node)
     
 }
