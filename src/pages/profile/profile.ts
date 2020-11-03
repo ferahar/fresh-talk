@@ -1,14 +1,11 @@
 import {Container} from "../../componets/container/container.js"
-import {Forms} from "../../componets/forms/forms.js"
+import {Forms} from "../../componets/forms/index.js"
 import {Title} from "../../componets/title/title.js"
 
 export function profilePage(): void {
 
-    const root = document.getElementById('root')
-
     const form = new Forms(
         {
-            title: "Профиль",
             avatar: {
                 image: "https://images.unsplash.com/photo-1497752531616-c3afd9760a11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80",
                 value: ''
@@ -42,19 +39,31 @@ export function profilePage(): void {
         }
     )
 
-    const header = new Container('header')
-    header.element!.setClass("header header_themeDark")
-    header.addComponent([
-        new Title({ text: "Профиль"})
-    ])
+    const header = new Container(
+        'header',
+        [
+            new Title({ text: "Профиль"})
+        ],
+        "header header_themeDark"
+    )
+
+    const section = new Container(
+        'section',
+        [form],
+        "form-section container container_size_auto container_centerStart"
+    )
 
     const main = new Container(
         'main',
-        [form],
-        "main container container_centerStart"
+        [
+            header, section
+        ],
+        "main container container_isColumn"
     )
+
     
-    root!.appendChild(header.element!.nativeElement as Node)
+    
+    const root = document.getElementById('root')
     root!.appendChild(main.element!.nativeElement as Node)
     
 }

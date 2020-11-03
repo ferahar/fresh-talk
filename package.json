@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "tsc -w",
-    "build": "npx stylus src/style --out dist/style && npx stylus src/style/util --out dist/style/util && node build.js && tsc"
+    "build": "node webpack.js && tsc"
   },
   "repository": {
     "type": "git",
