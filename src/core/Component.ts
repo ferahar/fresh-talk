@@ -1,9 +1,14 @@
 import { EventBus } from "./eventbus.js"
 import { DomElement, $ } from "./DomElement.js"
+import { Router } from "./router.js"
 
 interface Props {
   [index: string]: string | {} | number | undefined
 }
+
+type Config = {
+  [key in string]: Component[] | Component | Router | string | {};
+};
 
 export class Component {
     static EVENTS = {
@@ -14,37 +19,37 @@ export class Component {
     }
     
     private _element: DomElement | null = null;
-    private _tagName: string
-    
+    private _template: string = ''
+    // private _tagName: string
+
+    selector: string = 'app-root'
     eventBus: EventBus
     props: Props
     
     private listeners: {[key: string]: keyof Component}
 
-    constructor(
-        tagName = "div", 
-        props = {}, 
-        listeners= {}
-      ) {
+    // constructor(
+    //     tagName = "div", 
+    //     props = {}, 
+    //     listeners= {}
+    //   ) {
+    constructor(config: Config){
+      
+      // this._tagName = config.tagName as string
+      this.selector = config.selector as string
+      this._template = config.template as string
+      this.listeners = config.listeners as {}
+      
+      if (config.props) {
+        this.props = this._makePropsProxy(config.props as {});  
+      } else this.props = this._makePropsProxy({});
+      
       this.eventBus = new EventBus();
-      this._tagName = tagName
-      this.listeners = listeners
-      this.props = this._makePropsProxy(props);
       this._registerEvents(this.eventBus);
-      this.eventBus.emit(Component.EVENTS.INIT);
+      this.init()
+      // this.eventBus.emit(Component.EVENTS.INIT);
     }
 
-
-    private _initDomListeners() {
-      if (!this.listeners) return
-      Object.keys(this.listeners).forEach(eventName => {
-        const nameMethod = this.listeners![eventName];
-        if (this[nameMethod]) {
-          const method = (this[nameMethod] as Function).bind(this)
-          this._element!.on(eventName, method, this)
-        }
-      })
-    }
 
     get element(): DomElement | null {
       return this._element
@@ -57,16 +62,32 @@ export class Component {
       eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
   
-    private _createResources() {
-      const tagName = this._tagName;
-      this._element = this._createDocumentElement(tagName);
+    // private _createResources() {
+    //   const tagName = this._tagName;
+    //   this._element = this._createDocumentElement(tagName);
       
-    }
+    // }
   
     init() {
-      this._createResources();
-      this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
-      this._initDomListeners()
+      // this._createResources();
+      // this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+      this._element = $(document.createElement(this.selector))
+      // this._render()
+      // this._initDomListeners()
+    }
+
+    private _initDomListeners() {
+      if (!this.listeners) return
+      Object.keys(this.listeners).forEach(eventName => {
+        const nameMethod = this.listeners![eventName];
+        if (this[nameMethod]) {
+          const method = (this[nameMethod] as Function).bind(this)
+          const element = document.querySelector(this.selector)
+          if (element) {
+            $(element as HTMLElement).on(eventName, method, this)  
+          }
+        }
+      })
     }
   
     private _componentDidMount(): void {
@@ -100,13 +121,18 @@ export class Component {
     }
   
     private _render(): void {
-        if (this._element) {
-            this.render()
-            this.eventBus.emit(Component.EVENTS.FLOW_CDM)
-        }
+      if (this._element) {
+        this.render()
+        this.eventBus.emit(Component.EVENTS.FLOW_CDM)
+      }
     }
   
-    render() {}
+    render() {
+      if(!this._element) throw new Error(`Component with selector ${this.selector} wosn't found`)
+      console.log(this._element.nativeElement);
+      document.querySelector( this.selector )!.innerHTML = this._template
+      this._initDomListeners()
+    }
 
     protected append(components: any[]) {
       components.forEach( component => {
@@ -143,9 +169,9 @@ export class Component {
       });
     }
   
-    private _createDocumentElement(tagName:string) {
-      return $(document.createElement(tagName));
-    }
+    // private _createDocumentElement(tagName:string) {
+    //   return $(document.createElement(tagName));
+    // }
   
     show() {
         if(this.element) this.element.show()

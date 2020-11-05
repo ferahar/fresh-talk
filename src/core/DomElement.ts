@@ -18,7 +18,9 @@ export class DomElement {
 
     on<T>(eventName: string, func: EventListener, context: T){
         const fun = func.bind(context)
-        if (this.nativeElement) this.nativeElement.addEventListener(eventName, fun)
+        if (this.nativeElement) {
+            this.nativeElement.addEventListener(eventName, fun)
+        }
         return this
     }
 

@@ -4,6 +4,8 @@ const stylus = require('stylus');
 
 const source = path.resolve(__dirname, 'src');
 const destination = path.resolve(__dirname, 'dist');
+const styleFolder = path.resolve(__dirname, 'dist/style');
+
 
 try {
     if (!fs.existsSync(destination)){
@@ -37,12 +39,13 @@ function creatDist(source, destination) {
                 stylus(str)
                   .set('filename', `build.css`)
                   .render(function(err, css){
+                      console.log('styleFolder =======  ', styleFolder);
                     if (err) throw err;
                     try {
-                        fs.writeFileSync(`${dest}/${file.name}.css`, css, { flag: 'a+' })
-                      } catch (err) {
+                        fs.appendFileSync(`${styleFolder}\/index.css`, css, { flag: 'a+' })
+                    } catch (err) {
                         console.error(err)
-                      }
+                    }
                     console.log("\x1b[32m", css);
                  });
             }
