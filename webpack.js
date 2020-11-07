@@ -10,6 +10,7 @@ const styleFolder = path.resolve(__dirname, 'dist/style');
 try {
     if (!fs.existsSync(destination)){
         fs.mkdirSync(destination)
+        fs.mkdirSync(styleFolder)
     }
 } catch (err) {
     console.error(err)
@@ -17,6 +18,7 @@ try {
 
 
 function creatDist(source, destination) {
+    let styleContent = []
     fs.readdirSync(source).forEach(fileName => {
         const data = path.join(source, fileName)
         const dir = path.join(destination, fileName)
@@ -39,13 +41,19 @@ function creatDist(source, destination) {
                 stylus(str)
                   .set('filename', `build.css`)
                   .render(function(err, css){
-                      console.log('styleFolder =======  ', styleFolder);
                     if (err) throw err;
-                    try {
-                        fs.appendFileSync(`${styleFolder}\/index.css`, css, { flag: 'a+' })
-                    } catch (err) {
-                        console.error(err)
-                    }
+                    styleContent.push(css)
+                    // try {
+                    //     const fileStyl = `${styleFolder}\/index.css`
+                    //     if (fs.existsSync( fileStyl )){
+                    //         fs.appendFileSync(fileStyl, css, { flag: 'a+' })
+                    //     } else {
+                    //         fs.writeFileSync(fileStyl, content)
+                    //     }
+                        
+                    // } catch (err) {
+                    //     console.error(err)
+                    // }
                     console.log("\x1b[32m", css);
                  });
             }
@@ -53,6 +61,13 @@ function creatDist(source, destination) {
         }
         console.log("\x1b[0m", fileName);
     })
+    try {
+        const fileStyl = `${styleFolder}\/index.css`
+        const content = styleContent.join('\n')
+        fs.writeFileSync(fileStyl, content, { flag: 'a' })
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 creatDist(source, destination)

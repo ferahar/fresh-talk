@@ -1,9 +1,11 @@
 import { Module } from "../core/module.js"
-import { Component } from "../core/component.js";
 import { Router } from "../core/router.js";
-import { startPoint } from './app-component.js'
-import { header } from "./components/header/header.js"
+import { Component } from "../core/component.js";
+
 import { router } from './app-routes.js'
+import { appComponent } from './app-component.js'
+import { header } from "./components/header/header.js"
+
 
 
 type Config = {
@@ -20,7 +22,7 @@ export const appModule = new AppModule({
     components: [
         header
     ],
-    main: startPoint,
+    main: appComponent,
     router: router
     //routes: appRoutes
 })

@@ -17,6 +17,17 @@ export const util = {
             return false
         }
         return true
+    },
+
+    trim(data: string, prefix?: string): string | boolean {
+        if (typeof data !== 'string') return false
+        if (!prefix) {
+            return data.trim()
+        }
+        prefix = prefix.split('').join('|')
+        const re = new RegExp(`^[${prefix}]+|[${prefix}]+$`, 'g')
+        const result = data.replace(re, '');
+        return result
     }
 }
 

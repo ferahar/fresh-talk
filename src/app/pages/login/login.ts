@@ -1,20 +1,34 @@
-import { Component } from "../../../core/index.js"
+import { Component, Config } from "../../../core/component.js"
+import { formsLogin } from "../../components/forms/index.js"
+import { header } from '../../components/header/header.js'
 
-
-declare var nunjucks: any;
 
 class LoginPage extends Component {
     
-    static TEMPLATE = `<h1> Login PAGE </h1>`
-
-    constructor(config: {}) {
+    static TEMPLATE = '../app/pages/login/login.html'
+    
+    constructor(config: Config) {
+        
+        config.template = LoginPage.TEMPLATE;
         super( config );
+    }
+    
+    componentDidMount() {
+        header.setProps( {
+            title: 'Login'
+        } )
     }
 }
 
 export const loginPage = new LoginPage({
     selector: 'app-login',
-    template: LoginPage.TEMPLATE
+    props: {
+        title: 'Forms'
+    },
+    components: [
+        formsLogin
+    ]
+
 })
 
 

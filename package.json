@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "tsc -w",
-    "build": "node webpack.js && tsc"
+    "build": "node webpack.js"
   },
   "repository": {
     "type": "git",

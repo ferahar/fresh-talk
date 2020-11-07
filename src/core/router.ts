@@ -1,4 +1,5 @@
-import { Component } from "./component";
+import { Component } from "./component.js";
+import { $ } from "./DomElement.js"
 
 type Route = {
     path: string,
@@ -9,7 +10,6 @@ export class Router {
     
     private static __instance: Router;
     private _rootQuery = 'app-root'
-    private _currentRoute: Component | null = null;
 
     history = window.history;
     routes: Route[] | undefined = []
@@ -21,7 +21,6 @@ export class Router {
         }
 
         this._rootQuery = rootQuery;
-
         Router.__instance = this;
     }
 
@@ -37,35 +36,39 @@ export class Router {
     }
 
     start() {
-      window.onpopstate = ((event: Event) => {
-          if (!event.currentTarget) return
-          const path = (event.currentTarget as any).location.pathname
-          this._onRoute(path);
-
-      }).bind(this);
-      this._onRoute(window.location.pathname);
+        window.onpopstate = ((event: Event) => {
+            if (!event.currentTarget) return
+            this._onRoute( location.pathname )
+        }).bind(this);
+        this._onRoute(window.location.pathname);
     }
 
-    _onRoute(pathname: string) {
-        console.log('PATH: ', pathname);
+    private _onRoute(pathname: string) {
         let route = this.getRoute(pathname);
         
-        if (this._currentRoute) {
-            // this._currentRoute.leave();
+        if (route === undefined) {
+            route = this.getRoute('404')
         }
-        
-        // this._currentRoute = route;
-        
-        // if (route === undefined) {
-        //     route = this.getRoute('404')
-        // }
-        const root = document.querySelector( this._rootQuery )!
-        root.innerHTML = `<${route!.component.selector}></${route!.component.selector}>`
-        route!.component.render();
+
+        const root = document.getElementById( this._rootQuery )!
+        root.innerHTML = ''
+        const page = document.createElement( 'div' )
+        page.id = route!.component.selector
+        root.append(page)
+        if (route !== undefined) {
+            route.component.eventBus.emit(Component.EVENTS.INIT)
+            route.component.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+            // route.component.element?.findAll('[href]')!.forEach(e => {
+            //     e.on('click', this.onClick, this)
+            // })
+        }
+        document.querySelectorAll('[href]')!.forEach(e => {
+            e.addEventListener('click', this.onClick.bind(this))
+        })
     }
 
     go(pathname: string) {
-      this.history.pushState({}, "", pathname);
+      this.history.pushState({ path: pathname }, "", pathname);
       this._onRoute(pathname);
     }
 
@@ -77,7 +80,18 @@ export class Router {
       this.history.forward()
     }
 
-    getRoute(pathname: string) {
-        return this.routes!.find(route => route.path.match(pathname));
+    getRoute(path: string) {
+        if (path) {
+            return this.routes!.find(route => route.path.match(path as any));    
+        } else return undefined   
+    }
+
+    onClick(event: Event) {
+        event.preventDefault();
+        const target = $(event.target as HTMLElement)
+        const href = target.attr('href')
+        if (href) {
+            this.go(href as string)    
+        }
     }
 }

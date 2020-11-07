@@ -6,7 +6,7 @@ type Config = {
 };
 
 export class Module {
-    
+
     private components: Component[] | undefined
     private main: Component
     private router: Router
@@ -15,32 +15,24 @@ export class Module {
         if (Array.isArray(config.components)) {
             this.components = config.components    
         }
-        
         this.main = config.main as Component
         this.router = config.router as Router
-
-        
     }
     
     start() {
         this.initComponents()
         if (this.router) {
-            this.initRoutes()
-        } 
+            this.router.start()
+        }
     }
 
-    initComponents() {
+    private initComponents() {
         this.main.render()
         if (!this.components) return
-        this.components.forEach( this.renderComponent.bind(this) );
-    }
+        this.components.forEach( (component: Component) => {
+            component.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+        })
 
-    initRoutes() {
-        this.router.start()
-    }
-
-    renderComponent(component: Component) {
-        component.render()
     }
 
 }

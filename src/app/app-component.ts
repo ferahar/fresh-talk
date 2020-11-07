@@ -1,21 +1,19 @@
-import { Component } from "../core/component.js"
+import { Component, Config } from "../core/component.js"
 
 
 declare var nunjucks: any;
 
-class StartPoint extends Component {
+class AppComponent extends Component {
     
-    static TEMPLATE = `
-    <app-header></app-header>
-    <app-page></app-page>
-    `
-    constructor(config: {}) {
+    static TEMPLATE = '../app/app-index.html'
+
+    constructor(config: Config) {
+        config.template = AppComponent.TEMPLATE;
         super( config );
     }
   
 }
 
-export const startPoint = new StartPoint({
+export const appComponent = new AppComponent({
     selector: 'app-root',
-    template: StartPoint.TEMPLATE
 })
