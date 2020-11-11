@@ -1,5 +1,5 @@
 import { Component, Config, Props } from "../../../core/component.js"
-import { checkField } from "./forms-check-field.js"
+import { checkField } from "../../../core/index.js"
 import {$} from "../../../core/DomElement.js"
 
 
@@ -24,7 +24,7 @@ export class Forms extends Component {
             }
         }, 0)
         
-        // this.ClearEventBlurAndFocus()
+        
         this.initBlurAndFocus()
     }
 
@@ -49,16 +49,6 @@ export class Forms extends Component {
         }
     }
 
-    private ClearEventBlurAndFocus() {
-        const fields = this.element!.findAll('input')
-        if (fields) {
-            fields!.forEach(field => {
-                field.off('blur', this.checkForm as EventListener)
-                field.off('focus', this.clearForm)
-            });
-        }
-    }
-
     private clearForm(e: Event) {
         const field = e.target as HTMLInputElement
         $(field).parent()!.find('span').hide()
@@ -75,7 +65,6 @@ export class Forms extends Component {
         if (next && next.tagName==="BUTTON") return
 
         console.log(field.name, Math.random());
-        
         
         if (checkField.test) {
             Object.assign(oldProps, {

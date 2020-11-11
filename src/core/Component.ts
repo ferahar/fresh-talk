@@ -2,12 +2,14 @@ import { EventBus } from "./eventbus.js"
 import { DomElement, $ } from "./DomElement.js"
 import { Router } from "./router.js"
 
+export type StringIndexed = Record<string, unknown>;
+
 export interface Props {
-  [index: string]: string | {} | number | undefined
+  [index: string]: string | {} | number | undefined | string[]
 }
 
 export type Config = {
-  [key in string]: Component[] | Component | Router | string | {};
+  [key in string]: Component[] | Component | Router | string | {} | string[] | Config;
 };
 
 declare var nunjucks: any;
@@ -24,7 +26,8 @@ export class Component {
   private _element: DomElement | null = null;
   private _selectorClass: string = ''
   private listeners: {[key: string]: keyof Component}
-  private components: Component[] | null = null
+  
+  protected components: Component[] | null = null
 
   selector: string = 'app-root'
   eventBus: EventBus
@@ -61,7 +64,7 @@ export class Component {
     eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  init() {
+  private init() {
     const element = document.getElementById(this.selector)
     
     if (element) {
@@ -86,17 +89,17 @@ export class Component {
     })
   }
 
-  private _removeDomListeners() {
-    if (!this.listeners) return
-    Object.keys(this.listeners).forEach(eventName => {
-      const nameMethod = this.listeners![eventName];
-      if (this[nameMethod]) {
-        console.log(nameMethod, Math.random());
-        const method = (this[nameMethod] as Function).bind(this)
-        this._element!.off(eventName, method)
-      }
-    })
-  }
+  // private _removeDomListeners() {
+  //   if (!this.listeners) return
+  //   Object.keys(this.listeners).forEach(eventName => {
+  //     const nameMethod = this.listeners![eventName];
+  //     if (this[nameMethod]) {
+  //       console.log(nameMethod, Math.random());
+  //       const method = (this[nameMethod] as Function).bind(this)
+  //       this._element!.off(eventName, method)
+  //     }
+  //   })
+  // }
 
   private _componentDidMount(): void {
     this.componentDidMount();

@@ -31,6 +31,7 @@ export class Module {
         if (!this.components) return
         this.components.forEach( (component: Component) => {
             component.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+            // component.render()
         })
 
     }
