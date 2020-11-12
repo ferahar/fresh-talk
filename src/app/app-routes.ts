@@ -1,9 +1,9 @@
-import { startPage } from './pages/start/start.js'
-import { loginPage } from './pages/login/login.js'
-import { registrPage } from './pages/registr/registr.js'
-import { page404 } from './pages/404/404.js'
+import { startPage } from './pages/start/start'
+import { loginPage } from './pages/login/login'
+import { registrPage } from './pages/registr/registr'
+import { page404 } from './pages/404/404'
 
-import { Router } from '../core/router.js'
+import { Router } from '../core/router'
 
 export const appRoutes = [
     {path: '/', component: startPage},

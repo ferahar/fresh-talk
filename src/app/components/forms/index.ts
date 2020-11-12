@@ -1,44 +1,58 @@
-import { Forms } from './forms.js'
+import { Forms2 } from './forms2'
+import { apiAuth } from '../../api/api-auth'
 
-export const formsLogin = new Forms({
-    selector: 'app-form-login',
-    props: {
-        email: {
-            value: ''
-        },
-        psw: {
-            value: ''
-        },
-        button: {
-            text: "Авторизоваться",
-            textlink: "Регистрация",
-            link: "/registr"
-        }
-    }
-});
-
-export const formsRegistr = new Forms({
+export const formsRegistr2 = new Forms2({
     selector: 'app-form-registr',
     props: {
-        email: true,
-        phone: true,
-        firstname: true,
-        secondtname: true,
-        login: true,
-        psw: true,
+        items: [
+            "email",
+            "phone",
+            "firstname",
+            "login",
+            "password"
+        ],
         button: {
             text: "Зарегистрироваться",
-            textlink: "Вход",
+            textlink: "Авторизоваться",
             link: "/login"
         }
     }
-});
+}, apiGet2);
 
-// {
-//     "first_name": "John",
-//     "second_name": "Rambo",
-//     "login": "Rambo1212",
-//     "email": "Rambo@mail.xxx",
-//     "password": "120280",
-//     "phone": "+79348882255"
-//   }
+export const formsLogin = new Forms2({
+    selector: 'app-form-SignIn',
+    props: {
+        items: [
+            "login",
+            "password"
+        ],
+        button: {
+            text: "Авторизоваться",
+            textlink: "Зарегистрироваться",
+            link: "/registr"
+        }
+    }
+    },
+    apiGet
+    );
+
+function apiGet(data: FormData) {
+    for(let [name, value] of data) {
+        console.log(`${name} = ${value}`)
+    }
+    apiAuth.signIn( data ).then( (data) => {
+        console.log( 
+            (data as XMLHttpRequest).response
+         );
+    },
+    error => {
+        console.log(error);
+    }
+    )
+}
+
+function apiGet2(data: FormData) {
+    for(let [name, value] of data) {
+        console.log(`${name} = ${value}`)
+    }
+}

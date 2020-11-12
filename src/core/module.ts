@@ -1,5 +1,5 @@
-import { Component } from "./component.js";
-import { Router } from "./router.js";
+import { Component } from "./component";
+import { Router } from "./router";
 
 type Config = {
     [key in string]: Component[] | Component | Router;

@@ -1,29 +1,25 @@
-import { Component, DomElement, EventBus }  from '../src/core/index';
+import { Component, Config } from "../src/core/component"
 
-const component = new Component({
-    selector: 'component',
-    selectorClass: 'header',
-    template: '../test/component.html',
-    listeners: {
-        "click": 'onclick'
-    },
-    components: [
+export class Box extends Component {
 
-    ],
+    static TEMPLATE = '../app/components/button/button.html'
+
+    constructor(config: Config) {
+        super( config );
+    }
+
+}
+
+const box = new Box({
     props: {
-        title: 'Component'
+        title: 'Morgan',
+        size: 12,
+        type: 'book',
+        closed: true
     }
 })
 
-// const componentNegative = new Component({
-    
-// })
-
-describe('Проверка компонента:', () => {
-
-    test('props', () => {
-        expect( component.props ).toEqual({ title: 'Component' }) ;
-    });
-
-})
-
+test('adds 1 + 2 to equal 3', () => {
+    const title = box.props.title
+    expect( title ).toBe( 'Morgan' );
+});

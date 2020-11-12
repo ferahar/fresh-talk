@@ -1,5 +1,5 @@
-import { Component, Config } from "../../../core/component.js"
-import { button } from "../../components/button/button.js"
+import { Component, Config } from "../../../core/component"
+import { button, buttonLogout } from "../../components/button/index"
 
 class Header extends Component {
 
@@ -18,7 +18,8 @@ export const header = new Header({
         title: 'Главная'
     },
     components: [
-        button
+        button,
+        buttonLogout
     ]
 })
 

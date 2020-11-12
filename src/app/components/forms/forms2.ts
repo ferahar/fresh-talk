@@ -1,6 +1,6 @@
-import { Component, Config, Props } from "../../../core/component.js"
-import { Item } from "../../components/item/item.js"
-import { checkField } from "../../../core/index.js"
+import { Component, Config, Props } from "../../../core/component"
+import { Item } from "../../components/item/item"
+import { checkField } from "../../../core/index"
 
 type Titles = Record<string, string>;
 
@@ -28,7 +28,7 @@ function getFields( items: string[] ): Component[] {
                     title: titles[item],
                     type: `${item}`,
                     placeholder: '',
-                    name: item,
+                    name: `${item}`,
                     value: ''
                 }
             })
@@ -41,14 +41,15 @@ function getFields( items: string[] ): Component[] {
 export class Forms2 extends Component {
 
     static TEMPLATE = "../app/components/forms/forms2.html"
-
-    constructor(config: Config) {
+    callback: Function
+    constructor(config: Config, callback: Function) {
         config.components = getFields( (config.props as Props).items as string[] )
         config.template = Forms2.TEMPLATE;
         config.listeners = {
             'submit': 'onSubmit'
         };
         super( config );
+        this.callback = callback
     }
 
     private checkField( target: HTMLInputElement): Props {
@@ -81,28 +82,7 @@ export class Forms2 extends Component {
 
         const form = this.element!.nativeElement
         let data = new FormData(form as HTMLFormElement)
-        for(let [name, value] of data) {
-            console.log(`${name} = ${value}`)
-        }    
+        this.callback(data)
     }
 
 }
-
-export const formsRegistr2 = new Forms2({
-    selector: 'app-form-registr',
-    props: {
-        items: [
-            "email",
-            "phone",
-            "firstname",
-            "login",
-            "password"
-        ],
-        button: {
-            text: "Зарегистрироваться",
-            textlink: "Вход",
-            link: "/login"
-        }
-    }
-});
-

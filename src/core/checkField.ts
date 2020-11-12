@@ -1,4 +1,4 @@
-import { Props } from "./component.js"
+import { Props } from "./component"
 
 export function checkField(fieldName: HTMLInputElement): Props {
     let test: boolean = false

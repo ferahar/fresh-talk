@@ -1,5 +1,5 @@
-import { Component, Config } from "../../../core/component.js"
-import { header } from '../../components/header/header.js'
+import { Component, Config } from "../../../core/component"
+import { header } from '../../components/header/header'
 
 class StartPage extends Component {
     

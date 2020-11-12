@@ -1,6 +1,6 @@
-import { Component, Config } from "../../../core/component.js"
-import { formsRegistr2 } from "../../components/forms/forms2.js"
-import { header } from '../../components/header/header.js'
+import { Component, Config } from "../../../core/component"
+import { formsRegistr2 } from "../../components/forms/index"
+import { header } from '../../components/header/header'
 
 
 class RegistrPage extends Component {

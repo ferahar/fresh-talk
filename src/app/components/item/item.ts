@@ -1,6 +1,6 @@
-import { Component, Config, Props } from "../../../core/component.js"
-import { checkField } from "../../../core/index.js"
-import { $ } from "../../../core/DomElement.js"
+import { Component, Config, Props } from "../../../core/component"
+import { checkField } from "../../../core/index"
+import { $ } from "../../../core/DomElement"
 
 
 export class Item extends Component {

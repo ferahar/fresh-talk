@@ -1,4 +1,4 @@
-import { Component, Config } from "../../../core/component.js"
+import { Component, Config } from "../../../core/component"
 
 
 class Page404 extends Component {

@@ -1,43 +1,35 @@
-import { Component, Config } from "../../../core/component.js"
-// import { HTTP } from "../../../core/index.js"
+import { Component, Config } from "../../../core/component"
 
-
-class Button extends Component {
+export class Button extends Component {
 
     static TEMPLATE = '../app/components/button/button.html'
-    
-    constructor(config: Config) {
+    private onclick: Function | null
+
+    constructor(config: Config, onclick?: Function) {
         config.template = Button.TEMPLATE;
         config.listeners = {
             'click': 'onClick'
         }
         super( config );
+        
+        if (onclick) {
+            this.onclick = onclick
+        } else {
+            this.onclick = null
+        }
     }
 
     componentDidMount() {
         console.log('ButtonClick = ',this.props.title);
-        
     }
 
     onClick() {
-        this.setProps({
-            title: Math.floor(Math.random()*100)
-        })
-        // new HTTP().get('https://jsonplaceholder.typicode.com/todos/1')
-        // .then( data => {
-        //     console.log( (data as XMLHttpRequest).response );
-        // })
+        if (this.onclick !== null) {
+            (this.onclick as Function)()
+        }
     }
 
 }
-
-export const button = new Button({
-    selector: 'app-button',
-    props: {
-        title: 'API handler',
-        icon: 'pest_control_rodent'
-    }
-})
 
 
 

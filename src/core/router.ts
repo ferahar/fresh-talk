@@ -1,5 +1,5 @@
-import { Component } from "./component.js";
-import { $ } from "./DomElement.js"
+import { Component } from "./component";
+import { $ } from "./DomElement"
 
 type Route = {
     path: string,

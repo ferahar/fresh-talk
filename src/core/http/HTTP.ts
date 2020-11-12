@@ -1,4 +1,4 @@
-import { queryStringify, StringIndexed } from './queryStringify.js'
+import { queryStringify, StringIndexed } from './queryStringify'
 
 export interface Headers {
     [index: string]: string
@@ -13,7 +13,7 @@ const METHODS = {
 
 export class HTTP {
 
-    private baseUrl: string | null = null
+    private baseUrl: string | null = ''
     
     constructor(url?: string) {
         if (url !== undefined) {
@@ -51,9 +51,14 @@ export class HTTP {
                 url = url + queryStringify(data)
             }
             xhr.open(method, url)
-            
+            xhr.withCredentials = true
+
             xhr.onload = () => {
-              resolve(xhr);
+                if (xhr.status !== 200) {
+                    reject(xhr)
+                } else {
+                    resolve(xhr);
+                }
             }
 
             if (headers) {
@@ -63,6 +68,7 @@ export class HTTP {
             }
 
             xhr.timeout = timeout
+
             xhr.onerror = reject
             xhr.onabort = reject
             xhr.ontimeout = reject;
@@ -70,7 +76,8 @@ export class HTTP {
             if (method === METHODS.GET) {
                 xhr.send();
             } else {
-                xhr.send(data as any);
+                xhr.setRequestHeader("Content-Type", "application/json")
+                xhr.send(JSON.stringify( data as any));
             }
         })
     };

@@ -1,10 +1,10 @@
-import { Module } from "../core/module.js"
-import { Router } from "../core/router.js";
-import { Component } from "../core/component.js";
+import { Module } from "../core/module"
+import { Router } from "../core/router";
+import { Component } from "../core/component";
 
-import { router } from './app-routes.js'
-import { appComponent } from './app-component.js'
-import { header } from "./components/header/header.js"
+import { router } from './app-routes'
+import { appComponent } from './app-component'
+import { header } from "./components/header/header"
 
 
 

@@ -1,6 +1,6 @@
-import { authAPIInstance } from './api-base.js'
+import { authAPIInstance } from './api-base'
 
-export class apiAuth {
+class ApiAuth {
 
     signUp(data:{}) {
         return authAPIInstance.post('/signup', {
@@ -19,7 +19,9 @@ export class apiAuth {
     }
 
     logout() {
-        return authAPIInstance.get('/logout')
+        return authAPIInstance.post('/logout')
     }
 
 }
+
+export const apiAuth = new ApiAuth

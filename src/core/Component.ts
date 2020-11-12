@@ -1,6 +1,6 @@
-import { EventBus } from "./eventbus.js"
-import { DomElement, $ } from "./DomElement.js"
-import { Router } from "./router.js"
+import { EventBus } from "./eventbus"
+import { DomElement, $ } from "./DomElement"
+import { Router } from "./router"
 
 export type StringIndexed = Record<string, unknown>;
 
@@ -66,7 +66,6 @@ export class Component {
 
   private init() {
     const element = document.getElementById(this.selector)
-    
     if (element) {
       this._element = $(element as HTMLElement)  
       this._initDomListeners()
@@ -88,18 +87,6 @@ export class Component {
       }
     })
   }
-
-  // private _removeDomListeners() {
-  //   if (!this.listeners) return
-  //   Object.keys(this.listeners).forEach(eventName => {
-  //     const nameMethod = this.listeners![eventName];
-  //     if (this[nameMethod]) {
-  //       console.log(nameMethod, Math.random());
-  //       const method = (this[nameMethod] as Function).bind(this)
-  //       this._element!.off(eventName, method)
-  //     }
-  //   })
-  // }
 
   private _componentDidMount(): void {
     this.componentDidMount();

@@ -43,17 +43,6 @@ function creatDist(source, destination) {
                   .render(function(err, css){
                     if (err) throw err;
                     styleContent.push(css)
-                    // try {
-                    //     const fileStyl = `${styleFolder}\/index.css`
-                    //     if (fs.existsSync( fileStyl )){
-                    //         fs.appendFileSync(fileStyl, css, { flag: 'a+' })
-                    //     } else {
-                    //         fs.writeFileSync(fileStyl, content)
-                    //     }
-                        
-                    // } catch (err) {
-                    //     console.error(err)
-                    // }
                     console.log("\x1b[32m", css);
                  });
             }

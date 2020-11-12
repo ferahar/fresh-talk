@@ -1,6 +1,6 @@
-import { Component, Config } from "../../../core/component.js"
-import { formsLogin } from "../../components/forms/index.js"
-import { header } from '../../components/header/header.js'
+import { Component, Config } from "../../../core/component"
+import { formsLogin } from "../../components/forms/index"
+import { header } from '../../components/header/header'
 
 
 class LoginPage extends Component {
@@ -21,7 +21,7 @@ class LoginPage extends Component {
 }
 
 export const loginPage = new LoginPage({
-    selector: 'app-login',
+    selector: 'app-signIn',
     props: {
         title: 'Forms'
     },
@@ -30,7 +30,6 @@ export const loginPage = new LoginPage({
     ]
 
 })
-
 
 
 
