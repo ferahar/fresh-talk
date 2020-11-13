@@ -1,21 +1,18 @@
-import { Component } from "./component";
-import { Router } from "./router";
+import { Component, Config } from "./component";
+import { Router } from "./router/router";
 
-type Config = {
-    [key in string]: Component[] | Component | Router;
-};
 
 export class Module {
 
     private components: Component[] | undefined
-    private main: Component
     private router: Router
+    private root: string
     
     constructor(config: Config) {
+        this.root = config.root as string
         if (Array.isArray(config.components)) {
-            this.components = config.components    
+            this.components = config.components as Component[]
         }
-        this.main = config.main as Component
         this.router = config.router as Router
     }
     
@@ -27,11 +24,9 @@ export class Module {
     }
 
     private initComponents() {
-        this.main.render()
         if (!this.components) return
         this.components.forEach( (component: Component) => {
-            component.eventBus.emit(Component.EVENTS.FLOW_RENDER)
-            // component.render()
+            component.renderDom( this.root )
         })
 
     }

@@ -1,62 +1,77 @@
-import { Component, Config, Props } from "../../../core/component"
+import { Component, Config } from "../../../core/component"
+import { Props } from "../../../core/component"
 import { checkField } from "../../../core/index"
-import { $ } from "../../../core/DomElement"
+import { Title } from "../title/title"
 
 
 export class Item extends Component {
 
     static TEMPLATE = '../app/components/item/item.html'
+    boundFunc: Function
+    keyFunc: Function
+    errorText: Title
     
     constructor(config: Config) {
         config.template = Item.TEMPLATE;
-        super( config );
+        config.tagName = 'label'
+        super( config )
+        this.element!.setClass( 'form-label' )
+        this.boundFunc = () => {}
+        this.keyFunc = () => {}
+        this.errorText = this.initTextError()
+        this.append( this.errorText )
+    }
+
+    initTextError(): Component {
+        const errorText = new Title({
+            props: {
+                title: 'Error text'
+            },
+            tagName: 'span'
+        })
+        errorText.element!.setClass( 'form-textErorr' )
+        errorText.hide()
+        return errorText
     }
 
     componentDidMount() {
-        this.initBlurAndFocus();
+        setTimeout(() => {
+            this.initBlurAndFocus()
+        }, 0);
     }
 
     private initBlurAndFocus() {
         const field = this.element!.find('input')
         if (field) {
-            field.on('blur', this.checkForm as EventListener, this)
-            field.on('keydown', this.clearForm, this)
+            this.boundFunc = (e: FocusEvent) => {
+                checkForm(e, this)
+            }
+            field.nativeElement!.addEventListener('blur', this.boundFunc as EventListener)
+            this.keyFunc = this.clearForm.bind(this)
+            field.on('focus', this.keyFunc as EventListener)
         }
     }
 
-    private checkField( target: HTMLInputElement): Props {
-        return checkField(target)
-    }
-
-    private checkForm(e: Event & FocusEvent) {
-        
-        const props = Object.assign({},this.props)
-        const field = e.target as HTMLInputElement
-        const checkField: Props = this.checkField(field)
-        
-        if (checkField.test) {
-            props.value = field.value,
-            props.error = checkField.message
-        } else {
-            props.value = field.value,
-            props.error = ''
-        }
-        this.setProps(props)
-    }
-
-    private clearForm(e: Event) {
-        const field = e.target as HTMLInputElement
-        $(field).parent()!.find('span').hide()
-        $(field).parent()!.find('span').text('')
-        $(field).off('keydown', this.clearForm)
+    private clearForm() {
+        this.errorText.hide()
     }
 
 }
 
-export const item = new Item({
-    selector: 'app-item',
-    props: {
-        title: 'API handler',
-        icon: 'pest_control_rodent'
+
+const checkForm = (e: Event & FocusEvent, self: Item) => {
+
+    const field = e.target as HTMLInputElement
+    const check: Props = checkField(field)
+
+    if (check.test) {
+        self.errorText.setProps({
+            title: check.message
+        })
+        self.errorText.show()
+    } else {
+        self.errorText.hide()
     }
-})
+
+}
+

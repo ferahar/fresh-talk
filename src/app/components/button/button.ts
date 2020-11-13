@@ -3,36 +3,25 @@ import { Component, Config } from "../../../core/component"
 export class Button extends Component {
 
     static TEMPLATE = '../app/components/button/button.html'
-    private onclick: Function | null
+    private callback: Function | null
 
-    constructor(config: Config, onclick?: Function) {
+    constructor(config: Config, callback?: Function, className?: string) {
         config.template = Button.TEMPLATE;
-        config.listeners = {
-            'click': 'onClick'
-        }
-        super( config );
-        
-        if (onclick) {
-            this.onclick = onclick
+        config.tagName = 'button'
+        super(config)
+        if (className) {
+            this.element!.setClass(className)
         } else {
-            this.onclick = null
+            this.element!.setClass('button')
         }
-    }
-
-    componentDidMount() {
-        console.log('ButtonClick = ',this.props.title);
-    }
-
-    onClick() {
-        if (this.onclick !== null) {
-            (this.onclick as Function)()
+        
+        
+        if (callback && this.element ) {
+            this.callback = callback
+            this.element.on( 'click', this.callback as EventListener, this )
+        } else {
+            this.callback = null
         }
     }
 
 }
-
-
-
-
-
-  

@@ -1,6 +1,6 @@
 import { EventBus } from "./eventbus"
-import { DomElement, $ } from "./DomElement"
-import { Router } from "./router"
+import { DomElement, $ } from "./util/DomElement"
+import { Router } from "./router/router"
 
 export type StringIndexed = Record<string, unknown>;
 
@@ -23,22 +23,27 @@ export class Component {
   }
   
   private _template: string = ''
+
   private _element: DomElement | null = null;
-  private _selectorClass: string = ''
+  private _meta: Config | null = null;
+  
   private listeners: {[key: string]: keyof Component}
   
   protected components: Component[] | null = null
 
-  selector: string = 'app-root'
   eventBus: EventBus
   props: Props
   
   constructor(config: Config){
+    
+    this._meta = {
+      tagName: config.tagName,
+      props: config.props
+    }
 
-    this.selector = config.selector as string
-    this._selectorClass = config.selectorClass as string
     this._template = config.template as string
     this.listeners = config.listeners as {}
+    
     if (config.components) {
       this.components = config.components as Component[]
     }
@@ -49,12 +54,7 @@ export class Component {
     
     this.eventBus = new EventBus();
     this._registerEvents(this.eventBus);
-    this.init()
-  }
-
-
-  get element(): DomElement | null {
-    return this._element
+    this.eventBus.emit(Component.EVENTS.INIT)
   }
 
   private _registerEvents(eventBus: EventBus) {
@@ -65,16 +65,11 @@ export class Component {
   }
 
   private init() {
-    const element = document.getElementById(this.selector)
-    if (element) {
-      this._element = $(element as HTMLElement)  
-      this._initDomListeners()
-    }
-    
-    if (this._element && this._selectorClass ) {
-      this._element.setClass( this._selectorClass )
-    }
-
+    if (!this._meta) return
+    const tagName = this._meta.tagName;
+    this._element = $(document.createElement( tagName as string))
+    this._initDomListeners()
+    this.eventBus.emit(Component.EVENTS.FLOW_CDM)
   }
 
   private _initDomListeners() {
@@ -90,6 +85,7 @@ export class Component {
 
   private _componentDidMount(): void {
     this.componentDidMount();
+    this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
   }
 
   componentDidMount() { 
@@ -108,37 +104,33 @@ export class Component {
   }
 
   private _render(): void {  
-    
-    if ( !this._element ) {
-      this.init()
+
+    if ( this.element && this._template) {
+      const tmpl = this.render()
+      this.element.html( tmpl )
     }
-    
-    this.render()
-    this._componentDidMount()
-    
+
     if (this.components) {
       this.components.forEach( component => {
-        component.eventBus.emit(Component.EVENTS.INIT)
-        component.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+        // component.renderDom( this.props.id as string )
+        this.append( component )
       })
     }
   }
 
   render() {
-    if(!this._element) throw new Error(`Component with selector ${this.selector} wosn't found`)
-    this.element!.html(nunjucks.render(this._template, this.props))
+    return nunjucks.render(this._template, this.props)
   }
 
   setProps = (nextProps: Props) => {
     if (!nextProps) {
-      return;
+      return
     } else if (this.componentDidUpdate(this.props, nextProps) ) {
       Object.assign(this.props, nextProps);
     }
   }
 
   private _makePropsProxy(props: Props): Props {
-    // const event = this.eventBus
     return new Proxy(props, {
         get: (target, prop: keyof Props) => {
             return target[prop]
@@ -147,8 +139,7 @@ export class Component {
           const check: boolean = this._componentDidUpdate(value, target[prop] as Props)
           if (check) {
               target[prop] = value
-              this._render()
-              // event.emit(Component.EVENTS.FLOW_RENDER)    
+              this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
           }
           return true;
         },
@@ -158,11 +149,38 @@ export class Component {
     });
   }
 
+  get element(): DomElement | null {
+    return this._element
+  }
+
+  getContent() {
+    return this.element;
+  }
+
+  append(component: Component) {
+    if ( !this.element) return
+    this.element.append( component.element as DomElement )
+  }
+
+  append2(components: Component[], id: string) {
+    if ( !this.element || !id) return
+    const node = this.element.find(`#${id}`)
+    components.forEach( component => {
+      node.append( component.element as DomElement )
+    })
+  }
+
+  renderDom(query: string) {
+    const root = document.getElementById( query );
+    if (!root || !this.element) return
+    root.appendChild( this.element.nativeElement as HTMLElement);
+  }
+
   show() {
-      if(this.element) this.element.show()
+      if (this.element) this.element.show()
   }
 
   hide() {
-      if(this.element) this.element.hide()
+      if (this.element) this.element.hide()
   }
 }

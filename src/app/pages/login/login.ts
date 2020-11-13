@@ -1,36 +1,17 @@
 import { Component, Config } from "../../../core/component"
 import { formsLogin } from "../../components/forms/index"
-import { header } from '../../components/header/header'
-
 
 class LoginPage extends Component {
     
     static TEMPLATE = '../app/pages/login/login.html'
     
-    constructor(config: Config) {
-        
-        config.template = LoginPage.TEMPLATE;
+    constructor(config: Config = {}) {
+        config.tagName = 'section'
         super( config );
-    }
-    
-    componentDidMount() {
-        header.setProps( {
-            title: 'Login'
-        } )
+        this.element!.setClass('container')
     }
 }
 
-export const loginPage = new LoginPage({
-    selector: 'app-signIn',
-    props: {
-        title: 'Forms'
-    },
-    components: [
-        formsLogin
-    ]
+export const loginPage = new LoginPage()
 
-})
-
-
-
-  
+loginPage.append(formsLogin)

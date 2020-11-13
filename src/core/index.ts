@@ -1,10 +1,10 @@
 import { Component } from './component'
 import { EventBus } from './eventbus'
 import { Module } from './module'
-import { Router } from './router'
-import { util } from './util'
-import { checkField } from './checkField'
-import { DomElement, $ } from './DomElement'
+import { Router } from './router/router'
+import { util } from './util/util'
+import { checkField } from './util/checkField'
+import { DomElement, $ } from './util/DomElement'
 import { HTTP } from './http/HTTP'
 
 

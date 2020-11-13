@@ -1,4 +1,4 @@
-import { EventBus } from "../eventbus.js"
+// import { EventBus } from "../eventbus.js"
 
 export class Store {
     constructor() {

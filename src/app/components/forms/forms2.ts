@@ -1,54 +1,22 @@
 import { Component, Config, Props } from "../../../core/component"
-import { Item } from "../../components/item/item"
 import { checkField } from "../../../core/index"
-
-type Titles = Record<string, string>;
-
-const titles: Titles = {
-    email: "Почта",
-    phone: "Телфон",
-    avatar: "Автар",
-    firstname: "Имя",
-    secondname: "Фамилия",
-    displayname: "",
-    login: "Логин",
-    password: "Пароль",
-    passwordDouble: "Пароль еще раз",
-    passwordOld: "Старый пароль",
-    passwordNew: "Новый пароль"
-};
-
-function getFields( items: string[] ): Component[] {
-    const components: Component[] = [];
-    items.forEach( (item: string) => {
-        components.push(
-            new Item({
-                selector: `app-${item}`,
-                props: {
-                    title: titles[item],
-                    type: `${item}`,
-                    placeholder: '',
-                    name: `${item}`,
-                    value: ''
-                }
-            })
-        )
-    });
-    return components
-}
+import { Item } from "../item/item"
 
 
 export class Forms2 extends Component {
 
     static TEMPLATE = "../app/components/forms/forms2.html"
     callback: Function
-    constructor(config: Config, callback: Function) {
-        config.components = getFields( (config.props as Props).items as string[] )
+    
+    constructor(config: Config, components:Component[], callback: Function) {
         config.template = Forms2.TEMPLATE;
+        config.tagName = 'form'
         config.listeners = {
             'submit': 'onSubmit'
-        };
+        }
         super( config );
+        this.element!.setClass('container container_isColumn form form_themeLogin')
+        this.components = components
         this.callback = callback
     }
 
@@ -61,21 +29,18 @@ export class Forms2 extends Component {
         e.preventDefault();
         const fields = this.components
 
-        fields!.forEach( el => {
-            const props = Object.assign({}, el.props)
-            
+        fields!.forEach( (el: Item | Component) => {
             const field = el.element!.find('input').nativeElement as HTMLInputElement
             const checkField: Props = this.checkField(field)
-            
             if (checkField.test) {
-                props.value = field.value,
-                props.error = checkField.message
+                (el as Item).errorText.setProps({
+                    title: checkField.message
+                });
+                (el as Item).errorText.show()
                 flag = false
             } else {
-                props.value = field.value,
-                props.error = ''
+                (el as Item).errorText.hide()
             }
-            el.setProps(props)
         });
 
         if (!flag) return

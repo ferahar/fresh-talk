@@ -1,5 +1,5 @@
-import { Component } from "./component";
-import { $ } from "./DomElement"
+import { Component } from "../component";
+import { $ } from "../util/DomElement"
 
 type Route = {
     path: string,
@@ -28,8 +28,9 @@ export class Router {
         
         if (this.routes) {
             this.routes.push({
-                path: path, component: component
-            });    
+                path: path, 
+                component: component
+            });
         }
         
         return this
@@ -41,6 +42,10 @@ export class Router {
             this._onRoute( location.pathname )
         }).bind(this);
         this._onRoute(window.location.pathname);
+        document.querySelectorAll('[href]')!.forEach(e => {
+            e.removeEventListener('click', this.onClick.bind(this))
+            e.addEventListener('click', this.onClick.bind(this))
+        })
     }
 
     private _onRoute(pathname: string) {
@@ -52,19 +57,11 @@ export class Router {
 
         const root = document.getElementById( this._rootQuery )!
         root.innerHTML = ''
-        const page = document.createElement( 'div' )
-        page.id = route!.component.selector
-        root.append(page)
+
         if (route !== undefined) {
-            route.component.eventBus.emit(Component.EVENTS.INIT)
-            route.component.eventBus.emit(Component.EVENTS.FLOW_RENDER)
-            // route.component.element?.findAll('[href]')!.forEach(e => {
-            //     e.on('click', this.onClick, this)
-            // })
+            root.appendChild( route.component.element!.nativeElement as HTMLElement )
         }
-        document.querySelectorAll('[href]')!.forEach(e => {
-            e.addEventListener('click', this.onClick.bind(this))
-        })
+        
     }
 
     go(pathname: string) {
@@ -82,7 +79,7 @@ export class Router {
 
     getRoute(path: string) {
         if (path) {
-            return this.routes!.find(route => route.path.match(path as any));    
+            return this.routes!.find(route => route.path.match(path as any))
         } else return undefined   
     }
 

@@ -1,40 +1,63 @@
 import { Forms2 } from './forms2'
+import { fieldsLogin } from './formFields'
 import { apiAuth } from '../../api/api-auth'
 
-export const formsRegistr2 = new Forms2({
-    selector: 'app-form-registr',
-    props: {
-        items: [
-            "email",
-            "phone",
-            "firstname",
-            "login",
-            "password"
-        ],
-        button: {
-            text: "Зарегистрироваться",
-            textlink: "Авторизоваться",
-            link: "/login"
-        }
-    }
-}, apiGet2);
 
-export const formsLogin = new Forms2({
-    selector: 'app-form-SignIn',
-    props: {
-        items: [
-            "login",
-            "password"
-        ],
-        button: {
-            text: "Авторизоваться",
-            textlink: "Зарегистрироваться",
-            link: "/registr"
+export const formsLogin = new Forms2(
+    {
+        props: {
+            button: {
+                text: "Авторизоваться",
+                textlink: "Зарегистрироваться",
+                link: "/registr"
+            }
         }
-    }
     },
+    fieldsLogin,
+    (data: any) => console.log( data )
+);
+
+formsLogin.append2( fieldsLogin, 'app-formLogin' )
+
+
+export const formsRegistr2 = new Forms2(
+    {
+        props: {
+            items: [
+                "email",
+                "phone",
+                "firstname",
+                "login",
+                "password"
+            ],
+            button: {
+                text: "Зарегистрироваться",
+                textlink: "Авторизоваться",
+                link: "/login"
+            }
+        }
+    }, 
+    fieldsLogin, 
+    apiGet2
+);
+
+export const formsLogin2 = new Forms2(
+    {
+        props: {
+            items: [
+                "login",
+                "password"
+            ],
+            button: {
+                text: "Авторизоваться",
+                textlink: "Зарегистрироваться",
+                link: "/registr"
+            }
+        }
+    },
+    fieldsLogin, 
     apiGet
-    );
+);
 
 function apiGet(data: FormData) {
     for(let [name, value] of data) {

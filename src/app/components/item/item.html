@@ -5,10 +5,7 @@
     </div>
 {% else %}
     {{ title }}
-    <input autofocus class="inputText form-input" type="{{ type }}" value="{{ value }}"  placeholder="{{ placeholder }}" name="{{ name }}" >
-    {% if error %}
-        <span class="form-textErorr">{{ error }}</span>
-    {% endif %}
+    <input class="inputText form-input" type="{{ type }}" value="{{ value }}"  placeholder="{{ placeholder }}" name="{{ name }}" >
 {% endif %}
 
 

@@ -1,30 +1,16 @@
 import { Component, Config } from "../../../core/component"
-import { header } from '../../components/header/header'
 
 class StartPage extends Component {
     
     static TEMPLATE = '../app/pages/start/start.html'
 
-    constructor(config: Config) {
+    constructor(config: Config = {}) {
         config.template = StartPage.TEMPLATE;
+        config.tagName = 'div'
         super( config );
+        this.element!.setClass('container')
     }
 
-    componentDidMount() {
-        header.setProps( {
-            title: 'Главная'
-        } )
-    }
 }
 
-export const startPage = new StartPage({
-    selector: 'app-start',
-    props: {
-        title: 'Test link'
-    }
-})
-
-
-
-
-  
+export const startPage = new StartPage()

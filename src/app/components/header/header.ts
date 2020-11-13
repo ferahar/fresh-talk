@@ -1,27 +1,47 @@
 import { Component, Config } from "../../../core/component"
-import { button, buttonLogout } from "../../components/button/index"
+import { buttonLogin, buttonLogout } from "../../components/button/index"
+import { titleHeader } from "../../components/title/index"
 
 class Header extends Component {
 
     static TEMPLATE = '../app/components/header/header.html'
     
-    constructor(config: Config) {
+    constructor(config: Config = {}) {
         config.template = Header.TEMPLATE;
+        config.tagName = 'header'
         super( config );
+        this.element!.setClass('header header_themeDark')
     }
 
 }
 
-export const header = new Header({
-    selector: 'app-header',
-    props: {
-        title: 'Главная'
-    },
-    components: [
-        button,
-        buttonLogout
-    ]
-})
+export const header = new Header()
+header.append2(
+    [
+        buttonLogin,
+        buttonLogout,
+    ],
+    'app-headerButton'
+)
+
+header.append2(
+    [
+        titleHeader
+    ],
+    'app-headerTitle'
+)
+
+// export const header = new Header({
+//     props: {
+//         title: 'Ferahar',
+//         id: 'app-headerButton'
+//     },
+//     components: [
+//         buttonLogin,
+//         buttonLogout,
+//         titleHeader
+//     ]
+// })
 
 
 

@@ -1,4 +1,3 @@
-import { appModule } from "./app/app-module"
-console.log('-= ʕ ᵔᴥᵔ ʔ =-')
+import { start } from "./app/app-module"
 
-appModule.start()
+start()
