@@ -1,5 +1,5 @@
 import { Component } from "../component";
-import { $ } from "../util/DomElement"
+import { $, DomElement } from "../util/DomElement"
 
 type Route = {
     path: string,
@@ -15,12 +15,13 @@ export class Router {
     routes: Route[] | undefined = []
     
     
-    constructor(rootQuery: string) {
+    constructor(rootQuery?: string) {
         if (Router.__instance) {
             return Router.__instance;
         }
-
-        this._rootQuery = rootQuery;
+        if (rootQuery) {
+            this._rootQuery = rootQuery
+        }
         Router.__instance = this;
     }
 
@@ -42,10 +43,6 @@ export class Router {
             this._onRoute( location.pathname )
         }).bind(this);
         this._onRoute(window.location.pathname);
-        document.querySelectorAll('[href]')!.forEach(e => {
-            e.removeEventListener('click', this.onClick.bind(this))
-            e.addEventListener('click', this.onClick.bind(this))
-        })
     }
 
     private _onRoute(pathname: string) {
@@ -81,6 +78,12 @@ export class Router {
         if (path) {
             return this.routes!.find(route => route.path.match(path as any))
         } else return undefined   
+    }
+
+    initLink(node: DomElement) {
+        node.findAll('[href]')!.forEach(e => {
+            e.on('click', this.onClick.bind(this))
+        })
     }
 
     onClick(event: Event) {

@@ -6,9 +6,10 @@ import { Item } from "../item/item"
 export class Forms2 extends Component {
 
     static TEMPLATE = "../app/components/forms/forms2.html"
+    private components: Component[] | null
     callback: Function
     
-    constructor(config: Config, components:Component[], callback: Function) {
+    constructor(config: Config, components:Component[], target: string, callback: Function) {
         config.template = Forms2.TEMPLATE;
         config.tagName = 'form'
         config.listeners = {
@@ -17,6 +18,7 @@ export class Forms2 extends Component {
         super( config );
         this.element!.setClass('container container_isColumn form form_themeLogin')
         this.components = components
+        this.append2( this.components, target )
         this.callback = callback
     }
 

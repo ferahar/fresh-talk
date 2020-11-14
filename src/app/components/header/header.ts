@@ -31,18 +31,14 @@ header.append2(
     'app-headerTitle'
 )
 
-// export const header = new Header({
-//     props: {
-//         title: 'Ferahar',
-//         id: 'app-headerButton'
-//     },
-//     components: [
-//         buttonLogin,
-//         buttonLogout,
-//         titleHeader
-//     ]
-// })
 
+export const headerLogin = new Header()
+header.append2(
+    [
+        titleHeader
+    ],
+    'app-headerTitle'
+)
 
 
 

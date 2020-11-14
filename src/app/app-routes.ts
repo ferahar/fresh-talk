@@ -12,5 +12,5 @@ export const appRoutes = [
     { path: '/404', component: page404 }
 ]
 
-export const router = new Router('app-page')
+export const router = new Router('app-root')
 router.routes = appRoutes

@@ -14,22 +14,13 @@ export const formsLogin = new Forms2(
         }
     },
     fieldsLogin,
+    'app-formLogin',
     (data: any) => console.log( data )
 );
-
-formsLogin.append2( fieldsLogin, 'app-formLogin' )
-
 
 export const formsRegistr2 = new Forms2(
     {
         props: {
-            items: [
-                "email",
-                "phone",
-                "firstname",
-                "login",
-                "password"
-            ],
             button: {
                 text: "Зарегистрироваться",
                 textlink: "Авторизоваться",
@@ -37,8 +28,9 @@ export const formsRegistr2 = new Forms2(
             }
         }
     }, 
-    fieldsLogin, 
-    apiGet2
+    fieldsRegistr,
+    'app-formRegistr',
+    (data: any) => console.log( data )
 );
 
 export const formsLogin2 = new Forms2(
@@ -55,7 +47,8 @@ export const formsLogin2 = new Forms2(
             }
         }
     },
-    fieldsLogin, 
+    fieldsLogin,
+    'app-formRegistr', 
     apiGet
 );
 

@@ -5,7 +5,7 @@ class AppPage extends Component {
         config.tagName = 'main'
         super(config)
         if ( this.element ) {
-            this.element.setClass("container container_centerStart")
+            this.element.setClass("container")
             this.element.attr("id","app-page")
         }
     }

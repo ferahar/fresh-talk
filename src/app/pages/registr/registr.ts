@@ -1,4 +1,5 @@
 import { Component, Config } from "../../../core/component"
+import { Router, DomElement } from "../../../core/index";
 import { formsRegistr2 } from "../../components/forms/index"
 import { header } from '../../components/header/header'
 
@@ -21,12 +22,13 @@ class RegistrPage extends Component {
 }
 
 export const registrPage = new RegistrPage({
-    selector: 'app-registr',
     components: [
         formsRegistr2
     ]
 
 })
+
+new Router().initLink( registrPage.element as DomElement )
 
 
 

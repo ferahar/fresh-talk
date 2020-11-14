@@ -29,7 +29,7 @@ export class Component {
   
   private listeners: {[key: string]: keyof Component}
   
-  protected components: Component[] | null = null
+  // protected components: Component[] | null = null
 
   eventBus: EventBus
   props: Props
@@ -44,9 +44,9 @@ export class Component {
     this._template = config.template as string
     this.listeners = config.listeners as {}
     
-    if (config.components) {
-      this.components = config.components as Component[]
-    }
+    // if (config.components) {
+    //   this.components = config.components as Component[]
+    // }
 
     if (config.props) {
       this.props = this._makePropsProxy(config.props as {});  
@@ -110,12 +110,12 @@ export class Component {
       this.element.html( tmpl )
     }
 
-    if (this.components) {
-      this.components.forEach( component => {
-        // component.renderDom( this.props.id as string )
-        this.append( component )
-      })
-    }
+    // if (this.components) {
+    //   this.components.forEach( component => {
+    //     // component.renderDom( this.props.id as string )
+    //     this.append( component )
+    //   })
+    // }
   }
 
   render() {
@@ -162,9 +162,12 @@ export class Component {
     this.element.append( component.element as DomElement )
   }
 
-  append2(components: Component[], id: string) {
-    if ( !this.element || !id) return
-    const node = this.element.find(`#${id}`)
+  append2(components: Component[], id?: string) {
+    
+    if ( !this.element) return
+    console.log(components);
+    let node = this.element
+    if ( id ) node = this.element.find(`#${id}`)
     components.forEach( component => {
       node.append( component.element as DomElement )
     })

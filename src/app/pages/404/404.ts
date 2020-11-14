@@ -1,4 +1,5 @@
 import { Component, Config } from "../../../core/component"
+import { Router, DomElement } from "../../../core/index";
 
 
 class Page404 extends Component {
@@ -21,6 +22,4 @@ export const page404 = new Page404({
 })
 
 
-
-
-  
+new Router().initLink( page404.element as DomElement )
