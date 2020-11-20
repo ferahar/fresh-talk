@@ -1,12 +1,16 @@
-import { Component, Config } from "../../../core/component"
+import { Component } from "../../../core/component/component"
 import { buttonLogin, buttonLogout } from "../../components/button/index"
 import { titleHeader } from "../../components/title/index"
+
+type Indexed = {
+    [key in string]: unknown
+}
 
 class Header extends Component {
 
     static TEMPLATE = '../app/components/header/header.html'
     
-    constructor(config: Config = {}) {
+    constructor(config: Indexed = {}) {
         config.template = Header.TEMPLATE;
         config.tagName = 'header'
         super( config );
@@ -16,7 +20,7 @@ class Header extends Component {
 }
 
 export const header = new Header()
-header.append2(
+header.append(
     [
         buttonLogin,
         buttonLogout,
@@ -24,7 +28,7 @@ header.append2(
     'app-headerButton'
 )
 
-header.append2(
+header.append(
     [
         titleHeader
     ],
@@ -33,7 +37,7 @@ header.append2(
 
 
 export const headerLogin = new Header()
-header.append2(
+header.append(
     [
         titleHeader
     ],

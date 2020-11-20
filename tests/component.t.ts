@@ -1,4 +1,4 @@
-import { Component, Config } from "../src/core/component"
+import { Component, Config } from "../src/core/component/component"
 
 export class Box extends Component {
 

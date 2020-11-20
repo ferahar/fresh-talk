@@ -1,14 +1,13 @@
-type fun = (...rest: any[])=>void 
 
 type List = {
-    [key:string]: Array<fun>;
+    [key:string]: Array<Function>;
 }
 
 
 export class EventBus {
     private listeners: List = {}
 
-    on(event:keyof List, callback: fun) {
+    on(event:keyof List, callback: Function) {
         if (!this.listeners[event]) {
             this.listeners[event]=[];
         }
@@ -25,7 +24,7 @@ export class EventBus {
         );
     }
 
-    emit(event:keyof List, ...data: any[]) {
+    emit(event:keyof List, ...data: unknown[]) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }

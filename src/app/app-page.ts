@@ -1,4 +1,4 @@
-import { Component, Config } from '../core/Component'
+import { Component, Config } from '../core/component/component'
 
 class AppPage extends Component {
     constructor(config: Config = {}) {

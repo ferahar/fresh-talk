@@ -1,6 +1,8 @@
-import { Props } from "../component"
+type Indexed = {
+    [key in string]: unknown
+}
 
-export function checkField(fieldName: HTMLInputElement): Props {
+export function checkField(fieldName: HTMLInputElement): Indexed {
     let test: boolean = false
     let message: string = ''
     
@@ -28,12 +30,18 @@ export function checkField(fieldName: HTMLInputElement): Props {
         case 'avatar':
             test = false   
             break;
-        default:
+        case 'submit':
+            test = false;
+            break;
+        case 'text':
             if (fieldName.value.length === 0) {
-                test = true
-                message = "Поле не должно быть пустым"
+                test = true;
+                message = "Поле не должно быть пустым";
             }
-        break;
+            break;
+        default:
+            test = false;
+            break;
     }
     return {test:test, message:message}
 }

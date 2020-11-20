@@ -1,4 +1,4 @@
-import { Component } from "../Component"
+import { Component } from "../component/component"
 
 export function render(query: string, block: Component) {
     const root = document.querySelector(query);

@@ -1,25 +1,26 @@
-import { Component, Config } from "../../../core/component"
-import { Router, DomElement } from "../../../core/index";
-import { formsLogin } from "../../components/forms/index"
+import { Component,Router, DomElement } from "../../../core/index"
 import { headerLogin } from "../../components/header/header"
+import { formsLogin } from "../../components/forms/index"
 
+
+type Indexed = {
+    [key in string]: unknown
+}
 
 class LoginPage extends Component {
-    
-    static TEMPLATE = '../app/pages/login/login.html'
-    
-    constructor(config: Config = {}) {
+
+    constructor(config: Indexed = {}) {
         config.tagName = 'section'
-        super( config );
+        super( config )
         this.element!.setClass('container container_isColumn container_center')
     }
 }
 
 export const loginPage = new LoginPage()
 
-loginPage.append2([
+loginPage.append([
     headerLogin,
-    formsLogin,
+    formsLogin
 ])
 
 new Router().initLink( loginPage.element as DomElement )

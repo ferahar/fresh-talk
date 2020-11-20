@@ -1,12 +1,14 @@
-import { Component, Config } from "../../../core/component"
-import { Router, DomElement } from "../../../core/index";
+import { Component,Router, DomElement } from "../../../core/index"
 
+type Indexed = {
+    [key in string]: unknown
+}
 
 class Page404 extends Component {
 
     static TEMPLATE = '../app/pages/404/404.html'
 
-    constructor(config: Config) {
+    constructor(config: Indexed) {
         config.template = Page404.TEMPLATE;
         config.tagName = 'section'
         super( config );

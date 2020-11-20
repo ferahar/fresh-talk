@@ -10,19 +10,10 @@ export class DomElement {
         this.nativeElement = el as HTMLElement;
     }
 
-    // on<T>(eventName: string, func: EventListener, context: T){
-    //     func = func.bind(context)
-    //     this.nativeElement.addEventListener(eventName, func)
-    //     return this
-    // }
+    on(eventName: string, func: EventListener, option=false){
 
-    on<T>(eventName: string, func: EventListener, context?: T){
-        let fun = func
-        if (context) {
-            fun = func.bind(context)
-        }
         if (this.nativeElement) {
-            this.nativeElement.addEventListener(eventName, fun)
+            this.nativeElement.addEventListener(eventName, func, option)
         }
         return this
     }
@@ -51,14 +42,14 @@ export class DomElement {
     getHtml(): string | boolean {
         if (this.nativeElement) {
             return this.nativeElement.innerHTML
-        };
+        }
         return false
       }
 
     append(el: DomElement) {
         if (this.nativeElement) {
             this.nativeElement.appendChild(el.nativeElement as Node)
-        };
+        }
         return this
     }
 

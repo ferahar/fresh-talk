@@ -1,32 +1,29 @@
-import { Component, Config } from "../../../core/component"
-import { Router, DomElement } from "../../../core/index";
-import { formsRegistr2 } from "../../components/forms/index"
-import { header } from '../../components/header/header'
+import { Component, Router, DomElement } from "../../../core/index";
+import {formsLogin} from "../../components/forms/index"
+import {header} from '../../components/header/header'
 
+type Indexed = {
+    [key in string]: unknown
+}
 
 class RegistrPage extends Component {
     
     static TEMPLATE = '../app/pages/registr/registr.html'
-    
-    constructor(config: Config) {
-        
-        config.template = RegistrPage.TEMPLATE;
-        super( config );
+
+    constructor(config: Indexed = {}) {
+        config.tagName = 'section'
+        super( config )
+        this.element!.setClass('container container_isColumn container_center')
     }
-    
-    componentDidMount() {
-        header.setProps( {
-            title: 'Регистрация'
-        } )
-    }
+
 }
 
-export const registrPage = new RegistrPage({
-    components: [
-        formsRegistr2
-    ]
+export const registrPage = new RegistrPage()
 
-})
+registrPage.append([
+    header,
+    formsLogin
+])
 
 new Router().initLink( registrPage.element as DomElement )
 

@@ -1,17 +1,17 @@
-import { Component } from './component'
-import { EventBus } from './eventbus'
-import { Module } from './module'
+import { Component } from './component/component'
+import { EventBus } from './eventbus/eventbus'
 import { Router } from './router/router'
 import { util } from './util/util'
-import { checkField } from './util/checkField'
-import { DomElement, $ } from './util/DomElement'
+import { checkField } from './util/check-field'
+import { DomElement, $ } from './util/dom-element'
 import { HTTP } from './http/HTTP'
+import {Store} from "./store/store";
 
 
 export {
     Component,
+    Store,
     EventBus,
-    Module,
     Router,
     HTTP,
     util,

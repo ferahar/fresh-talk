@@ -1,15 +1,18 @@
 import { Router, DomElement } from "../../../core/index";
-import { Component, Config } from "../../../core/component"
+import { Component } from "../../../core/component/component"
 
+type Indexed = {
+    [key in string]: unknown
+}
 
 class StartPage extends Component {
 
     static TEMPLATE = '../app/pages/start/start.html'
 
-    constructor(config: Config = {}) {
+    constructor(config: Indexed = {}) {
         config.template = StartPage.TEMPLATE;
         config.tagName = 'div'
-        super( config );
+        super( config )
         this.element!.setClass('container')
     }
 
