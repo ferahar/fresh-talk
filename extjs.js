@@ -22,7 +22,7 @@ files.then((filePaths) => {
       let newData = data.replace(/(import .* from\s+['"])(.*)(?=['"])/g, '$1$2.js')
       if (err) throw err;
 
-      console.log("\x1b[32m", `writing to ${filepath}`)
+      console.log(`writing to ${filepath}`)
       fs.writeFile(filepath, newData, function (err) {
         if (err) {
           throw err;
@@ -30,5 +30,5 @@ files.then((filePaths) => {
       });
     })
   })
-  console.log("\x1b[0m",'complete');
+  console.log('complete');
 });

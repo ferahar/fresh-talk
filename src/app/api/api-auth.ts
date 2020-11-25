@@ -4,13 +4,19 @@ class ApiAuth {
 
     signUp(data:{}) {
         return authAPIInstance.post('/signup', {
-            data: data
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
         })
     }
 
     signIn(data:{}) {
         return authAPIInstance.post('/signin', {
-            data: data
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
         })
     }
 

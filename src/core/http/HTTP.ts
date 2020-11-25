@@ -8,7 +8,7 @@ const METHODS = {
     GET: 'GET',
     POST: 'POST',
     PUT: 'PUT',
-    DELETE: 'DLETE'
+    DELETE: 'DELETE'
 };
 
 export class HTTP {
@@ -50,16 +50,9 @@ export class HTTP {
             if (method === METHODS.GET && data) {
                 url = url + queryStringify(data)
             }
+
             xhr.open(method, url)
             xhr.withCredentials = true
-
-            xhr.onload = () => {
-                if (xhr.status !== 200) {
-                    reject(xhr)
-                } else {
-                    resolve(xhr);
-                }
-            }
 
             if (headers) {
                 Object.keys(headers).forEach(key => {
@@ -67,17 +60,24 @@ export class HTTP {
                 })
             }
 
+            xhr.onload = () => {
+                if (xhr.status !== 200) {
+                    reject(xhr)
+                } else {
+                    resolve(xhr)
+                }
+            }
+
             xhr.timeout = timeout
 
             xhr.onerror = reject
             xhr.onabort = reject
-            xhr.ontimeout = reject;
+            xhr.ontimeout = reject
 
             if (method === METHODS.GET) {
-                xhr.send();
+                xhr.send()
             } else {
-                xhr.setRequestHeader("Content-Type", "application/json")
-                xhr.send(JSON.stringify( data as any));
+                xhr.send( data as any)
             }
         })
     };

@@ -1,6 +1,6 @@
 import { Component, Router, DomElement } from "../../../core/index";
-import {formsLogin} from "../../components/forms/index"
-import {header} from '../../components/header/header'
+import {formsRegistr2} from "../../components/forms/index"
+import {headerReg} from '../../components/header/index'
 
 type Indexed = {
     [key in string]: unknown
@@ -21,8 +21,8 @@ class RegistrPage extends Component {
 export const registrPage = new RegistrPage()
 
 registrPage.append([
-    header,
-    formsLogin
+    headerReg,
+    formsRegistr2
 ])
 
 new Router().initLink( registrPage.element as DomElement )

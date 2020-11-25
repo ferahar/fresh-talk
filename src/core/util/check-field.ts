@@ -5,8 +5,7 @@ type Indexed = {
 export function checkField(fieldName: HTMLInputElement): Indexed {
     let test: boolean = false
     let message: string = ''
-    
-    switch (fieldName.name) {
+    switch (fieldName.type) {
         case 'email':
             const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             if (fieldName.value.length === 0 || !emailRegExp.test(fieldName.value)) {
@@ -14,7 +13,7 @@ export function checkField(fieldName: HTMLInputElement): Indexed {
                 message = "Не верный формат почты"
             }    
             break;
-        case 'phone':
+        case 'tel':
             const phoneRegExp = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/;
             if (fieldName.value.length === 0 || !phoneRegExp.test(fieldName.value)) {
                 test = true

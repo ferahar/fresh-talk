@@ -6,7 +6,6 @@ type Indexed = {
     [key in string]: unknown
 }
 
-
 export class Store {
 
     static EVENTS = {
@@ -14,6 +13,7 @@ export class Store {
         IS_LOGIN: 'isLogin',
         LOGOUT: 'logout',
         SET_PROFILE: 'setProfile',
+        STATE_CHANGE: 'state_change',
 
     }
 
@@ -29,10 +29,12 @@ export class Store {
             return Store.__instance
         }
 
-        this.state = this.reduce(Store.EVENTS.INIT, initialState)
+        // this.state = this.reduce(Store.EVENTS.INIT, initialState)
+        this.state = initialState
         this.reducers = reducers
         this.eventBus = new EventBus()
         // this.subscribs = []
+        this.init()
         Store.__instance = this
     }
 
@@ -40,11 +42,13 @@ export class Store {
         return this.state
     }
 
+    private init() {
+        if (!this.eventBus) return
+        this.eventBus.on(Store.EVENTS.STATE_CHANGE, ()=>{})
+    }
+
     getState(name: string): boolean |string {
-        if (!this.state) {
-            return findState(this.state, name);
-        }
-        return false
+        return findState(this.state, name)
     }
 
     setState(name: string, value: unknown) {
@@ -59,17 +63,17 @@ export class Store {
     dispatch(actionName: string, prop = {}) {
 
         let newState = this.reduce(actionName, this.state, prop)
-        this.state[actionName] = Object.assign(this.state[actionName] , newState)
+        this.state = Object.assign(this.state , newState)
         if (this.eventBus) {
-            this.eventBus.emit(actionName, this.prop)
+            this.eventBus.emit(Store.EVENTS.STATE_CHANGE, this.prop)
         }
     }
 
     private reduce(actionName:string, state: Indexed, prop={}) {
 
         const fun: Function = this.reducers[actionName] as Function
-        let newState = fun(state[actionName], prop)
-        return Object.assign(this.state[actionName] , newState)
+        let newState = fun(state, prop)
+        return Object.assign(this.state, newState)
     }
 
 }

@@ -2,7 +2,6 @@ import { Component } from "../component/component";
 import { Store } from "../store/store";
 import { $, DomElement } from "../util/dom-element"
 
-const store = new Store()
 
 type Route = {
     path: string,
@@ -50,22 +49,25 @@ export class Router {
             this._onRoute( location.pathname )
         }).bind(this);
 
-        const isLogin = store.getState('isLogin')
-        if (!isLogin) {
+        const isLogin = new Store().getState('isLogin')
+        const pathname = window.location.pathname
+        if (!isLogin && pathname!=='/login' && pathname!=='/registr') {
             this.go('/login')
             return
+        } else if (isLogin && (pathname ==='/login' || pathname ==='/registr')) {
+            this.go('/')
+            return
         }
-        this._onRoute(window.location.pathname);
+        this._onRoute(pathname);
     }
 
     private _onRoute(pathname: string) {
         let route = this.getRoute(pathname);
-        const isLogin = store.getState('isLogin')
+        const isLogin = new Store().getState('isLogin')
 
         console.log(
             'isLogin=', isLogin
         );
-
 
         if (!isLogin && pathname!=='/login' && pathname!=='/registr') {
             this.go('/login')

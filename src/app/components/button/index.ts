@@ -9,10 +9,7 @@ export const buttonLogin = new Button(
             icon: 'pest_control_rodent'
         }
     },
-    () => {
-        console.log("\x1b[46m", 'I am Jerry click');
-        console.log("\x1b[0m");
-    },
+    () => apiAsignIn(),
     'button button_ghost'
 )
 
@@ -34,18 +31,18 @@ export const buttonLogout = new Button(
     'button button_ghost'
 )
 
-// function apiAsignIn() {
+function apiAsignIn() {
     
-//     console.log('ButtonClick = apiAsignIn' );
+    console.log('ButtonClick = apiAsignIn' )
 
-//     apiAuth.signIn({
-//             "login": "Rambo1212",
-//             "password": "120280",
-//     })
-//     .then( apiAuth.user, error => {
-//         console.log( error.response );
-//     })
-//     .then( data => {
-//         console.log( (data as XMLHttpRequest).response )
-//     } )
-// }
+    apiAuth.signIn({
+            "login": "ferahar",
+            "password": "Rozamina25",
+    })
+    // .then( apiAuth.user, error => {
+    //     console.log( error.response )
+    // })
+    .then( data => {
+        console.log( (data as XMLHttpRequest).response )
+    } )
+}

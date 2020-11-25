@@ -33,13 +33,11 @@ test('Find in state to equal "cool"', () => {
 
 test('Add in state to equal "cool"', () => {
     setState(state, 'chats.messages.type', '44')
-    console.log(state)
     expect( findState(state, 'chats.messages.type') ).toBe('44');
 });
 
 test('Add new object in state', () => {
     setState(state, 'todo', {title:'Todo', status:'load'})
-    console.log(state)
     expect( findState(state, 'todo.status') ).toBe('load');
 });
 

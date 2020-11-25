@@ -1,5 +1,5 @@
 import { Component,Router, DomElement } from "../../../core/index"
-import { headerLogin } from "../../components/header/header"
+import { headerLogin } from "../../components/header/index"
 import { formsLogin } from "../../components/forms/index"
 
 

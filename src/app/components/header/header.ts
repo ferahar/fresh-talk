@@ -1,49 +1,28 @@
-import { Component } from "../../../core/component/component"
-import { buttonLogin, buttonLogout } from "../../components/button/index"
-import { titleHeader } from "../../components/title/index"
+import { Component } from "../../../core/index"
 
 type Indexed = {
     [key in string]: unknown
 }
 
-class Header extends Component {
+export class Header extends Component {
 
     static TEMPLATE = '../app/components/header/header.html'
-    
-    constructor(config: Indexed = {}) {
-        config.template = Header.TEMPLATE;
+    private callback: Function | null
+
+    constructor(config:Indexed = {}, callback: Function | null = null) {
+
+        config.template = Header.TEMPLATE
         config.tagName = 'header'
-        super( config );
-        this.element!.setClass('header header_themeDark')
+        config.listeners = {
+            'click': 'click'
+        }
+
+        super(config)
+        this.callback = callback
+        this.element.setClass('header header_themeDark')
     }
-
+    click(e: Event) {
+        if (this.callback)
+            this.callback(e)
+    }
 }
-
-export const header = new Header()
-header.append(
-    [
-        buttonLogin,
-        buttonLogout,
-    ],
-    'app-headerButton'
-)
-
-header.append(
-    [
-        titleHeader
-    ],
-    'app-headerTitle'
-)
-
-
-export const headerLogin = new Header()
-header.append(
-    [
-        titleHeader
-    ],
-    'app-headerTitle'
-)
-
-
-
-  
