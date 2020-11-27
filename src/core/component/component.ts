@@ -6,12 +6,10 @@ type Indexed = {
   [key in string]: unknown
 }
 
-type domComponent = {
-  component: Component,
-  place: string
-}
 
-type ListComponents = domComponent[]
+type ListComponents = {
+  [key in string]: Component[]
+}
 
 
 declare var nunjucks: any
@@ -31,7 +29,7 @@ export class Component {
 
   protected _store: Store | null = null
   protected _template: string = ''
-  protected components: ListComponents = []
+  protected components: ListComponents = {}
 
   eventBus: EventBus
   props: Indexed
@@ -95,6 +93,7 @@ export class Component {
     return false
   }
 
+
   private _render(): void {
 
     if ( this.element && this._template) {
@@ -103,11 +102,11 @@ export class Component {
     }
 
     if (this.components) {
-      this.components.forEach( domComponent => {
-        const component = domComponent.component
-        //component.eventBus.emit(Component.EVENTS.FLOW_RENDER)
-        const place = domComponent.place
-        this.append( [component], place )
+      Object.keys(this.components).forEach(key=>{
+        const compArray = this.components[key]
+        compArray.forEach(component=>{
+          this.append( [component], key )
+        })
       })
     }
 
@@ -155,10 +154,16 @@ export class Component {
   append(components: Component[], id?: string) {
 
     if ( !this.element) return
-    let node: DomElement = this.element
-    if ( id ) node = this.element.find(`#${id}`)
+    let element: DomElement = this.element
+    let node: DomElement | undefined = undefined
+    if ( id ) {
+      node = this.element.find(`#${id}`)
+    }
+    if (node !== undefined) {
+      element = node
+    }
     components.forEach( component => {
-      node.append( component.element as DomElement )
+      element.append( component.element as DomElement )
     })
   }
 

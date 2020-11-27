@@ -1,0 +1,19 @@
+{% if title %}
+{{ title }}
+{% endif %}
+
+{% if field.avatar %}
+<div class="avatar avatar_large">
+    <img src="{{ image }}" alt="">
+    <input class="avatar-input" type="file" name="{{ name }}" >
+    <span class="form-textErorr" style="display: none;">{{error}}</span>
+</div>
+{% else %}
+<input class="inputText form-input" type="{{ type }}" value="{{ value }}"  placeholder="{{ placeholder }}" name="{{ name }}" >
+<span class="form-textErorr" style="display: none;">{{error}}</span>
+{% endif %}
+
+
+
+
+

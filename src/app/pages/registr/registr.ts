@@ -1,5 +1,5 @@
 import { Component, Router, DomElement } from "../../../core/index";
-import {formsRegistr2} from "../../components/forms/index"
+import {formsRegistr} from "../../components/forms/index"
 import {headerReg} from '../../components/header/index'
 
 type Indexed = {
@@ -22,7 +22,7 @@ export const registrPage = new RegistrPage()
 
 registrPage.append([
     headerReg,
-    formsRegistr2
+    formsRegistr
 ])
 
 new Router().initLink( registrPage.element as DomElement )
