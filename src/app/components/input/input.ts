@@ -8,7 +8,7 @@ declare var nunjucks: any
 
 export class Input extends Component {
 
-    static TEMPLATE = '../app/components/item/input.html'
+    static TEMPLATE = '../app/components/input/input.html'
 
     constructor(props: Indexed) {
         super(
@@ -16,9 +16,6 @@ export class Input extends Component {
                 template: Input.TEMPLATE,
                 tagName: 'label',
                 props: props,
-                listeners: {
-                    'submit': 'onSubmit'
-                }
             }
         )
         this.element.setClass('form-label')
