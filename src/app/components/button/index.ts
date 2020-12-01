@@ -9,8 +9,9 @@ export const buttonLogin = new Button(
             icon: 'pest_control_rodent'
         }
     },
-    () => apiAsignIn(),
-    'button button_ghost'
+    'button button_ghost',
+    () => apiAsignIn()
+
 )
 
 
@@ -21,14 +22,14 @@ export const buttonLogout = new Button(
             // icon: 'pest_control_rodent'
         }
     },
+    'button button_ghost',
     () => {
         apiAuth.logout()
         .then( 
             data => console.log( (data as XMLHttpRequest).response ),
             error => console.log(error.response)
         )
-    },
-    'button button_ghost'
+    }
 )
 
 function apiAsignIn() {

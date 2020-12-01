@@ -9,16 +9,18 @@ export class Button extends Component {
     static TEMPLATE = '../app/components/button/button.html'
     private callback: Function | null
 
-    constructor(config: Indexed, callback?: Function, className?: string) {
-        config.template = Button.TEMPLATE;
-        config.tagName = 'button'
-        super(config)
+    constructor(props: Indexed, className?: string, callback?: Function) {
+        super({
+            template: Button.TEMPLATE,
+            tagName: 'button',
+            props: props
+        })
+
         if (className) {
             this.element!.setClass(className)
         } else {
             this.element!.setClass('button')
         }
-        
         
         if (callback && this.element ) {
             this.callback = callback

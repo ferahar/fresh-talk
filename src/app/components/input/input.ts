@@ -19,12 +19,18 @@ export class Input extends Component {
             }
         )
         this.element.setClass('form-label')
+        if (this.props.store) {
+            new Store().subscribe(Store.EVENTS.STATE_CHANGE, ()=> {
+                this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+            } )
+        }
     }
 
     render() {
-        if (this.props.value || this.props.value !=='') {
-            const value = new Store().getState(this.props.value as string)
-            const props = Object.assign(this.props, {value})
+        if (this.props.store) {
+            const props = Object.assign({},this.props)
+            props.value = new Store().getState(this.props.store as string)
+            console.log(props)
             return nunjucks.render(this._template, props)
         }
         return nunjucks.render(this._template, this.props)

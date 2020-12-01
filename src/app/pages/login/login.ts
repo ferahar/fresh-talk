@@ -1,6 +1,6 @@
 import { Component,Router, DomElement } from "../../../core/index"
 import { headerLogin } from "../../components/header/index"
-import { formsLogin } from "../../components/forms/index"
+import {formsLogin2} from "../../components/forms2/index";
 
 
 type Indexed = {
@@ -20,7 +20,7 @@ export const loginPage = new LoginPage()
 
 loginPage.append([
     headerLogin,
-    formsLogin
+    formsLogin2
 ])
 
 new Router().initLink( loginPage.element as DomElement )

@@ -65,7 +65,7 @@ export class Store {
         let newState = this.reduce(actionName, this.state, prop)
         this.state = Object.assign(this.state , newState)
         if (this.eventBus) {
-            this.eventBus.emit(Store.EVENTS.STATE_CHANGE, this.prop)
+            this.eventBus.emit(Store.EVENTS.STATE_CHANGE)
         }
     }
 
