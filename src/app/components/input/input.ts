@@ -29,8 +29,11 @@ export class Input extends Component {
     render() {
         if (this.props.store) {
             const props = Object.assign({},this.props)
-            props.value = new Store().getState(this.props.store as string)
-            console.log(props)
+            if (this.props.avatar) {
+                props.avatar = new Store().getState(this.props.store as string)
+            } else {
+                props.value = new Store().getState(this.props.store as string)
+            }
             return nunjucks.render(this._template, props)
         }
         return nunjucks.render(this._template, this.props)

@@ -1,6 +1,7 @@
 import { Component, Router, DomElement } from "../../../core/index";
-import {formsRegistr} from "../../components/forms/index"
+import {formsRegistr} from "../../components/forms2/index"
 import {headerReg} from '../../components/header/index'
+
 
 type Indexed = {
     [key in string]: unknown

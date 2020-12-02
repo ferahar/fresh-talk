@@ -2,9 +2,9 @@
 {{ title }}
 {% endif %}
 
-{% if field.avatar %}
+{% if avatar %}
 <div class="avatar avatar_large">
-    <img src="{{ image }}" alt="">
+    <img src="https://ya-praktikum.tech/{{ avatar }}" alt="">
     <input class="avatar-input" type="file" name="{{ name }}" >
     <span class="form-textErorr" style="display: none;">{{error}}</span>
 </div>
