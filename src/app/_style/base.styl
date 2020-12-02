@@ -43,9 +43,22 @@ fieldset {
     font-size: 1.6rem
 }
 
-for size in (1..10)
-    .padding_s-{size} {
-        padding: 4px * size
-    }
+.padding
+    for size in (1..10)
+        &_s-{size} {
+            padding: 4px * size
+        }
+        &-tb_s-{size} {
+            padding-top: 4px * size
+            padding-bottom: 4px * size
+        }
 
+
+
+
+
+.block-secondary {
+        background: var(--secondary-bg-color);
+        margin-top: 32px;
+}
 
