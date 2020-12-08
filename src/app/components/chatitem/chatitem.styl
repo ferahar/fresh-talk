@@ -1,0 +1,44 @@
+.chatItem {
+  padding: 12px
+  display: flex
+  box-sizing: border-box
+  justify-content: space-between
+  align-items: center
+
+
+  &_selected {
+    background: var(--primary-bg-color)
+    color: var(--primary-color)
+  }
+
+  &-intro {
+    padding-left: 8px
+    flex-grow: 2
+  }
+
+  &-msgLast {
+
+  }
+
+  &-atribute {
+    display: flex
+    flex-direction: column
+    box-sizing: border-box
+    justify-content: space-between
+  }
+
+  &-date {
+    font-weight: 700
+    text-align: right
+  }
+
+  &-counter {
+    font-weight: 700
+    display: flex
+    align-items: center
+    padding: 4px 8px
+    background: var(--primary-bg-color)
+    color: var(--primary-color)
+    border-radius: 12px
+  }
+}

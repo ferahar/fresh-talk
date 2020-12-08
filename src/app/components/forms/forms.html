@@ -1,0 +1,26 @@
+
+{% for title, field in fields %}
+<label class="form-label">
+    {% if field.avatar %}
+    {{ field.title }}
+    <div class="avatar avatar_large">
+        <img src="{{ field.image }}" alt="">
+        <input class="avatar-input" type="file" name="{{ field.name }}" >
+        <span class="form-textErorr" style="display: none;">{{field.error}}</span>
+    </div>
+    {% else %}
+    {{ field.title }}
+    <input class="inputText form-input" type="{{ field.type }}" value="{{ field.value }}"  placeholder="{{ field.placeholder }}" name="{{ field.name }}" >
+    <span class="form-textErorr" style="display: none;">{{field.error}}</span>
+    {% endif %}
+</label>
+{% endfor %}
+
+{% if button %}
+<div class="container container_isColumn">
+    <button class="button button_primary button_margin-top-bottom" type="submit">{{button.text}}</button>
+    {% if button.link %}
+    <a href="{{button.link}}" class="button">{{button.textlink}}</a>
+    {% endif %}
+</div>
+{% endif %}
