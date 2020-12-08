@@ -14,6 +14,7 @@ export class Store {
         LOGOUT: 'logout',
         SET_PROFILE: 'setProfile',
         STATE_CHANGE: 'state_change',
+        ROUTE_CHANGE: 'route_change',
 
     }
 
@@ -21,7 +22,6 @@ export class Store {
     private state: Indexed = {}
     private reducers: { [key: string]: Function } = {}
     private eventBus: EventBus | null = null
-    // private subscribs = []
 
     constructor(reducers = {}, initialState: Indexed = {}) {
 
@@ -33,7 +33,6 @@ export class Store {
         this.state = initialState
         this.reducers = reducers
         this.eventBus = new EventBus()
-        // this.subscribs = []
         this.init()
         Store.__instance = this
     }
@@ -47,7 +46,7 @@ export class Store {
         this.eventBus.on(Store.EVENTS.STATE_CHANGE, ()=>{})
     }
 
-    getState(name: string): boolean |string {
+    getState(name: string): boolean | string | unknown {
         return findState(this.state, name)
     }
 
@@ -65,7 +64,8 @@ export class Store {
         let newState = this.reduce(actionName, this.state, prop)
         this.state = Object.assign(this.state , newState)
         if (this.eventBus) {
-            this.eventBus.emit(Store.EVENTS.STATE_CHANGE)
+            // this.eventBus.emit(Store.EVENTS.STATE_CHANGE)
+            this.eventBus.emit(actionName)
         }
     }
 

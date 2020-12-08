@@ -1,3 +1,3 @@
-import { start } from "./app/app-module"
+import { start } from "./app/app"
 
 start()

@@ -25,10 +25,7 @@ export class EventBus {
     }
 
     emit(event:keyof List, ...data: unknown[]) {
-        if (!this.listeners[event]) {
-            throw new Error(`Нет события: ${event}`);
-        }
-        
+        if (!this.listeners[event]) return
         this.listeners[event].forEach( listener  => {
             listener(...data);
         });

@@ -20,7 +20,8 @@ export class Input extends Component {
         )
         this.element.setClass('form-label')
         if (this.props.store) {
-            new Store().subscribe(Store.EVENTS.STATE_CHANGE, ()=> {
+            // new Store().subscribe(Store.EVENTS.STATE_CHANGE, ()=> {
+            new Store().subscribe('setProfile', ()=> {
                 this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
             } )
         }
@@ -29,7 +30,7 @@ export class Input extends Component {
     render() {
         if (this.props.store) {
             const props = Object.assign({},this.props)
-            if (this.props.avatar) {
+            if (this.props.image) {
                 props.avatar = new Store().getState(this.props.store as string)
             } else {
                 props.value = new Store().getState(this.props.store as string)
