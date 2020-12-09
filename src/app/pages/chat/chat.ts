@@ -1,5 +1,7 @@
 import { Component, Router, DomElement } from "../../../core/index";
 import {chatlist} from "../../components/chatlist/index";
+import {Button} from "../../components/button/button";
+import {modalwindowCreateChat} from "../../components/modalwindow/index";
 
 type Indexed = {
     [key in string]: unknown
@@ -15,13 +17,20 @@ class ChatPage extends Component {
             template: ChatPage.TEMPLATE,
             components
         })
+        this.element.setClass('container')
     }
 
 }
 
+document.body.appendChild(modalwindowCreateChat.element.nativeElement as HTMLElement)
 export const chatPage = new ChatPage({
-        header: [],
-        chatlist: [chatlist]
+        headerProfile: [
+            new Button({icon: 'account_circle'}, 'button button_square', ()=>{new Router().go('/profile')}),
+            new Button({icon: 'add'}, 'button', ()=>{ modalwindowCreateChat.show()}),
+        ],
+        chatlist: [
+            chatlist
+        ]
     }
 )
 

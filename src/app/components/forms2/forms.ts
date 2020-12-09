@@ -15,26 +15,27 @@ export class Forms extends Component {
 
     private callback: Function | null
 
-    constructor(components:Indexed, callback?: Function, listener='submit') {
-        const listeners: Indexed = {}
-        listeners[listener] = 'onSubmit'
+    constructor(components:Indexed, callback: Function | null = null, listener='submit') {
+        // const listeners: Indexed = {}
+        // listeners[listener] = 'onSubmit'
         super({
             template: Forms.TEMPLATE,
             tagName: 'form',
             components: components,
-            listeners: listeners
+            // listeners: listeners
         })
 
         this.element.setClass('container container_isColumn form')
-        this.callback = callback ? callback : null
+        this.callback = callback
+        this.element.on(listener, this.onSubmit.bind(this), true)
         this.element.on("blur", checkForm, true)
         this.element.on("focus", clearForm, true)
     }
 
     onSubmit(e: Event) {
-        if (!this.callback) return;
-        let flag = true;
-        e.preventDefault();
+        e.preventDefault()
+        if (!this.callback) return
+        let flag = true
         const fields = this.element.findAll('input')
         if (!fields) return
         fields.forEach((field) => {

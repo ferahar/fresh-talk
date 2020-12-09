@@ -33,3 +33,13 @@ export const inputsPswChange = [
     new Input(field.PSW_CUR),
     new Input(field.PSW_NEW)
 ]
+
+export const inputsCreateChat = [
+    new Input({
+        name: "chat_name",
+        type: "text",
+        title: "Название чата",
+        value: '',
+        placeholder: "рога и копыта",
+    })
+]

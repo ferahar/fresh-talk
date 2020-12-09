@@ -87,6 +87,7 @@ export class Router {
         root.innerHTML = ''
 
         if (route !== undefined) {
+            // root.innerHTML = route.component.element!.nativeElement!.innerHTML
             root.appendChild( route.component.element!.nativeElement as HTMLElement )
         }
 

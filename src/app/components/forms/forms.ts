@@ -29,13 +29,6 @@ export class Forms extends Component {
         this.element.on("focus", clearForm, true)
     }
 
-    render() {
-        if (this._store) {
-            // const state = JSON.parse(this._store.getState('profile'))
-            // setForm(this.props['fields'], state)
-        }
-        return nunjucks.render(this._template, this.props)
-    }
 
     onSubmit(e: Event) {
         let flag = true;

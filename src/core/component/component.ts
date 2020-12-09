@@ -1,16 +1,14 @@
 import { DomElement, $ } from "../util/dom-element"
-import { Store, EventBus } from "../index"
+import { EventBus } from "../index"
 
 
 type Indexed = {
   [key in string]: unknown
 }
 
-
 type ListComponents = {
   [key in string]: Component[]
 }
-
 
 declare var nunjucks: any
 
@@ -22,12 +20,8 @@ export class Component {
     FLOW_RENDER: "flow:render"
   }
 
-
   private _element: DomElement
-  private listeners: {[key: string]: keyof Component}
 
-
-  protected _store: Store | null = null
   protected _template: string = ''
   protected components: ListComponents = {}
 
@@ -38,8 +32,6 @@ export class Component {
 
     this._element = $(document.createElement( config.tagName as string))
     this._template = config.template as string
-    this.listeners = config.listeners as {}
-    this._store = config.store as Store
 
     if (config.components) {
       this.components = config.components as ListComponents
@@ -62,19 +54,7 @@ export class Component {
   }
 
   private init() {
-    this._initDomListeners()
     this.eventBus.emit(Component.EVENTS.FLOW_CDM)
-  }
-
-  private _initDomListeners() {
-    if (!this.listeners) return
-    Object.keys(this.listeners).forEach(eventName => {
-      const nameMethod = this.listeners![eventName]
-      if (this[nameMethod]) {
-        const method = (this[nameMethod] as Function).bind(this)
-        this._element!.on(eventName, method)
-      }
-    })
   }
 
   private _componentDidMount(): void {

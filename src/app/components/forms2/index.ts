@@ -3,7 +3,7 @@ import { Forms } from './forms'
 import {Component, Router, Store} from '../../../core/index'
 import { apiAuth, apiUser } from '../../api/index'
 import {Button} from "../button/button";
-import {inputsForLogin, inputsProfile, inputsRegistr, inputsAvatar, inputsPswChange} from "../input/index";
+import {inputsForLogin, inputsProfile, inputsRegistr, inputsAvatar, inputsPswChange, inputsCreateChat} from "../input/index";
 
 
 
@@ -56,6 +56,18 @@ export const formsProfile2 = new Forms(
     {
         inputs: inputsProfile,
         buttons: [new Button({title:'Изменить профиль'}, 'button')],
+    }
+)
+
+export const formsCrfeateChat = new Forms(
+    {
+        inputs: inputsCreateChat,
+        buttons: [
+            new Button({title:'Создать'}, 'button button_primary'),
+        ],
+    },
+    () => {
+        console.log('Create chat')
     }
 )
 
