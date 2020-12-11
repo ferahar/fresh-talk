@@ -12,7 +12,6 @@ export const start = () => {
         appStore.dispatch(Store.EVENTS.IS_LOGIN)
         const content = JSON.parse((data as XMLHttpRequest).response)
         appStore.dispatch('setProfile', content)
-        // appStore.dispatch(Store.EVENTS.SET_PROFILE, content)
         return content.id
     })
         .then(apiChats.chats, error => {

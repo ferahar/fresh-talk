@@ -1,5 +1,6 @@
 import { Component, Store } from "../../../core/index"
 import {Chatitem} from "../chatitem/chatitem"
+import {capbox} from "../capbox/index"
 
 
 type Indexed = {
@@ -15,9 +16,10 @@ export class Chatlist extends Component {
     constructor(props: Indexed={}) {
         super({
             template: Chatlist.TEMPLATE,
-            tagName: 'div',
+            tagName: 'ul',
             props: props
         })
+        this.element.setClass('chatlist')
         new Store().subscribe('setChats', ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
@@ -26,13 +28,18 @@ export class Chatlist extends Component {
     render() {
         const components: Component[] = []
         const chats = new Store().getState('chats') as Indexed[]
-        if (chats.length<=0) return
-        chats.forEach(chat => {
-            components.push( new Chatitem(chat as Indexed))
-        })
-        this.components = {
-            chatlist: components
+        if (chats.length > 0) {
+            chats.forEach(chat => {
+                components.push(new Chatitem(chat as Indexed))
+            })
+        } else {
+            components.push(capbox)
         }
+
+        this.components = {
+            chats: components
+        }
+
         return nunjucks.render(this._template, this.props)
     }
 }

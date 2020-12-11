@@ -25,6 +25,11 @@ export const state = {
             title: "BoomBastic",
             avatar: ""
         }
-    ]
+    ],
+    currentchat: {
+        id: -1,
+        title: "",
+        avatar: ""
+    }
 }
 

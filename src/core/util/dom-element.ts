@@ -54,7 +54,7 @@ export class DomElement {
     }
 
 
-    find(selector: string) {
+    find(selector: string):DomElement {
         if (this.nativeElement) {
             const node: Node | null = this.nativeElement.querySelector(selector)
             return $(node as HTMLElement)

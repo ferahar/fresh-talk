@@ -23,5 +23,9 @@ export const reducer = {
 
     setChats(state: Prop, prop: Prop) {
         return setState(state, 'chats', prop)
+    },
+
+    setCurrentChat(state: Prop, prop: Prop) {
+        return setState(state, 'currentchat', prop)
     }
 };

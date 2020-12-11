@@ -14,15 +14,14 @@ export class Forms extends Component {
     static TEMPLATE = "../app/components/forms2/forms.html"
 
     private callback: Function | null
+    validation:boolean = false
 
     constructor(components:Indexed, callback: Function | null = null, listener='submit') {
-        // const listeners: Indexed = {}
-        // listeners[listener] = 'onSubmit'
+
         super({
             template: Forms.TEMPLATE,
             tagName: 'form',
             components: components,
-            // listeners: listeners
         })
 
         this.element.setClass('container container_isColumn form')
@@ -35,7 +34,7 @@ export class Forms extends Component {
     onSubmit(e: Event) {
         e.preventDefault()
         if (!this.callback) return
-        let flag = true
+        // let flag = true
         const fields = this.element.findAll('input')
         if (!fields) return
         fields.forEach((field) => {
@@ -44,13 +43,14 @@ export class Forms extends Component {
             if (parent && check.test) {
                 parent.find('span').show()
                 parent.find('span').text(check.message as string)
-                flag = false
+
             }
             else if (parent){
                 parent.find('span').hide()
+                this.validation = true
             }
         });
-        if (!flag) return
+        if (!this.validation ) return
         const form = this.element.nativeElement as HTMLFormElement
         let data = new FormData(form)
         this.callback(data)

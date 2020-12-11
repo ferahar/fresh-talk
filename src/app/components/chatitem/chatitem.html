@@ -6,8 +6,10 @@
 <div class="chatItem-intro">
     <h4 class="h4 chatItem-title">{{title}}</h4>
 </div>
-<div class="chatItem-atribute">
-    <div class="text chatItem-counter">
-        88
+{% if counter %}
+    <div class="chatItem-atribute">
+        <div class="text chatItem-counter">
+            {{counter}}
+        </div>
     </div>
-</div>
+{% endif %}

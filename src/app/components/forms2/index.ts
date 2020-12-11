@@ -1,9 +1,11 @@
 import { objectForm } from '../../../core/util/index'
 import { Forms } from './forms'
 import {Component, Router, Store} from '../../../core/index'
-import { apiAuth, apiUser } from '../../api/index'
+import {apiAuth, apiChats, apiUser} from '../../api/index'
 import {Button} from "../button/button";
 import {inputsForLogin, inputsProfile, inputsRegistr, inputsAvatar, inputsPswChange, inputsCreateChat} from "../input/index";
+import {appStore} from "../../store/appStore";
+import {modalwindowCreateChat} from "../modalwindow/index";
 
 
 
@@ -63,12 +65,14 @@ export const formsCrfeateChat = new Forms(
     {
         inputs: inputsCreateChat,
         buttons: [
-            new Button({title:'Создать'}, 'button button_primary'),
+            new Button({title:'Создать'}, 'button button_primary', ()=> {
+                if (formsCrfeateChat.validation) {
+                    modalwindowCreateChat.hide()
+                }
+            }),
         ],
     },
-    () => {
-        console.log('Create chat')
-    }
+    chatCreate
 )
 
 function signIn(data: FormData) {
@@ -88,7 +92,6 @@ function signUp(data: FormData) {
             const store = new Store()
             store.dispatch(Store.EVENTS.IS_LOGIN)
             const content = (data as XMLHttpRequest).response
-            // store.dispatch(Store.EVENTS.SET_PROFILE, JSON.parse(content))
             store.dispatch('setProfile', JSON.parse(content))
             inputsForLogin.forEach(input=>input.eventBus.emit(Component.EVENTS.FLOW_RENDER))
             new Router().go('/profile')
@@ -107,9 +110,18 @@ function getUser(data: XMLHttpRequest, inputs: Component[]=[], routerPath: strin
     const store = new Store()
     store.dispatch(Store.EVENTS.IS_LOGIN)
     const content = data.response
-    // store.dispatch(Store.EVENTS.SET_PROFILE, JSON.parse(content))
     store.dispatch('setProfile', JSON.parse(content))
     inputs.forEach(input=>input.eventBus.emit(Component.EVENTS.FLOW_RENDER))
     new Router().go(routerPath)
     return true
+}
+
+function chatCreate(data: FormData) {
+    const object = objectForm(data)
+    apiChats.create(object)
+        .then(apiChats.chats, error => console.log(error.response))
+        .then(data => {
+            const content = JSON.parse((data as XMLHttpRequest).response)
+            appStore.dispatch('setChats', content)
+        })
 }

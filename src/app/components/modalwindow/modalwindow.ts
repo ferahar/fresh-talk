@@ -24,6 +24,16 @@ export class Modalwindow extends Component {
         })
 
         this.hide()
+        // this.element.on('click', this.onClick.bind(this))
+
+    }
+
+    onClick(event: Event) {
+        const target = event.target as HTMLElement
+
+        if (target.tagName=='BUTTON') {
+            this.hide()
+        }
     }
 
 }

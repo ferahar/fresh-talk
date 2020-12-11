@@ -133,13 +133,13 @@ export class Component {
 
   append(components: Component[], id?: string) {
 
-    if ( !this.element) return
+    if (!this.element) return
     let element: DomElement = this.element
     let node: DomElement | undefined = undefined
-    if ( id ) {
+    if (id) {
       node = this.element.find(`#${id}`)
     }
-    if (node !== undefined) {
+    if ((node !== undefined) && node.nativeElement  ) {
       element = node
     }
     components.forEach( component => {

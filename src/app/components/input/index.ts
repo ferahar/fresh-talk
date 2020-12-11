@@ -36,7 +36,7 @@ export const inputsPswChange = [
 
 export const inputsCreateChat = [
     new Input({
-        name: "chat_name",
+        name: "title",
         type: "text",
         title: "Название чата",
         value: '',
