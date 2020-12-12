@@ -1,42 +1,35 @@
 import { Router, Store } from "../../../core/index";
 import { apiAuth } from "../../api/api-auth";
 import { Header } from "./header";
+import {Button} from "../button/button";
 
 
-export const headerLogin = new Header({
-    props: {
-        title: "Вход",
-    },
-});
 
-export const headerReg = new Header({
-    props: {
-        title: "Регистрация"
+export const headerLogin = new Header("Вход");
+
+export const headerReg = new Header("Регистрация");
+
+export const headerProfile = new Header(
+    "Профиль",
+    {
+        header_left: [
+            new Button({title:'Главная'}, 'button button_ghost', ()=>{ new Router().go('/')})
+        ],
+        header_right: [
+            new Button({title:'Выход'}, 'button button_ghost', logout)
+        ]
     }
-});
+);
 
-export const headerProfile = new Header({
-    props: {
-        title: "Профиль",
-        logout: {
-            text: 'Выход',
-            action: 'logout'
-        },
-    },
-}, headerClick);
-
-function headerClick(event: Event) {
-    let action = (event.target as HTMLElement).dataset.action
-    if (action === 'logout') {
-        const store = new Store()
-        store.dispatch(Store.EVENTS.LOGOUT)
-        const isLogin = store.getState('isLogin')
-        console.log('isLogin=', isLogin)
-        apiAuth.logout()
-            .then(data => {
-                console.log((data as XMLHttpRequest).response)
-                store.dispatch(Store.EVENTS.LOGOUT)
+function logout() {
+    apiAuth.logout()
+        .then(
+            () => {
+                new Store().setState('isLogin', '')
                 new Router().go('/login')
-            }, error => console.log(error.response))
-    }
+            },
+            error => console.log(error.response)
+        )
+
 }
+

@@ -15,6 +15,7 @@ export class LentaName extends Component {
             tagName: 'div',
             props: props
         })
+        this.element.setClass('chatItem')
 
         new Store().subscribe('setCurrentChat', ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)

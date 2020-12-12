@@ -61,14 +61,17 @@ export const formsProfile2 = new Forms(
     }
 )
 
-export const formsCrfeateChat = new Forms(
+export const formsCreateChat = new Forms(
     {
         inputs: inputsCreateChat,
         buttons: [
             new Button({title:'Создать'}, 'button button_primary', ()=> {
-                if (formsCrfeateChat.validation) {
-                    modalwindowCreateChat.hide()
-                }
+                console.log(formsCreateChat.validation)
+                setTimeout(()=>{
+                    if (formsCreateChat.validation) {
+                        modalwindowCreateChat.hide()
+                    }
+                },0)
             }),
         ],
     },

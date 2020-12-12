@@ -2,7 +2,8 @@ import { Component, Router, DomElement } from "../../../core/index";
 import {chatlist} from "../../components/chatlist/index";
 import {Button} from "../../components/button/button";
 import {modalwindowCreateChat} from "../../components/modalwindow/index";
-import {Lenta} from "../../components/lenta/lenta";
+import {lentaEditor} from "../../components/lentaeditor/index";
+import {lenta} from "../../components/lenta/index";
 
 type Indexed = {
     [key in string]: unknown
@@ -33,7 +34,8 @@ export const chatPage = new ChatPage({
             chatlist
         ],
         lenta: [
-            new Lenta()
+            lenta,
+            lentaEditor
         ],
     }
 )

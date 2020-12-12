@@ -1,5 +1,5 @@
 import {Modalwindow} from "./modalwindow";
-import {formsCrfeateChat} from "../forms2/index";
+import {formsCreateChat} from "../forms2/index";
 
 
 export const modalwindowCreateChat = new Modalwindow(
@@ -7,6 +7,6 @@ export const modalwindowCreateChat = new Modalwindow(
         title:'Новый чат'
     },
     [
-        formsCrfeateChat
+        formsCreateChat
     ]
 )

@@ -35,6 +35,7 @@ export class Forms extends Component {
         e.preventDefault()
         if (!this.callback) return
         // let flag = true
+        this.validation = true
         const fields = this.element.findAll('input')
         if (!fields) return
         fields.forEach((field) => {
@@ -43,6 +44,7 @@ export class Forms extends Component {
             if (parent && check.test) {
                 parent.find('span').show()
                 parent.find('span').text(check.message as string)
+                this.validation = false
 
             }
             else if (parent){

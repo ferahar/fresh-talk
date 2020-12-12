@@ -1,6 +1,7 @@
 import { Component, Store } from "../../../core/index"
 import {LentaName} from "../lentaname/lentaname";
 import {Button} from "../button/button";
+import {lentaEditor} from "../lentaeditor/index";
 
 
 type Indexed = {
@@ -31,7 +32,9 @@ export class Lenta extends Component {
             headerLenta: [
                 new LentaName(currentchat),
                 new Button({icon: 'settings'}, 'button button_ghost', ()=>{
-                    console.log('Chat edit')})
+                    lentaEditor.show()
+                    }
+                )
             ]
         }
 

@@ -1,20 +1,7 @@
-<nav id="app-headerLink" class="header-section">
-    <a class="button button_ghost" href="/">Главная</a>
-    <a class="button button_ghost" href="/profile">Profile</a>
-</nav>
+<nav id="header_left" class="header-section"></nav>
 {% if title %}
 <nav class="header-section">
     <h3 class="h3">{{ title }}</h3>
 </nav>
 {% endif %}
-<nav class="header-section">
-    {% if createChat %}
-    <button class="button" data-action="createChat"> {{ createChat.text }} </button>
-    {% endif %}
-    {% if logout %}
-    <button class="button button_ghost" data-action="logout"> {{ logout.text }} </button>
-    {% endif %}
-    {% if login %}
-    <button class="button button_ghost" data-action="login"> {{ login.text }} </button>
-    {% endif %}
-</nav>
+<nav id="header_right" class="header-section"></nav>

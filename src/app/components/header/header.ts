@@ -7,22 +7,15 @@ type Indexed = {
 export class Header extends Component {
 
     static TEMPLATE = '../app/components/header/header.html'
-    private callback: Function | null
 
-    constructor(config:Indexed = {}, callback: Function | null = null) {
+    constructor(title:string = '', components:Indexed = {}) {
 
-        config.template = Header.TEMPLATE
-        config.tagName = 'header'
-        config.listeners = {
-            'click': 'click'
-        }
-
-        super(config)
-        this.callback = callback
+        super({
+            template: Header.TEMPLATE,
+            tagname: 'header',
+            props: {title:title},
+            components: components
+        })
         this.element.setClass('header header_themeDark')
-    }
-    click(e: Event) {
-        if (this.callback)
-            this.callback(e)
     }
 }
