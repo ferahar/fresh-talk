@@ -1,4 +1,4 @@
-import { Component } from "../../../core/index"
+import {Component} from "../../../core/index"
 import { checkField, checkForm } from "../../../core/util/index"
 import { $ } from "../../../core/util/dom-element"
 
@@ -23,7 +23,6 @@ export class Forms extends Component {
             tagName: 'form',
             components: components,
         })
-
         this.element.setClass('container container_isColumn form')
         this.callback = callback
         this.element.on(listener, this.onSubmit.bind(this), true)

@@ -1,4 +1,5 @@
-import {Component, Store} from "../../../core/index"
+import {Component} from "../../../core/index"
+import {appStore} from "../../store/appStore";
 
 type Indexed = {
     [key in string]: unknown
@@ -17,7 +18,7 @@ export class LentaName extends Component {
         })
         this.element.setClass('chatItem')
 
-        new Store().subscribe('setCurrentChat', ()=> {
+        appStore.subscribe(['setCurrentChat', 'setChats'], ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
     }

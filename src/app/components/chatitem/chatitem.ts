@@ -1,4 +1,6 @@
 import {Component, $, Store} from "../../../core/index"
+import {apiChats} from "../../api/index";
+import {appStore} from "../../store/appStore";
 
 type Indexed = {
     [key in string]: unknown
@@ -24,6 +26,11 @@ export class Chatitem extends Component {
         this.element.addClass('chatItem_selected')
         const store = new Store()
         store.dispatch('setCurrentChat', this.props)
+        apiChats.users(this.props.id as number)
+            .then(data=>{
+                const content = JSON.parse((data as XMLHttpRequest).response)
+                appStore.dispatch('setUserList', content )
+            })
     }
 }
 

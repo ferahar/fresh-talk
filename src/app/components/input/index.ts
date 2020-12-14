@@ -43,3 +43,13 @@ export const inputsCreateChat = [
         placeholder: "рога и копыта",
     })
 ]
+
+export const inputsEditChat = [
+    new Input({
+        title: "Изображение чата",
+        avatar: '',
+        name: "avatar",
+        image: 'true',
+        store: 'currentchat.avatar',
+    })
+]

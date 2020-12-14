@@ -54,9 +54,16 @@ export class Store {
         return setState(this.state, name, value);
     }
 
-    subscribe(eventName: string, eventFun: Function) {
+    subscribe(eventName: string | string[], eventFun: Function) {
         if (!this.eventBus) return
-        this.eventBus.on(eventName, eventFun)
+        if (Array.isArray(eventName)) {
+            eventName.forEach(e=>{
+                this.eventBus!.on(e, eventFun)
+            })
+        } else {
+            this.eventBus.on(eventName, eventFun)
+        }
+
     }
 
     dispatch(actionName: string, prop = {}) {

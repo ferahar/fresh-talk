@@ -1,4 +1,4 @@
-import { chatAPIInstance } from './api-base'
+import {chatAPIInstance} from './api-base'
 
 class ApiChats {
 
@@ -13,6 +13,16 @@ class ApiChats {
                 "Content-Type": "application/json"
             }
         })
+    }
+
+    uploadAvatar(data={}) {
+        return chatAPIInstance.put('/avatar', {
+            data: data,
+        })
+    }
+
+    users(id:number) {
+        return chatAPIInstance.get(`/${id}/users`)
     }
 
     remove(data:{}) {

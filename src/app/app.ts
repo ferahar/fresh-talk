@@ -21,7 +21,6 @@ export const start = () => {
         .then(data => {
             const content = JSON.parse((data as XMLHttpRequest).response)
             appStore.dispatch('setChats', content)
-            console.log(content, appStore.prop)
             router.start()
         })
 

@@ -10,10 +10,7 @@ export const state = {
         avatar: ""
     },
     chats: [],
-    currentchat: {
-        id: -1,
-        title: "",
-        avatar: ""
-    }
+    currentchat: '',
+    userList: [],
 }
 

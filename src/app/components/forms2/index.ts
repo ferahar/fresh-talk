@@ -3,10 +3,21 @@ import { Forms } from './forms'
 import {Component, Router, Store} from '../../../core/index'
 import {apiAuth, apiChats, apiUser} from '../../api/index'
 import {Button} from "../button/button";
-import {inputsForLogin, inputsProfile, inputsRegistr, inputsAvatar, inputsPswChange, inputsCreateChat} from "../input/index";
+import {
+    inputsForLogin,
+    inputsProfile,
+    inputsRegistr,
+    inputsAvatar,
+    inputsPswChange,
+    inputsCreateChat,
+    inputsEditChat
+} from "../input/index";
 import {appStore} from "../../store/appStore";
 import {modalwindowCreateChat} from "../modalwindow/index";
 
+type Indexed = {
+    [key in string]: unknown
+}
 
 
 export const formsLogin2 = new Forms(
@@ -66,7 +77,6 @@ export const formsCreateChat = new Forms(
         inputs: inputsCreateChat,
         buttons: [
             new Button({title:'Создать'}, 'button button_primary', ()=> {
-                console.log(formsCreateChat.validation)
                 setTimeout(()=>{
                     if (formsCreateChat.validation) {
                         modalwindowCreateChat.hide()
@@ -77,6 +87,17 @@ export const formsCreateChat = new Forms(
     },
     chatCreate
 )
+
+export const formsEditChat = new Forms(
+    {
+        inputs: inputsEditChat,
+    },
+    updateAvatar,
+    'change'
+)
+
+
+// Methods
 
 function signIn(data: FormData) {
     const object = objectForm(data)
@@ -127,4 +148,18 @@ function chatCreate(data: FormData) {
             const content = JSON.parse((data as XMLHttpRequest).response)
             appStore.dispatch('setChats', content)
         })
+}
+
+function updateAvatar(data: FormData){
+    const currentchat = appStore.getState('currentchat') as Indexed
+    data.append('chatId', currentchat.id as string)
+    apiChats.uploadAvatar(data)
+        .then(apiChats.chats)
+        .then(data=>{
+            const content = JSON.parse((data as XMLHttpRequest).response) as Indexed[]
+            appStore.dispatch('setChats', content)
+            const chat = content.find(chat=> chat.id === currentchat.id)
+            appStore.dispatch('setCurrentChat', chat)
+        })
+
 }

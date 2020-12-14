@@ -1,5 +1,10 @@
 import { Component, Store } from "../../../core/index"
 import {Button} from "../button/button";
+import {Userlist} from "../userlist/userlist";
+import {apiChats} from "../../api/index";
+import {appStore} from "../../store/appStore";
+import {formsEditChat} from "../forms2/index";
+import {inputsEditChat} from "../input/index";
 
 
 type Indexed = {
@@ -18,23 +23,41 @@ export class Lentaeditor extends Component {
             tagName: 'section',
             props: props
         })
-        this.element.setClass('container container_isColumn container_size_auto')
+        this.element.setClass('lentaeditor container container_isColumn container_size_auto')
         new Store().subscribe('setCurrentChat', ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+            inputsEditChat.forEach(input=>input.eventBus.emit(Component.EVENTS.FLOW_RENDER))
         } )
-        this.hide()
+
     }
 
     render() {
-        // const currentchat = new Store().getState('currentchat') as Indexed
+        const currentchat = appStore.getState('currentchat') as Indexed
+        if (!currentchat) this.hide()
         this.components = {
             headerLenta: [
-                new Button({title: 'Скрыть'}, 'button button_ghost', ()=>{
-                    this.hide()
-                    })
-            ]
+                new Button({icon:'chat'}, 'button button_ghost', this.hide.bind(this)),
+                buttonRemoveChat
+            ],
+            forms: [formsEditChat],
+            userlist: [new Userlist()]
         }
 
         return nunjucks.render(this._template, this.props)
     }
 }
+
+const buttonRemoveChat = new Button({icon: 'delete'}, 'button button_ghost', ()=>{
+    const currentchat = appStore.getState('currentchat') as Indexed
+    apiChats.remove({chatId: currentchat.id})
+        .then(apiChats.chats, error => {
+            console.log(error.response)
+        })
+        .then(data => {
+            const content = JSON.parse((data as XMLHttpRequest).response)
+            appStore.dispatch('setChats', content)
+            appStore.dispatch('setCurrentChat', '')
+        })
+    console.log(`Remove chat # ${currentchat.id}`)
+})
+
