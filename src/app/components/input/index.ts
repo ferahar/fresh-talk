@@ -53,3 +53,12 @@ export const inputsEditChat = [
         store: 'currentchat.avatar',
     })
 ]
+
+export const inputsSearchUser = [
+    new Input({
+        name: "login",
+        type: "text",
+        value: '',
+        placeholder: "поиск, введите логин",
+    })
+]

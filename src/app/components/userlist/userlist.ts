@@ -1,5 +1,7 @@
-import { Component, Store } from "../../../core/index"
-import {Useritem} from "../useritem/useritem";
+import { Component } from "../../../core/index"
+import {Useritem} from "../useritem/useritem"
+import {appStore} from "../../store/appStore"
+
 
 
 type Indexed = {
@@ -18,8 +20,8 @@ export class Userlist extends Component {
             tagName: 'ul',
             props: props
         })
-        this.element.setClass('container container_isColumn')
-        new Store().subscribe('setUserList', ()=> {
+        this.element.setClass('list')
+        appStore.subscribe('setUserList', ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
 
@@ -27,10 +29,14 @@ export class Userlist extends Component {
 
     render() {
         const components: Component[] = []
-        const userList = new Store().getState('userList') as Indexed[]
+        const userList = appStore.getState('userList') as Indexed[]
+        const currentUser = appStore.getState('currentchat') as Indexed
         if (userList.length > 0) {
             userList.forEach(user => {
-                console.log(user)
+                if (currentUser.created_by===user.id) {
+                    user['owner']='Владелец'
+                    // user['owner']=currentUser.created_by
+                }
                 components.push(new Useritem(user as Indexed))
             })
         }

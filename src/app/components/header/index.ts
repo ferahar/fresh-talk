@@ -1,7 +1,8 @@
-import { Router, Store } from "../../../core/index";
+import { Router } from "../../../core/index";
 import { apiAuth } from "../../api/api-auth";
 import { Header } from "./header";
 import {Button} from "../button/button";
+import {appStore} from "../../store/appStore";
 
 
 
@@ -25,7 +26,10 @@ function logout() {
     apiAuth.logout()
         .then(
             () => {
-                new Store().setState('isLogin', '')
+                appStore.clearStore()
+                appStore.setState('isLogin', '')
+                console.log(appStore.prop)
+
                 new Router().go('/login')
             },
             error => console.log(error.response)

@@ -26,7 +26,7 @@ export class Chatitem extends Component {
         this.element.addClass('chatItem_selected')
         const store = new Store()
         store.dispatch('setCurrentChat', this.props)
-        apiChats.users(this.props.id as number)
+        apiChats.users(this.props)
             .then(data=>{
                 const content = JSON.parse((data as XMLHttpRequest).response)
                 appStore.dispatch('setUserList', content )

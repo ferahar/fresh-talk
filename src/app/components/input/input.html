@@ -1,5 +1,5 @@
 {% if title %}
-{{ title }}
+<span class="input-title">{{ title }}</span>
 {% endif %}
 
 {% if image %}
@@ -15,7 +15,7 @@
     <span class="form-textErorr" style="display: none;">{{error}}</span>
 </div>
 {% else %}
-<input class="inputText form-input" type="{{ type }}" value="{{ value }}"  placeholder="{{ placeholder }}" name="{{ name }}" >
+<input class="inputText form-input" autocomplete="off" type="{{ type }}" value="{{ value }}"  placeholder="{{ placeholder }}" name="{{ name }}" >
 <span class="form-textErorr" style="display: none;">{{error}}</span>
 {% endif %}
 

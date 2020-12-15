@@ -1,10 +1,11 @@
 import { Component, Store } from "../../../core/index"
 import {Button} from "../button/button";
-import {Userlist} from "../userlist/userlist";
 import {apiChats} from "../../api/index";
 import {appStore} from "../../store/appStore";
 import {formsEditChat} from "../forms2/index";
 import {inputsEditChat} from "../input/index";
+import {userlist} from "../userlist/index";
+import {modalwindowAddUsers} from "../modalwindow/index";
 
 
 type Indexed = {
@@ -35,12 +36,15 @@ export class Lentaeditor extends Component {
         const currentchat = appStore.getState('currentchat') as Indexed
         if (!currentchat) this.hide()
         this.components = {
-            headerLenta: [
+            headerleft: [
                 new Button({icon:'chat'}, 'button button_ghost', this.hide.bind(this)),
-                buttonRemoveChat
+                new Button({icon:'person_add'}, 'button button_ghost', ()=>{
+                    modalwindowAddUsers.show()
+                })
             ],
+            headerright: [buttonRemoveChat],
             forms: [formsEditChat],
-            userlist: [new Userlist()]
+            userlist: [userlist]
         }
 
         return nunjucks.render(this._template, this.props)

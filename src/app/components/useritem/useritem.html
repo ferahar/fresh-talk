@@ -3,8 +3,13 @@
     <img src="https://ya-praktikum.tech/{{ avatar }}" alt="">
     {% endif %}
 </div>
+{% if owner%}
 <div class="chatItem-intro">
     <h4 class="h4">{{first_name}}</h4>
-    <p class="text">{{ role }}</p>
+    <p class="text">{{ owner }}</p>
 </div>
-<div id="buttonclose"></div>
+{% else %}
+<div class="chatItem-intro">
+    <h4 class="h4">{{first_name}}</h4>
+</div>
+{% endif%}

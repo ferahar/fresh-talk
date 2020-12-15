@@ -10,7 +10,8 @@ import {
     inputsAvatar,
     inputsPswChange,
     inputsCreateChat,
-    inputsEditChat
+    inputsEditChat,
+    inputsSearchUser
 } from "../input/index";
 import {appStore} from "../../store/appStore";
 import {modalwindowCreateChat} from "../modalwindow/index";
@@ -94,6 +95,23 @@ export const formsEditChat = new Forms(
     },
     updateAvatar,
     'change'
+)
+
+export const formsSearchuser = new Forms(
+    {
+        inputs: inputsSearchUser,
+    },
+    (data: FormData)=>{
+        const object = objectForm(data)
+        console.log(object)
+        apiUser.findUser(object)
+            .then(data=>{
+                const content = JSON.parse((data as XMLHttpRequest).response) as Indexed[]
+                appStore.dispatch('setUserSearch', content)
+            })
+    },
+    'keyup',
+    false
 )
 
 

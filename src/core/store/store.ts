@@ -41,6 +41,10 @@ export class Store {
         return this.state
     }
 
+    clearStore() {
+        this.state = {}
+    }
+
     private init() {
         if (!this.eventBus) return
         this.eventBus.on(Store.EVENTS.STATE_CHANGE, ()=>{})
@@ -66,17 +70,15 @@ export class Store {
 
     }
 
-    dispatch(actionName: string, prop = {}) {
-
-        let newState = this.reduce(actionName, this.state, prop)
-        this.state = Object.assign(this.state , newState)
+    dispatch(actionName: string, prop: Object|string = {}) {
+        this.reduce(actionName, this.state, prop)
         if (this.eventBus) {
             // this.eventBus.emit(Store.EVENTS.STATE_CHANGE)
             this.eventBus.emit(actionName)
         }
     }
 
-    private reduce(actionName:string, state: Indexed, prop={}) {
+    private reduce(actionName:string, state: Indexed, prop: Object|string={}) {
 
         const fun: Function = this.reducers[actionName] as Function
         let newState = fun(state, prop)

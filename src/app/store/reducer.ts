@@ -31,5 +31,15 @@ export const reducer = {
 
     setUserList(state: Prop, prop: Prop) {
         return setState(state, 'userList', prop)
+    },
+
+    setUserSearch(state: Prop, prop: Prop) {
+        return setState(state, 'userSearch', prop)
+    },
+
+    setUserSelected(state: Prop, prop: Prop|string) {
+        const result = setState(state, 'userSelected', prop)
+        console.log(prop, result)
+        return result
     }
 };

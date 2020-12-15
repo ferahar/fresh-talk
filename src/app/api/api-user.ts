@@ -11,8 +11,16 @@ class ApiUser {
     }
     saveAvatar(data={}) {
         return userAPIInstance.put('/profile/avatar', {
-            data: data,
+            data,
         });
+    }
+    findUser(data={}) {
+        return userAPIInstance.post('/search', {
+            data: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
     }
 }
 
