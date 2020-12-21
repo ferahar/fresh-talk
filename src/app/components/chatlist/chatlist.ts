@@ -1,6 +1,7 @@
-import { Component, Store } from "../../../core/index"
+import {Component} from "../../../core/index"
 import {Chatitem} from "../chatitem/chatitem"
 import {capbox} from "../capbox/index"
+import {appStore} from "../../store/appStore";
 
 
 type Indexed = {
@@ -20,17 +21,22 @@ export class Chatlist extends Component {
             props: props
         })
         this.element.setClass('chatlist')
-        new Store().subscribe('setChats', ()=> {
+        appStore.subscribe('setChats', ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
     }
 
     render() {
         const components: Component[] = []
-        const chats = new Store().getState('chats') as Indexed[]
+        const chats = appStore.getState('chats') as Indexed[]
+        const currentchat = appStore.getState('currentchat') as Indexed
         if (chats.length > 0) {
             chats.forEach(chat => {
-                components.push(new Chatitem(chat as Indexed))
+                const chatItem = new Chatitem(chat as Indexed)
+                if (currentchat && chat.id === currentchat.id) {
+                    chatItem.element.addClass('chatItem_selected')
+                }
+                components.push(chatItem)
             })
         } else {
             components.push(capbox)

@@ -64,9 +64,6 @@ export class Router {
     private _onRoute(pathname: string) {
         let route = this.getRoute(pathname);
         const isLogin = new Store().getState('isLogin')
-        console.log(
-            'isLogin=', isLogin
-        );
 
         if (!isLogin && pathname!=='/login' && pathname!=='/registr') {
             this.go('/login')

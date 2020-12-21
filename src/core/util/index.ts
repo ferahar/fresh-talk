@@ -4,6 +4,7 @@ import {DomElement} from "./dom-element";
 import {setState} from "./setState";
 import {findState} from "./findState";
 import {objectForm} from "./object-form";
+import {escape} from "./escape";
 
 export {
     DomElement,
@@ -11,7 +12,8 @@ export {
     checkField,
     setState,
     findState,
-    objectForm
+    objectForm,
+    escape
 }
 
 

@@ -1,4 +1,5 @@
 import { authAPIInstance } from './api-base'
+import {errorRequest} from "../../core/util/error"
 
 class ApiAuth {
 
@@ -22,6 +23,7 @@ class ApiAuth {
 
     user() {
         return authAPIInstance.get('/user')
+            .then(data=>JSON.parse((data as XMLHttpRequest).response), errorRequest)
     }
 
     logout() {

@@ -1,4 +1,5 @@
-import { queryStringify, StringIndexed } from './queryStringify'
+import {queryStringify, StringIndexed} from './queryStringify'
+import {getGlobalObject} from "../util/globalObject";
 
 export interface Headers {
     [index: string]: string
@@ -14,6 +15,9 @@ const METHODS = {
 export class HTTP {
 
     private baseUrl: string | null = ''
+
+    //@ts-ignore
+    private global = getGlobalObject<Window>();
     
     constructor(url?: string) {
         if (url !== undefined) {
@@ -45,8 +49,9 @@ export class HTTP {
             url = this.baseUrl + url
         }
         return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest()
-            
+            const xhr = new window.XMLHttpRequest()
+            // const xhr = new XMLHttpRequest()
+
             if (method === METHODS.GET && data) {
                 url = url + queryStringify(data)
             }
@@ -60,7 +65,11 @@ export class HTTP {
                 })
             }
 
-            xhr.onload = () => {
+            // xhr.onload = () => {
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState !== 4) {
+                    return;
+                }
                 if (xhr.status !== 200) {
                     reject(xhr)
                 } else {
@@ -82,3 +91,4 @@ export class HTTP {
         })
     };
 }
+

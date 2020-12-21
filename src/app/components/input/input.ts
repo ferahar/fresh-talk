@@ -1,4 +1,5 @@
-import {Component, Store} from "../../../core/index"
+import {Component} from "../../../core/index"
+import {appStore} from "../../store/appStore";
 
 type Indexed = {
     [key in string]: unknown
@@ -18,10 +19,10 @@ export class Input extends Component {
                 props: props,
             }
         )
-        this.element.setClass('form-label')
+        this.element.setClass('input')
+
         if (this.props.store) {
-            // new Store().subscribe(Store.EVENTS.STATE_CHANGE, ()=> {
-            new Store().subscribe('setProfile', ()=> {
+            appStore.subscribe('setProfile', ()=> {
                 this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
             } )
         }
@@ -31,9 +32,9 @@ export class Input extends Component {
         if (this.props.store) {
             const props = Object.assign({},this.props)
             if (this.props.image) {
-                props.avatar = new Store().getState(this.props.store as string)
+                props.avatar = appStore.getState(this.props.store as string)
             } else {
-                props.value = new Store().getState(this.props.store as string)
+                props.value = appStore.getState(this.props.store as string)
             }
             return nunjucks.render(this._template, props)
         }

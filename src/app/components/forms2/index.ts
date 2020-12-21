@@ -15,6 +15,7 @@ import {
 } from "../input/index";
 import {appStore} from "../../store/appStore";
 import {modalwindowCreateChat} from "../modalwindow/index";
+import {errorRequest} from "../../../core/util/error";
 
 type Indexed = {
     [key in string]: unknown
@@ -47,15 +48,7 @@ export const formsAvatar = new Forms(
     {
         inputs: inputsAvatar
     },
-    (data: FormData)=>{
-        apiUser.saveAvatar(data)
-            .then(apiAuth.user, error => console.log(error.response))
-            .then(data => {
-                const store = new Store()
-                const content = (data as XMLHttpRequest).response
-                store.dispatch('setProfile', JSON.parse(content))
-            })
-    },
+    updateAvatarUser,
     'change'
 )
 
@@ -93,7 +86,7 @@ export const formsEditChat = new Forms(
     {
         inputs: inputsEditChat,
     },
-    updateAvatar,
+    updateAvatarChat,
     'change'
 )
 
@@ -101,15 +94,7 @@ export const formsSearchuser = new Forms(
     {
         inputs: inputsSearchUser,
     },
-    (data: FormData)=>{
-        const object = objectForm(data)
-        console.log(object)
-        apiUser.findUser(object)
-            .then(data=>{
-                const content = JSON.parse((data as XMLHttpRequest).response) as Indexed[]
-                appStore.dispatch('setUserSearch', content)
-            })
-    },
+    serachUsers,
     'keyup',
     false
 )
@@ -117,67 +102,97 @@ export const formsSearchuser = new Forms(
 
 // Methods
 
+function apiStart() {
+    return apiAuth.user()
+    .then(data => {
+        appStore.dispatch(Store.EVENTS.IS_LOGIN)
+        appStore.dispatch('setProfile', data)
+        return apiChats.chats()
+    })
+    .then(data => appStore.dispatch('setChats', data))
+}
+
 function signIn(data: FormData) {
     const object = objectForm(data)
     apiAuth.signIn(object)
-        .then(apiAuth.user, error => error)
-        .then(data => {
-            getUser(data as XMLHttpRequest, inputsForLogin)
-    })
+        .then(apiStart)
+        .then(()=>{
+            new Router().go('/')
+            resetForms(inputsForLogin)
+        })
+        .catch(error=> {
+            unauthorize(error as XMLHttpRequest, inputsForLogin)
+            console.log(error.message)
+        })
 }
 
 function signUp(data: FormData) {
     const object = objectForm(data)
     apiAuth.signUp(object)
-        .then(apiAuth.user, error => console.log(error.response))
-        .then(data => {
-            const store = new Store()
-            store.dispatch(Store.EVENTS.IS_LOGIN)
-            const content = (data as XMLHttpRequest).response
-            store.dispatch('setProfile', JSON.parse(content))
-            inputsForLogin.forEach(input=>input.eventBus.emit(Component.EVENTS.FLOW_RENDER))
+        .then(apiStart)
+        .then(()=> {
             new Router().go('/profile')
+            resetForms(inputsRegistr)
         })
+        .catch(error=>console.log(error.message))
 }
 
-function getUser(data: XMLHttpRequest, inputs: Component[]=[], routerPath: string = "/"):boolean {
-    if (!data) return false
+function unauthorize(data: XMLHttpRequest, inputs: Component[]=[],) {
     if (data.status===401) {
+        const error = JSON.parse(data.response)
         inputs.forEach(input=> {
-            input.element.find('span').text(data.response)
+            input.element.find('span').text(error.reason)
             input.element.find('span').show()
         })
-        return false
     }
-    const store = new Store()
-    store.dispatch(Store.EVENTS.IS_LOGIN)
-    const content = data.response
-    store.dispatch('setProfile', JSON.parse(content))
-    inputs.forEach(input=>input.eventBus.emit(Component.EVENTS.FLOW_RENDER))
-    new Router().go(routerPath)
-    return true
+
 }
+
 
 function chatCreate(data: FormData) {
     const object = objectForm(data)
     apiChats.create(object)
-        .then(apiChats.chats, error => console.log(error.response))
+        .then(apiChats.chats, errorRequest)
         .then(data => {
-            const content = JSON.parse((data as XMLHttpRequest).response)
-            appStore.dispatch('setChats', content)
+            appStore.dispatch('setChats', data)
+            resetForms(inputsCreateChat)
         })
 }
 
-function updateAvatar(data: FormData){
+function updateAvatarUser(data: FormData){
+    apiUser.saveAvatar(data)
+        .then(apiAuth.user)
+        .then(data => {
+            const store = new Store()
+            store.dispatch('setProfile', data)
+        })
+}
+
+function updateAvatarChat(data: FormData){
     const currentchat = appStore.getState('currentchat') as Indexed
     data.append('chatId', currentchat.id as string)
     apiChats.uploadAvatar(data)
-        .then(apiChats.chats)
+        .then(apiChats.chats, errorRequest)
         .then(data=>{
-            const content = JSON.parse((data as XMLHttpRequest).response) as Indexed[]
+            const content = data as Indexed[]
             appStore.dispatch('setChats', content)
             const chat = content.find(chat=> chat.id === currentchat.id)
             appStore.dispatch('setCurrentChat', chat)
         })
+}
 
+function serachUsers(data: FormData) {
+    const object = objectForm(data)
+    apiUser.findUser(object)
+        .then(data=>{
+            const content = JSON.parse((data as XMLHttpRequest).response) as Indexed[]
+            appStore.dispatch('setUserSearch', content)
+        })
+}
+
+
+//utils
+
+function resetForms(inputs: Component[]) {
+    inputs.forEach(input=>input.eventBus.emit(Component.EVENTS.FLOW_RENDER))
 }

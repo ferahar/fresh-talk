@@ -1,5 +1,5 @@
 {% if title %}
-<span class="input-title">{{ title }}</span>
+<h6 class="input-title">{{ title }}</h6>
 {% endif %}
 
 {% if image %}
@@ -11,12 +11,12 @@
         нет изображения
     </div>
     {% endif %}
-    <input class="avatar-input" type="file" name="{{ name }}">
-    <span class="form-textErorr" style="display: none;">{{error}}</span>
+    <input class="input-avatar" type="file" name="{{ name }}">
+    <span class="input-error" style="display: none;">{{error}}</span>
 </div>
 {% else %}
-<input class="inputText form-input" autocomplete="off" type="{{ type }}" value="{{ value }}"  placeholder="{{ placeholder }}" name="{{ name }}" >
-<span class="form-textErorr" style="display: none;">{{error}}</span>
+<input class="input-text" autocomplete="off" type="{{ type }}" value="{{ value }}"  placeholder="{{ placeholder }}" name="{{ name }}" >
+<span class="input-error" style="display: none;">{{error}}</span>
 {% endif %}
 
 

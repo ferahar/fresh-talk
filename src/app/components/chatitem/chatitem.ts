@@ -16,8 +16,8 @@ export class Chatitem extends Component {
             tagName: 'li',
             props: props
         })
-        this.element!.setClass('chatItem')
-        this.element!.attr('date-id', props.id as string)
+        this.element.setClass('chatItem')
+        this.element.attr('date-id', props.id as string)
         this.element.on('click', this.onClick.bind(this))
     }
 

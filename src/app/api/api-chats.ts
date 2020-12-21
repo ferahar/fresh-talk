@@ -1,4 +1,5 @@
 import {chatAPIInstance} from './api-base'
+import {errorRequest} from "../../core/util/error"
 
 type Indexed = {
     [key in string]: unknown
@@ -8,6 +9,7 @@ class ApiChats {
 
     chats() {
         return chatAPIInstance.get('/')
+            .then(data => JSON.parse((data as XMLHttpRequest).response), errorRequest)
     }
 
     create(data:{}) {

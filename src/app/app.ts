@@ -9,21 +9,14 @@ router.routes = appRoutes
 export const start = () => {
     apiAuth.user()
         .then(data => {
-        appStore.dispatch(Store.EVENTS.IS_LOGIN)
-        const content = JSON.parse((data as XMLHttpRequest).response)
-        appStore.dispatch('setProfile', content)
-        return content.id
-    })
-        .then(apiChats.chats, error => {
-            console.log(error.response)
-            router.start()
+            appStore.dispatch(Store.EVENTS.IS_LOGIN)
+            appStore.dispatch('setProfile', data)
+            return apiChats.chats()
         })
-        .then(data => {
-            const content = JSON.parse((data as XMLHttpRequest).response)
-            appStore.dispatch('setChats', content)
-            router.start()
-        })
-
+        .then(data => appStore.dispatch('setChats', data))
+        .finally(()=>router.start())
+        .catch(error=>console.log(error))
 
 }
+
 

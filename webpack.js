@@ -41,7 +41,7 @@ function creatDist(source, destination) {
         } else {
             const file = path.parse(data)
             const dest = path.parse(dir).dir
-            if (file.ext.match(/(.html|.css)/gmi) !== null) {
+            if (file.ext.match(/(.html|.js|.css)/gmi) !== null) {
                 fs.copyFileSync(data, dir)
             } else if ( file.ext === '.styl' ) {
                 const str = fs.readFileSync(data, 'utf8')

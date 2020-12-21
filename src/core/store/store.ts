@@ -43,6 +43,7 @@ export class Store {
 
     clearStore() {
         this.state = {}
+        this.dispatch('state_change')
     }
 
     private init() {
@@ -81,6 +82,7 @@ export class Store {
     private reduce(actionName:string, state: Indexed, prop: Object|string={}) {
 
         const fun: Function = this.reducers[actionName] as Function
+        if (!fun) return
         let newState = fun(state, prop)
         return Object.assign(this.state, newState)
     }

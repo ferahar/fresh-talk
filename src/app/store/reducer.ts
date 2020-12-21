@@ -39,7 +39,6 @@ export const reducer = {
 
     setUserSelected(state: Prop, prop: Prop|string) {
         const result = setState(state, 'userSelected', prop)
-        console.log(prop, result)
         return result
     }
 };

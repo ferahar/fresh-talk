@@ -1,4 +1,4 @@
-import { Component, Store } from "../../../core/index"
+import { Component } from "../../../core/index"
 import {Button} from "../button/button";
 import {apiChats} from "../../api/index";
 import {appStore} from "../../store/appStore";
@@ -25,7 +25,7 @@ export class Lentaeditor extends Component {
             props: props
         })
         this.element.setClass('lentaeditor container container_isColumn container_size_auto')
-        new Store().subscribe('setCurrentChat', ()=> {
+        appStore.subscribe('setCurrentChat', ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
             inputsEditChat.forEach(input=>input.eventBus.emit(Component.EVENTS.FLOW_RENDER))
         } )
@@ -37,12 +37,14 @@ export class Lentaeditor extends Component {
         if (!currentchat) this.hide()
         this.components = {
             headerleft: [
-                new Button({icon:'chat'}, 'button button_ghost', this.hide.bind(this)),
+                buttonRemoveChat
+            ],
+            headerright: [
                 new Button({icon:'person_add'}, 'button button_ghost', ()=>{
                     modalwindowAddUsers.show()
-                })
+                }),
+                new Button({icon:'chat'}, 'button button_ghost', this.hide.bind(this))
             ],
-            headerright: [buttonRemoveChat],
             forms: [formsEditChat],
             userlist: [userlist]
         }
@@ -51,7 +53,7 @@ export class Lentaeditor extends Component {
     }
 }
 
-const buttonRemoveChat = new Button({icon: 'delete'}, 'button button_ghost', ()=>{
+const buttonRemoveChat = new Button({icon: 'delete'}, 'button button_danger', ()=>{
     const currentchat = appStore.getState('currentchat') as Indexed
     apiChats.remove({chatId: currentchat.id})
         .then(apiChats.chats, error => {

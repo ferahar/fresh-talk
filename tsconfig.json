@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+
     "target": "esNext",
     "module": "es2015",
     "sourceMap": true,
@@ -22,11 +23,11 @@
 
     /* Module Resolution Options */
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   
   "include": [
     "src/**/*"
-  ],
+  ]
 
 }

@@ -1,8 +1,8 @@
-import {Component, Store} from "../../../core/index";
-import {capboxCurrentChat} from "../capbox/index";
-import {lenta} from "../lenta/index";
-import {lentaEditor} from "../lentaeditor/index";
-
+import {Component, Store} from "../../../core/index"
+import {capboxCurrentChat} from "../capbox/index"
+import {lenta} from "../lenta/index"
+import {lentaEditor} from "../lentaeditor/index"
+// import {appEvents} from "../../store/events"
 
 type Indexed = {
     [key in string]: unknown
@@ -20,8 +20,8 @@ export class Chatcurrent extends Component {
             components
         })
         this.element.setClass('chatcurrent container container_size_auto')
-
-        new Store().subscribe('setCurrentChat', ()=> {
+            // [appEvents.SET_CURCHAT, appEvents.STATE_CHANGE]
+        new Store().subscribe(['setCurrentChat', 'state_change'], ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
     }

@@ -21,7 +21,7 @@ export class Userlist extends Component {
             props: props
         })
         this.element.setClass('list')
-        appStore.subscribe('setUserList', ()=> {
+        appStore.subscribe('setUserList' , ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
 

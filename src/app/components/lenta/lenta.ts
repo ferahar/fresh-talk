@@ -1,7 +1,10 @@
 import { Component, Store } from "../../../core/index"
-import {LentaName} from "../lentaname/lentaname";
-import {Button} from "../button/button";
-import {lentaEditor} from "../lentaeditor/index";
+import {LentaName} from "../lentaname/lentaname"
+import {Button} from "../button/button"
+import {lentaEditor} from "../lentaeditor/index"
+import {Message} from "../message/message"
+import {modalwindowAddUsers} from "../modalwindow/index"
+import {formResponse} from "../formresponse/index"
 
 
 type Indexed = {
@@ -29,12 +32,23 @@ export class Lenta extends Component {
     render() {
         const currentchat = new Store().getState('currentchat') as Indexed
         this.components = {
-            headerLenta: [
+            headerleft: [
                 new LentaName(currentchat),
+            ],
+            headerright: [
+                new Button({icon:'person_add'}, 'button button_ghost', ()=>{
+                    modalwindowAddUsers.show()
+                }),
                 new Button({icon: 'settings'}, 'button button_ghost', ()=>{
-                    lentaEditor.show()
+                        lentaEditor.show()
                     }
                 )
+            ],
+            msgList: [
+                new Message({})
+            ],
+            msgSend: [
+                formResponse
             ]
         }
 
