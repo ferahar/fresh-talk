@@ -14,9 +14,10 @@ export class Chatitem extends Component {
         super({
             template: Chatitem.TEMPLATE,
             tagName: 'li',
-            props: props
+            props: props,
+            style: 'chatItem'
         })
-        this.element.setClass('chatItem')
+
         this.element.attr('date-id', props.id as string)
         this.element.on('click', this.onClick.bind(this))
     }

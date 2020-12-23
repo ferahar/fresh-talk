@@ -2,10 +2,6 @@ import { EventBus } from "../index"
 import { setState, findState } from "../util/index"
 
 
-type Indexed = {
-    [key in string]: unknown
-}
-
 export class Store {
 
     static EVENTS = {

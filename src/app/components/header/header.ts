@@ -1,20 +1,17 @@
 import { Component } from "../../../core/index"
 
-type Indexed = {
-    [key in string]: unknown
-}
 
 export class Header extends Component {
 
     static TEMPLATE = '../app/components/header/header.html'
 
-    constructor(title:string = '', components:Indexed = {}) {
+    constructor(title:string = '', components:{[key in string]: Component[]} = {}) {
 
         super({
             template: Header.TEMPLATE,
-            tagname: 'header',
+            tagName: 'header',
             props: {title:title},
-            components: components
+            components
         })
         this.element.setClass('header header_themeDark')
     }

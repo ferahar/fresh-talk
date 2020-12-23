@@ -1,8 +1,5 @@
 import { Component } from "../../../core/component/component"
 
-type Indexed = {
-    [key in string]: unknown
-}
 
 export class Button extends Component {
 

@@ -1,21 +1,18 @@
 import { Component} from "../../../core/index";
+import {ListComponents} from "../../../core/type";
 
-
-type Indexed = {
-    [key in string]: unknown
-}
 
 export class Chatnavigate extends Component {
 
     static TEMPLATE = '../app/components/chatnavigate/chatnavigate.html'
 
-    constructor(components: Indexed = {}) {
+    constructor(components: ListComponents = {}) {
         super({
             tagName: 'aside',
             template: Chatnavigate.TEMPLATE,
-            components
+            components,
+            style: 'chatnavigate container container_isColumn'
         })
-        this.element.setClass('chatnavigate container container_isColumn')
     }
 
 }

@@ -1,17 +1,13 @@
-import { Component, Store } from "../../../core/index"
+import {Component} from "../../../core/index"
 import {LentaName} from "../lentaname/lentaname"
 import {Button} from "../button/button"
 import {lentaEditor} from "../lentaeditor/index"
 import {Message} from "../message/message"
 import {modalwindowAddUsers} from "../modalwindow/index"
 import {formResponse} from "../formresponse/index"
+import {appEvents} from "../../store/events";
+import {appStore} from "../../store/appStore";
 
-
-type Indexed = {
-    [key in string]: unknown
-}
-
-declare var nunjucks: any
 
 export class Lenta extends Component {
 
@@ -21,16 +17,17 @@ export class Lenta extends Component {
         super({
             template: Lenta.TEMPLATE,
             tagName: 'section',
+            style: 'container container_isColumn container_size_auto',
             props: props
         })
-        this.element.setClass('container container_isColumn container_size_auto')
-        new Store().subscribe('setCurrentChat', ()=> {
+
+        appStore.subscribe(appEvents.SET_CURCHAT, ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
     }
 
     render() {
-        const currentchat = new Store().getState('currentchat') as Indexed
+        const currentchat = appStore.getState('currentchat') as Indexed
         this.components = {
             headerleft: [
                 new LentaName(currentchat),
@@ -51,7 +48,6 @@ export class Lenta extends Component {
                 formResponse
             ]
         }
-
-        return nunjucks.render(this._template, this.props)
+        return super.render()
     }
 }

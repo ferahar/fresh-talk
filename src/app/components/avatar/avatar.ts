@@ -1,8 +1,5 @@
 import { Component } from "../../../core/index"
 
-type Indexed = {
-    [key in string]: unknown
-}
 
 export class Avatar extends Component {
 

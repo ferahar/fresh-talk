@@ -1,7 +1,3 @@
-type Indexed = {
-    [key in string]: unknown
-}
-
 export function checkField(fieldName: HTMLInputElement): Indexed {
     let test: boolean = false
     let message: string = ''

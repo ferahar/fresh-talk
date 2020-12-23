@@ -2,11 +2,6 @@ import {Component} from "../../../core/index"
 import {Button} from "../button/button";
 import {objectForm} from "../../../core/util/index";
 
-type Indexed = {
-    [key in string]: unknown
-}
-
-declare var nunjucks: any
 
 export class FormResponse extends Component {
 

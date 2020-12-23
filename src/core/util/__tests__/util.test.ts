@@ -2,7 +2,6 @@ import {findState, setState, } from "../index";
 import {util} from "../../index";
 
 
-
 describe('Utility functions:', ()=> {
 
     let state: {[key in string]:any} = {}
@@ -16,7 +15,7 @@ describe('Utility functions:', ()=> {
                 display_name: "Jedi",
                 login: "Yoda",
                 email: "user@mail.rmb",
-                phone: "+7 888 655 21 21"
+                phone: "+78886552121"
             },
             chats: [
                 {
@@ -61,12 +60,12 @@ describe('Utility functions:', ()=> {
         }
     ]
 
-    test('Find in state to equal "success"', () => {
+    test('FindState: Find in state to equal "success"', () => {
         expect( findState(state, 'isLogin') ).toBe('success');
     });
 
 
-    test('Add new object in state', () => {
+    test('SetState: Add new object in state', () => {
         setState(state, 'todo', {title:'Todo', status:'load'})
         expect( findState(state, 'todo.status') ).toBe('load');
     });

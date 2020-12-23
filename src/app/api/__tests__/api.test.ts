@@ -1,35 +1,56 @@
 import {apiChats} from "../index";
 
-describe("XHR API", () => {
+describe("API:", () => {
     describe("fetchAllRepositories()", () => {
         const data = {
-            id: "1234",
-            name: "My Repository",
-        };
+            id: "42",
+            name: "frash talk",
+        }
 
-        it("return expect data", async () => {
+        test("return expect data", async () => {
 
-            mockFetch(200, [data])
+            mockFetch(200, data)
             const res = await apiChats.chats()
 
-            expect(res).toEqual([data])
+            expect(res).toEqual(data)
         });
 
-        it("throw an error", async () => {
-            mockFetch(500, [data])
+        test("throw an error", async () => {
+            mockFetch(500, data)
 
             try {
                 await apiChats.chats()
             } catch (e) {
-                console.log(e)
                 expect(e.message).toBe("Server is not available")
             }
+        })
+
+        test("return expect array", async () => {
+            const chats = [
+                {
+                    title: 'cool',
+                    id: 2
+                },
+                {
+                    title: 'Ahsoka',
+                    id: 12
+                },
+                {
+                    title: 'frash talk',
+                    id: 2
+                }
+
+            ]
+            mockFetch(200, chats)
+            const res = await apiChats.chats()
+            expect(res).toEqual(chats)
+            expect(res.length).toBe(3)
         })
 
     });
 });
 
-function mockFetch(status: number, data?: { [key: string]: string }[]) {
+function mockFetch(status: number, data?: {}) {
     const xhrMockObj = {
         open: jest.fn(),
         send: jest.fn(),

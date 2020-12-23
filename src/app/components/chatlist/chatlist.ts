@@ -2,26 +2,22 @@ import {Component} from "../../../core/index"
 import {Chatitem} from "../chatitem/chatitem"
 import {capbox} from "../capbox/index"
 import {appStore} from "../../store/appStore";
+import {appEvents} from "../../store/events";
 
 
-type Indexed = {
-    [key in string]: unknown
-}
-
-declare var nunjucks: any
 
 export class Chatlist extends Component {
 
     static TEMPLATE = '../app/components/chatlist/chatlist.html'
 
-    constructor(props: Indexed={}) {
+    constructor(props: Indexed = {}) {
         super({
             template: Chatlist.TEMPLATE,
             tagName: 'ul',
+            style: 'chatlist',
             props: props
         })
-        this.element.setClass('chatlist')
-        appStore.subscribe('setChats', ()=> {
+        appStore.subscribe(appEvents.SET_CHATS, ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
     }
@@ -45,7 +41,6 @@ export class Chatlist extends Component {
         this.components = {
             chats: components
         }
-
-        return nunjucks.render(this._template, this.props)
+        return super.render()
     }
 }

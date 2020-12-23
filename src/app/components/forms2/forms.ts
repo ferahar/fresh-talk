@@ -2,11 +2,6 @@ import {Component} from "../../../core/index"
 import { checkField, checkForm } from "../../../core/util/index"
 import { $ } from "../../../core/util/dom-element"
 
-declare var nunjucks: any
-
-type Indexed = {
-    [key in string]: unknown
-}
 
 
 export class Forms extends Component {
@@ -17,12 +12,12 @@ export class Forms extends Component {
     private verification  = true
 
     validation:boolean = false
-    constructor(components:Indexed, callback: Function | null = null, listener='submit', verification:boolean = true) {
+    constructor(components:{[key in string]: Component[]}, callback: Function | null = null, listener='submit', verification:boolean = true) {
 
         super({
             template: Forms.TEMPLATE,
             tagName: 'form',
-            components: components,
+            components,
         })
         this.element.setClass('container container_isColumn form')
         this.callback = callback

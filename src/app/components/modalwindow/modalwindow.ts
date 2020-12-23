@@ -1,9 +1,6 @@
 import { Component } from "../../../core/index"
 import {Button} from "../button/button";
 
-type Indexed = {
-    [key in string]: unknown
-}
 
 export class Modalwindow extends Component {
 
@@ -24,7 +21,6 @@ export class Modalwindow extends Component {
         })
 
         this.hide()
-        // this.element.on('click', this.onClick.bind(this))
 
     }
 

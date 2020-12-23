@@ -1,11 +1,7 @@
 import {Component} from "../../../core/index"
-import {appStore} from "../../store/appStore";
+import {appStore} from "../../store/appStore"
+import {appEvents} from "../../store/events"
 
-type Indexed = {
-    [key in string]: unknown
-}
-
-declare var nunjucks: any
 
 export class Input extends Component {
 
@@ -16,13 +12,13 @@ export class Input extends Component {
             {
                 template: Input.TEMPLATE,
                 tagName: 'label',
-                props: props,
+                style: 'input',
+                props: props
             }
         )
-        this.element.setClass('input')
 
         if (this.props.store) {
-            appStore.subscribe('setProfile', ()=> {
+            appStore.subscribe(appEvents.SET_PROFILE, ()=> {
                 this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
             } )
         }

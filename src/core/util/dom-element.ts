@@ -46,6 +46,13 @@ export class DomElement {
         return false
       }
 
+    getText(): string | boolean {
+        if (this.nativeElement) {
+            return this.nativeElement.innerText
+        }
+        return false
+    }
+
     append(el: DomElement) {
         if (this.nativeElement) {
             this.nativeElement.appendChild(el.nativeElement as Node)

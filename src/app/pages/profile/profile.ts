@@ -1,17 +1,14 @@
 import { Component, Router, DomElement } from "../../../core/index";
 import {headerProfile} from '../../components/header/index'
 import {formsProfile2, formsAvatar, formsPswChange} from "../../components/forms2/index";
+import {ListComponents} from "../../../core/type";
 
-
-type Indexed = {
-    [key in string]: unknown
-}
 
 class ProfilePage extends Component {
 
     static TEMPLATE = '../app/pages/profile/profile.html'
 
-    constructor(components: Indexed = {}) {
+    constructor(components: ListComponents = {}) {
         super({
             tagName: 'section',
             template: ProfilePage.TEMPLATE,

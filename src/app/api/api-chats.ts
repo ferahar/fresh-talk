@@ -1,9 +1,6 @@
 import {chatAPIInstance} from './api-base'
 import {errorRequest} from "../../core/util/error"
 
-type Indexed = {
-    [key in string]: unknown
-}
 
 class ApiChats {
 

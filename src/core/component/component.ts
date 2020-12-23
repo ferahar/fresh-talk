@@ -2,15 +2,17 @@ import { DomElement, $ } from "../util/dom-element"
 import { EventBus } from "../index"
 
 
-type Indexed = {
-  [key in string]: unknown
-}
-
-type ListComponents = {
+export type ListComponents = {
   [key in string]: Component[]
 }
 
-declare var nunjucks: any
+export type Config = {
+  tagName: string,
+  template?: string,
+  components?: ListComponents,
+  props?: Indexed
+  style?: string
+}
 
 export class Component {
   static EVENTS = {
@@ -28,10 +30,13 @@ export class Component {
   eventBus: EventBus
   props: Indexed
 
-  constructor(config: Indexed){
-
+  constructor(config: Config){
     this._element = $(document.createElement( config.tagName as string))
     this._template = config.template as string
+
+    if (config.style) {
+      this._element.setClass(config.style)
+    }
 
     if (config.components) {
       this.components = config.components as ListComponents

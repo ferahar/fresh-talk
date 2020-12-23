@@ -2,26 +2,23 @@ import {Component, Store} from "../../../core/index"
 import {capboxCurrentChat} from "../capbox/index"
 import {lenta} from "../lenta/index"
 import {lentaEditor} from "../lentaeditor/index"
-// import {appEvents} from "../../store/events"
+import {ListComponents} from "../../../core/type";
+import {appStore} from "../../store/appStore";
+import {appEvents} from "../../store/events"
 
-type Indexed = {
-    [key in string]: unknown
-}
-declare var nunjucks: any
 
 export class Chatcurrent extends Component {
 
     static TEMPLATE = '../app/components/chatcurrent/chatcurrent.html'
 
-    constructor(components: Indexed = {}) {
+    constructor(components: ListComponents={}) {
         super({
             tagName: 'article',
             template: Chatcurrent.TEMPLATE,
-            components
+            components,
+            style: 'chatcurrent container container_size_auto'
         })
-        this.element.setClass('chatcurrent container container_size_auto')
-            // [appEvents.SET_CURCHAT, appEvents.STATE_CHANGE]
-        new Store().subscribe(['setCurrentChat', 'state_change'], ()=> {
+        appStore.subscribe([appEvents.SET_CURCHAT, appEvents.STATE_CHANGE], ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
     }
@@ -42,13 +39,6 @@ export class Chatcurrent extends Component {
         this.components = {
             components
         }
-
-        return nunjucks.render(this._template, this.props)
+        return super.render()
     }
-
-
 }
-
-
-
-

@@ -1,4 +1,3 @@
-import { startPage } from './pages/start/start'
 import { chatPage } from './pages/chat/chat'
 import { loginPage } from './pages/login/login'
 import { registrPage } from './pages/registr/registr'
@@ -8,7 +7,6 @@ import {profilePage} from "./pages/profile/profile";
 
 export const appRoutes = [
     {path: '/', component: chatPage },
-    {path: '/start', component: startPage },
     {path: '/login', component: loginPage},
     {path: '/registr', component: registrPage},
     {path: '/profile', component: profilePage},

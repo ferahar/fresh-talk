@@ -70,7 +70,7 @@ export class Router {
             return
         }
 
-        if (route === undefined) {
+        if (route === undefined && this.getRoute('/404')) {
             this.go('/404')
             return
         }
@@ -108,8 +108,8 @@ export class Router {
     }
 
     getRoute(path: string) {
-        if (path) {
-            return this.routes!.find(route => route.path.match(path as any))
+        if (path && this.routes) {
+            return this.routes.find(route => route.path.match(path as any))
         } else return undefined
     }
 
