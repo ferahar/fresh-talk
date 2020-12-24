@@ -1,3 +1,4 @@
 node_modules/
 help_code/
 dist/
+.idea/
