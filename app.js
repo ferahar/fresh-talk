@@ -24,13 +24,13 @@ function startServer(port) {
     })
   );
 
-  app.use(helmet.hidePoweredBy());
-  app.use(helmet.xssFilter());
+  app.use(helmet.hidePoweredBy())
+  app.use(helmet.xssFilter())
 
-  app.use(express.static(path.join(__dirname, 'dist')));
+  app.use(express.static(path.join(__dirname, 'dist')))
 
   app.get('*', function (request, response) {
-    response.sendFile(__dirname + "/dist/index.html");
+    response.sendFile(__dirname + "/dist/index.html")
   });
 
   app.listen(port, () => {

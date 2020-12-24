@@ -8,8 +8,12 @@ export class Useritem extends Component {
     static TEMPLATE = '../app/components/useritem/useritem.html'
 
     constructor(props: Indexed) {
+
         const components = []
-        if (!props.owner) {
+        const currentChat = appStore.getState('currentchat') as Indexed
+        const profile = appStore.getState('profile') as Indexed
+
+        if (!props.owner && currentChat.created_by === profile.id ) {
             components.push(
                 new Button({icon: 'close'}, 'button button_ghost', ()=> removeUser(this))
             )

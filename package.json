@@ -5,10 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "tsc -w",
+    "dev": "npm run build && node app.js",
     "build": "node webpack.js && tsc && node extjs.js",
-    "test": "jest",
-    "test:coverage": "npm run test -- --coverage"
+    "prod": "node webpack.js && tsc --build tsconfig-prod.json && node extjs.js",
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "jsdom"

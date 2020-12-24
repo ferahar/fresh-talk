@@ -23,7 +23,7 @@ export const formsLogin2 = new Forms(
     {
         inputs: inputsForLogin,
         buttons: [
-            new Button({title:'Авторизоваться'}, 'button button_primary'),
+            new Button({title:'Авторизоваться'}, 'button button_primary margin-tb_s-2'),
             new Button({title: 'Зарегистрироваться'}, '', ()=>{new Router().go('/registr')})
         ],
     },
@@ -34,7 +34,7 @@ export const formsRegistr = new Forms(
     {
         inputs: inputsRegistr,
         buttons: [
-            new Button({title:'Зарегистрироваться'}, 'button button_primary'),
+            new Button({title:'Зарегистрироваться'}, 'button button_primary margin-tb_s-2'),
             new Button({title: 'Авторизоваться'}, '', ()=>{new Router().go('/login')})
         ],
     },

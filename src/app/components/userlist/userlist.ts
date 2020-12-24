@@ -25,10 +25,10 @@ export class Userlist extends Component {
     render() {
         const components: Component[] = []
         const userList = appStore.getState('userList') as Indexed[]
-        const currentUser = appStore.getState('currentchat') as Indexed
+        const currentChat = appStore.getState('currentchat') as Indexed
         if (userList.length > 0) {
             userList.forEach(user => {
-                if (currentUser.created_by===user.id) {
+                if (currentChat.created_by===user.id) {
                     user['owner']='Владелец'
                     // user['owner']=currentUser.created_by
                 }

@@ -1,12 +1,12 @@
-import { Component } from "../../../core/index"
-import {Button} from "../button/button";
-import {apiChats} from "../../api/index";
-import {appStore} from "../../store/appStore";
-import {formsEditChat} from "../forms2/index";
-import {inputsEditChat} from "../input/index";
-import {userlist} from "../userlist/index";
-import {modalwindowAddUsers} from "../modalwindow/index";
-import {appEvents} from "../../store/events";
+import {Component} from "../../../core/index"
+import {Button} from "../button/button"
+import {apiChats} from "../../api/index"
+import {appStore} from "../../store/appStore"
+import {formsEditChat} from "../forms2/index"
+import {inputsEditChat} from "../input/index"
+import {userlist} from "../userlist/index"
+import {modalwindowAddUsers} from "../modalwindow/index"
+import {appEvents} from "../../store/events"
 
 
 export class Lentaeditor extends Component {
@@ -30,21 +30,24 @@ export class Lentaeditor extends Component {
 
     render() {
         const currentchat = appStore.getState('currentchat') as Indexed
+        const profile = appStore.getState('profile') as Indexed
+
         if (!currentchat) this.hide()
-        this.components = {
-            headerleft: [
-                buttonRemoveChat
-            ],
-            headerright: [
-                new Button({icon:'person_add'}, 'button button_ghost', ()=>{
-                    modalwindowAddUsers.show()
-                }),
-                new Button({icon:'chat'}, 'button button_ghost', this.hide.bind(this))
-            ],
-            forms: [formsEditChat],
-            userlist: [userlist]
+
+        if (currentchat.created_by === profile.id ) {
+            console.log('state:')
+            console.log(appStore.prop)
+            this.components.headerleft = [buttonRemoveChat]
         }
 
+        this.components.headerright = [
+            new Button({icon:'person_add'}, 'button button_ghost', ()=>{
+                modalwindowAddUsers.show()
+            }),
+            new Button({icon:'chat'}, 'button button_ghost', this.hide.bind(this))
+        ]
+        this.components.forms = [formsEditChat]
+        this.components.userlist = [userlist]
         return nunjucks.render(this._template, this.props)
     }
 }
