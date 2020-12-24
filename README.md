@@ -1,11 +1,10 @@
-
 ## frash_talk
-Демо: <a href="https://ferahar-msg.netlify.app/">frash_talk</a>
+Демо: <a href="https://frash-talk.netlify.app">frash_talk</a>
 - проект в разработке
 - JS(vanila) learning
 
 ## UX/UI
-Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/ferahar-msgr?node-id=0%3A1&viewport=466%2C373%2C0.47879621386528015">ferahar-msgg</a>
+Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/frash_talk?node-id=6%3A0">frash-talk</a>
 
 ## Cпринт #3
 - routs
@@ -17,7 +16,9 @@
 
 ## УСТАНОВКА
 - `npm install` — установка зависимостей,
-- `npm run build` — подготовка статики проекта
-- `npm start` — запуск версии для разработчика (http://localhost:4200/)
+- `npm run build` — сборка статики для разработки
+- `npm run prod` — сборка статики для проекта
+- `npm run dev` — подготовка и запуск сервера для разработки (http://localhost:4200/)
+- `npm start` — запуск сервера (http://localhost:4200/)
 - `npm test` — тестирование, библиотека Jest
 
