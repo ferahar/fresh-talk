@@ -35,8 +35,6 @@ export class Lentaeditor extends Component {
         if (!currentchat) this.hide()
 
         if (currentchat.created_by === profile.id ) {
-            console.log('state:')
-            console.log(appStore.prop)
             this.components.headerleft = [buttonRemoveChat]
         }
 
@@ -62,6 +60,6 @@ const buttonRemoveChat = new Button({icon: 'delete'}, 'button button_danger', ()
             appStore.dispatch('setChats', data)
             appStore.dispatch('setCurrentChat', '')
         })
-    console.log(`Remove chat # ${currentchat.id}`)
+        .catch(error=>console.log(error.message))
 })
 
