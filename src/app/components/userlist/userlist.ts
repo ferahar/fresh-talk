@@ -1,14 +1,8 @@
-import { Component } from "../../../core/index"
+import {Component} from "../../../core/index"
 import {Useritem} from "../useritem/useritem"
 import {appStore} from "../../store/appStore"
+import {appEvents} from "../../store/events"
 
-
-
-type Indexed = {
-    [key in string]: unknown
-}
-
-declare var nunjucks: any
 
 export class Userlist extends Component {
 
@@ -18,10 +12,11 @@ export class Userlist extends Component {
         super({
             template: Userlist.TEMPLATE,
             tagName: 'ul',
-            props: props
+            props: props,
+            style: 'list'
         })
-        this.element.setClass('list')
-        appStore.subscribe('setUserList' , ()=> {
+
+        appStore.subscribe(appEvents.SET_USER_LIST, ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
         } )
 

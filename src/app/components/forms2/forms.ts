@@ -1,7 +1,7 @@
 import {Component} from "../../../core/index"
 import { checkField, checkForm } from "../../../core/util/index"
 import { $ } from "../../../core/util/dom-element"
-
+import {ListComponents} from "../../../core/type";
 
 
 export class Forms extends Component {
@@ -12,7 +12,7 @@ export class Forms extends Component {
     private verification  = true
 
     validation:boolean = false
-    constructor(components:{[key in string]: Component[]}, callback: Function | null = null, listener='submit', verification:boolean = true) {
+    constructor(components: ListComponents, callback: Function | null = null, listener='submit', verification:boolean = true) {
 
         super({
             template: Forms.TEMPLATE,

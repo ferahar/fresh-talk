@@ -4,18 +4,14 @@ import {userSearch} from "../usersearch/index";
 
 
 export const modalwindowCreateChat = new Modalwindow(
-    {
-        title:'Новый чат'
-    },
+    'Новый чат',
     [
         formsCreateChat
     ]
 )
 
 export const modalwindowAddUsers = new Modalwindow(
-    {
-        title:'Добавить участников'
-    },
+    'Добавить участников',
     [
         formsSearchuser,
         userSearch

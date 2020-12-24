@@ -70,14 +70,14 @@ export const field = {
         placeholder: "@#)**^_!~",
     },
     PSW_CUR: {
-        name: "passwordCur",
+        name: "oldPassword",
         type: "password",
         title: "Текущий пароль",
         value: '',
         placeholder: "@#)*$^_!~",
     },
     PSW_NEW: {
-        name: "passwordNew",
+        name: "newPassword",
         type: "password",
         title: "Новый пароль",
         value: '',

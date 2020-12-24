@@ -16,10 +16,7 @@ import {
 import {appStore} from "../../store/appStore";
 import {modalwindowCreateChat} from "../modalwindow/index";
 import {errorRequest} from "../../../core/util/error";
-
-type Indexed = {
-    [key in string]: unknown
-}
+import {Notification} from "../notification/notification";
 
 
 export const formsLogin2 = new Forms(
@@ -56,14 +53,16 @@ export const formsPswChange = new Forms(
     {
         inputs: inputsPswChange,
         buttons: [new Button({title:'Изменить пароль'}, 'button')],
-    }
+    },
+    pswUpdate
 )
 
 export const formsProfile2 = new Forms(
     {
         inputs: inputsProfile,
         buttons: [new Button({title:'Изменить профиль'}, 'button')],
-    }
+    },
+    profileUpdate
 )
 
 export const formsCreateChat = new Forms(
@@ -74,6 +73,7 @@ export const formsCreateChat = new Forms(
                 setTimeout(()=>{
                     if (formsCreateChat.validation) {
                         modalwindowCreateChat.hide()
+                        new Notification(`Вы создали чатик`)
                     }
                 },0)
             }),
@@ -137,6 +137,27 @@ function signUp(data: FormData) {
         .catch(error=>console.log(error.message))
 }
 
+function profileUpdate(data: FormData) {
+    const object = objectForm(data)
+    apiUser.saveProfil(object)
+        .then(apiAuth.user)
+        .then(data => {
+            appStore.dispatch('setProfile', data)
+            new Notification(`Профиль успешно изменен`)
+        })
+        .catch(error=>console.log(error.message))
+}
+
+function pswUpdate(data: FormData) {
+    const object = objectForm(data)
+    apiUser.savePsw(object)
+        .then(() => {
+            console.log('password changed successfully')
+            new Notification(`Пароль успешно изменен`)
+        })
+        .catch(error=>console.log(error.message))
+}
+
 function unauthorize(data: XMLHttpRequest, inputs: Component[]=[],) {
     if (data.status===401) {
         const error = JSON.parse(data.response)
@@ -165,6 +186,7 @@ function updateAvatarUser(data: FormData){
         .then(data => {
             const store = new Store()
             store.dispatch('setProfile', data)
+            new Notification(`Изображение успешно изменено`)
         })
 }
 
@@ -178,6 +200,7 @@ function updateAvatarChat(data: FormData){
             appStore.dispatch('setChats', content)
             const chat = content.find(chat=> chat.id === currentchat.id)
             appStore.dispatch('setCurrentChat', chat)
+            new Notification(`Изображение успешно изменено`)
         })
 }
 

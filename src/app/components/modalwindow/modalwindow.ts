@@ -6,12 +6,14 @@ export class Modalwindow extends Component {
 
     static TEMPLATE = '../app/components/modalwindow/modalwindow.html'
 
-    constructor(props:Indexed, components:Component[],) {
+    constructor(title: string, components:Component[],) {
 
         super({
             template: Modalwindow.TEMPLATE,
             tagName: 'div',
-            props: props,
+            props: {
+                title
+            },
             components: {
                 content: components,
                 close: [

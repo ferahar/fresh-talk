@@ -6,13 +6,8 @@ import {formsEditChat} from "../forms2/index";
 import {inputsEditChat} from "../input/index";
 import {userlist} from "../userlist/index";
 import {modalwindowAddUsers} from "../modalwindow/index";
+import {appEvents} from "../../store/events";
 
-
-type Indexed = {
-    [key in string]: unknown
-}
-
-declare var nunjucks: any
 
 export class Lentaeditor extends Component {
 
@@ -22,10 +17,11 @@ export class Lentaeditor extends Component {
         super({
             template: Lentaeditor.TEMPLATE,
             tagName: 'section',
-            props: props
+            props: props,
+            style: 'lentaeditor container container_isColumn container_size_auto'
         })
-        this.element.setClass('lentaeditor container container_isColumn container_size_auto')
-        appStore.subscribe('setCurrentChat', ()=> {
+
+        appStore.subscribe(appEvents.SET_CURCHAT, ()=> {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
             inputsEditChat.forEach(input=>input.eventBus.emit(Component.EVENTS.FLOW_RENDER))
         } )

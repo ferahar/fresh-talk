@@ -1,9 +1,6 @@
 import {Component} from "../../../core/index"
 import {appStore} from "../../store/appStore";
 
-type Indexed = {
-    [key in string]: unknown
-}
 
 export class User extends Component {
 
@@ -14,8 +11,9 @@ export class User extends Component {
             template: User.TEMPLATE,
             tagName: 'li',
             props: props,
+            style: 'list-item'
         })
-        this.element.setClass('list-item')
+
         this.element.on('click', ()=>{
             this.element.nativeElement!.classList.toggle('user_selected')
             const users = appStore.getState('userSelected') as number[]
@@ -26,8 +24,6 @@ export class User extends Component {
                 users.push(this.props.id as number)
                 appStore.dispatch('setUserSelected', users)
             }
-
-            console.log(appStore.getState('userSelected'))
         })
     }
 

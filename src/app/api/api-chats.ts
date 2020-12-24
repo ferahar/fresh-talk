@@ -25,8 +25,8 @@ class ApiChats {
     }
 
     users(data:Indexed={}) {
-
         return chatAPIInstance.get(`/${data.id}/users`)
+            .then(data => JSON.parse((data as XMLHttpRequest).response), errorRequest)
     }
 
     addUsers(data={}) {

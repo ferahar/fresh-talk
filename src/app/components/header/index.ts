@@ -29,9 +29,9 @@ function logout() {
                 appStore.clearStore()
                 appStore.setState('isLogin', '')
                 new Router().go('/login')
-            },
-            error => console.log(error.response)
+            }
         )
+        .catch(error=>console.log(error.message))
 
 }
 

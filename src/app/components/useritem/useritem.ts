@@ -3,10 +3,6 @@ import {Button} from "../button/button"
 import {apiChats} from "../../api/index"
 import {appStore} from "../../store/appStore"
 
-type Indexed = {
-    [key in string]: unknown
-}
-
 export class Useritem extends Component {
 
     static TEMPLATE = '../app/components/useritem/useritem.html'
@@ -14,17 +10,9 @@ export class Useritem extends Component {
     constructor(props: Indexed) {
         const components = []
         if (!props.owner) {
-            components.push(new Button({icon: 'close'}, 'button button_ghost', ()=>{
-                const currentChat = appStore.getState('currentchat') as Indexed
-                apiChats.removeUsers({users:[this.props.id], chatId: currentChat.id})
-                    .then(()=>{
-                        apiChats.users(currentChat)
-                            .then(data=>{
-                                const content = JSON.parse((data as XMLHttpRequest).response)
-                                appStore.dispatch('setUserList', content )
-                            })
-                    })
-            }))
+            components.push(
+                new Button({icon: 'close'}, 'button button_ghost', ()=> removeUser(this))
+            )
         }
         super({
             template: Useritem.TEMPLATE,
@@ -39,4 +27,11 @@ export class Useritem extends Component {
 
     }
 
+}
+
+function removeUser(component:Component) {
+    const currentChat = appStore.getState('currentchat') as Indexed
+    apiChats.removeUsers({users:[component.props.id], chatId: currentChat.id})
+        .then(() => apiChats.users(currentChat))
+        .then(data=> appStore.dispatch('setUserList', data ))
 }
