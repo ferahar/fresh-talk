@@ -1,5 +1,5 @@
-import {findState, setState, } from "../index";
-import {util} from "../../index";
+import {findState, setState, } from "../index"
+import {util} from "../../index"
 
 
 describe('Utility functions:', ()=> {
@@ -61,33 +61,33 @@ describe('Utility functions:', ()=> {
     ]
 
     test('FindState: Find in state to equal "success"', () => {
-        expect( findState(state, 'isLogin') ).toBe('success');
+        expect( findState(state, 'isLogin') ).toBe('success')
     });
 
 
     test('SetState: Add new object in state', () => {
         setState(state, 'todo', {title:'Todo', status:'load'})
-        expect( findState(state, 'todo.status') ).toBe('load');
+        expect( findState(state, 'todo.status') ).toBe('load')
     });
 
     test('Add new object in state', () => {
         setState(state, 'profile', prop)
-        expect( findState(state, 'profile.first_name') ).toBe('Dimon');
-    });
+        expect( findState(state, 'profile.first_name') ).toBe('Dimon')
+    })
 
     test('is empty TRUE', () => {
         expect( util.isEmpty('profile.first_name')).toBeTruthy()
-    });
+    })
 
     test('add array elements', () => {
         setState(state, 'chats', newChats)
         const first = state.chats[0].title
         expect(first).toBe('Cool')
-    });
+    })
 
     test('One element in array', () => {
         expect(state.chats.length).toBe(3)
-    });
+    })
 })
 
 

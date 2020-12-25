@@ -1,8 +1,8 @@
-import { objectForm } from '../../../core/util/index'
-import { Forms } from './forms'
+import {objectForm} from '../../../core/util/index'
+import {Forms} from './forms'
 import {Component, Router, Store} from '../../../core/index'
 import {apiAuth, apiChats, apiUser} from '../../api/index'
-import {Button} from "../button/button";
+import {Button} from "../button/button"
 import {
     inputsForLogin,
     inputsProfile,
@@ -12,11 +12,11 @@ import {
     inputsCreateChat,
     inputsEditChat,
     inputsSearchUser
-} from "../input/index";
-import {appStore} from "../../store/appStore";
-import {modalwindowCreateChat} from "../modalwindow/index";
-import {errorRequest} from "../../../core/util/error";
-import {Notification} from "../notification/notification";
+} from "../input/index"
+import {appStore} from "../../store/appStore"
+import {modalwindowCreateChat} from "../modalwindow/index"
+import {errorRequest} from "../../../core/util/error"
+import {Notification} from "../notification/notification"
 
 
 export const formsLogin2 = new Forms(
@@ -24,7 +24,7 @@ export const formsLogin2 = new Forms(
         inputs: inputsForLogin,
         buttons: [
             new Button({title:'Авторизоваться'}, 'button button_primary margin-tb_s-2'),
-            new Button({title: 'Зарегистрироваться'}, '', ()=>{new Router().go('/registr')})
+            new Button({title: 'Зарегистрироваться'}, '', ()=>{new Router().go('/register')})
         ],
     },
     signIn
@@ -94,7 +94,7 @@ export const formsSearchuser = new Forms(
     {
         inputs: inputsSearchUser,
     },
-    serachUsers,
+    searchUsers,
     'keyup',
     false
 )
@@ -204,7 +204,7 @@ function updateAvatarChat(data: FormData){
         })
 }
 
-function serachUsers(data: FormData) {
+function searchUsers(data: FormData) {
     const object = objectForm(data)
     apiUser.findUser(object)
         .then(data=>{

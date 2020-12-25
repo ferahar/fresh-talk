@@ -1,5 +1,5 @@
-import { checkField } from "./check-field";
-import { $ } from "./dom-element";
+import {checkField} from "./check-field"
+import {$} from "./dom-element"
 
 
 export const checkForm = (e: Event) => {

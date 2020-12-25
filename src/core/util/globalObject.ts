@@ -1,4 +1,4 @@
-const fallbackGlobalObject = {};
+const fallbackGlobalObject = {}
 
 export function getGlobalObject<T>(): T {
     return (isNodeEnv()
@@ -16,5 +16,5 @@ export function isNodeEnv(): boolean {
         Object.prototype.toString.call(
             typeof process !== "undefined" ? process : 0
         ) === "[object process]"
-    );
+    )
 }

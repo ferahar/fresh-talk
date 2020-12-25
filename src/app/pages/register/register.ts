@@ -1,12 +1,12 @@
-import { Component, Router, DomElement } from "../../../core/index";
+import {Component, Router, DomElement} from "../../../core/index"
 import {formsRegistr} from "../../components/forms2/index"
 import {headerReg} from '../../components/header/index'
-import {ListComponents} from "../../../core/type";
+import {ListComponents} from "../../../core/type"
 
 
-class RegistrPage extends Component {
+class RegisterPage extends Component {
     
-    static TEMPLATE = '../app/pages/registr/registr.html'
+    static TEMPLATE = '../app/pages/register/register.html'
 
     constructor(components: ListComponents = {}) {
         super( {
@@ -18,11 +18,11 @@ class RegistrPage extends Component {
 
 }
 
-export const registrPage = new RegistrPage({
+export const registerPage = new RegisterPage({
     components: [headerReg, formsRegistr]
 })
 
-new Router().initLink( registrPage.element as DomElement )
+new Router().initLink( registerPage.element as DomElement )
 
 
 

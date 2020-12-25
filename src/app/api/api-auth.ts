@@ -1,4 +1,4 @@
-import { authAPIInstance } from './api-base'
+import {authAPIInstance} from './api-base'
 import {errorRequest} from "../../core/util/error"
 
 class ApiAuth {

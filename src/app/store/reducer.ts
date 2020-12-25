@@ -1,4 +1,4 @@
-import { setState } from '../../core/util/index'
+import {setState} from '../../core/util/index'
 
 type Prop = Record<string, object | string>
 

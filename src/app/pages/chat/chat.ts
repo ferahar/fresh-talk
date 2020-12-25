@@ -1,7 +1,7 @@
-import {Component} from "../../../core/index";
-import {chatnavigate} from "../../components/chatnavigate/index";
-import {chatcurrent} from "../../components/chatcurrent/index";
-import {ListComponents} from "../../../core/type";
+import {Component} from "../../../core/index"
+import {chatnavigate} from "../../components/chatnavigate/index"
+import {chatcurrent} from "../../components/chatcurrent/index"
+import {ListComponents} from "../../../core/type"
 
 
 class ChatPage extends Component {

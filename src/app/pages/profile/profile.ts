@@ -1,4 +1,4 @@
-import { Component, Router, DomElement } from "../../../core/index";
+import {Component, Router, DomElement} from "../../../core/index";
 import {headerProfile} from '../../components/header/index'
 import {formsProfile2, formsAvatar, formsPswChange} from "../../components/forms2/index";
 import {ListComponents} from "../../../core/type";

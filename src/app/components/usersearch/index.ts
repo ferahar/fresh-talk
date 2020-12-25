@@ -1,3 +1,3 @@
-import {UserSearch} from "./usersearch";
+import {UserSearch} from "./usersearch"
 
 export const userSearch = new UserSearch

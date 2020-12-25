@@ -1,7 +1,7 @@
 import {Component} from "../../../core/index"
-import { checkField, checkForm } from "../../../core/util/index"
-import { $ } from "../../../core/util/dom-element"
-import {ListComponents} from "../../../core/type";
+import {checkField, checkForm} from "../../../core/util/index"
+import {$} from "../../../core/util/dom-element"
+import {ListComponents} from "../../../core/type"
 
 
 export class Forms extends Component {

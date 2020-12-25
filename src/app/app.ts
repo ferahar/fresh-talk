@@ -18,5 +18,3 @@ export const start = () => {
         .catch(error=>console.log(error))
 
 }
-
-

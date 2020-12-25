@@ -1,10 +1,10 @@
 {
   "name": "mf.messenger.praktikum.yandex",
   "version": "1.0.0",
-  "description": "ferahar messanger: frash_talk",
+  "description": "ferahar messanger: fresh_talk",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "npm run prod && node app.js",
     "dev": "npm run build && node app.js",
     "build": "node webpack.js && tsc && node extjs.js",
     "prod": "node webpack.js && tsc --build tsconfig-prod.json && node extjs.js",

@@ -1,5 +1,5 @@
-import {Input} from "./input";
-import {field} from "./state";
+import {Input} from "./input"
+import {field} from "./state"
 
 
 export const inputsForLogin = [
