@@ -1,9 +1,8 @@
-import { Router } from "../../../core/index"
-import { apiAuth } from "../../api/api-auth"
-import { Header } from "./header"
+import {Router} from "../../../core/index"
+import {apiAuth} from "../../api/api-auth"
+import {Header} from "./header"
 import {Button} from "../button/button"
 import {appStore} from "../../store/appStore"
-
 
 
 export const headerLogin = new Header("Вход")

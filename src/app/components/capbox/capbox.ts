@@ -1,4 +1,4 @@
-import { Component } from "../../../core/index"
+import {Component} from "../../../core/index"
 
 
 export class Capbox extends Component {

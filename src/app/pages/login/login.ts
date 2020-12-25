@@ -1,7 +1,7 @@
-import { Component } from "../../../core/index"
-import { headerLogin } from "../../components/header/index"
-import {formsLogin2} from "../../components/forms2/index";
-import {ListComponents} from "../../../core/type";
+import {Component} from "../../../core/index"
+import {headerLogin} from "../../components/header/index"
+import {formsLogin2} from "../../components/forms2/index"
+import {ListComponents} from "../../../core/type"
 
 
 class LoginPage extends Component {

@@ -1,5 +1,5 @@
 import { Component } from "../../../core/index"
-import {Button} from "../button/button";
+import {Button} from "../button/button"
 
 
 export class Modalwindow extends Component {

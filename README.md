@@ -1,10 +1,10 @@
-## frash_talk
-Демо: <a href="https://frash-talk.netlify.app">frash_talk</a>
+## fresh-talk
+Демо: <a href="https://frash-talk.netlify.app">fresh_talk</a>
 - проект в разработке
 - JS(vanila) learning
 
 ## UX/UI
-Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/frash_talk?node-id=6%3A0">frash-talk</a>
+Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/frash_talk?node-id=6%3A0">fresh-talk</a>
 
 ## Cпринт #3
 - routs
@@ -19,6 +19,6 @@
 - `npm run build` — сборка статики для разработки
 - `npm run prod` — сборка статики для проекта
 - `npm run dev` — подготовка и запуск сервера для разработки (http://localhost:4200/)
-- `npm start` — запуск сервера (http://localhost:4200/)
+- `npm start` — подготовка и запуск сервера (http://localhost:4200/)
 - `npm test` — тестирование, библиотека Jest
 

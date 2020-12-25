@@ -1,6 +1,6 @@
 import {Component} from "../../../core/index"
-import {Button} from "../button/button";
-import {objectForm} from "../../../core/util/index";
+import {Button} from "../button/button"
+import {objectForm} from "../../../core/util/index"
 
 
 export class FormResponse extends Component {

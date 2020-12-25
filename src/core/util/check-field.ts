@@ -17,11 +17,10 @@ export function checkField(fieldName: HTMLInputElement): Indexed {
             }    
             break;
         case 'password':
-            // const pswRegExp = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){6,16}$/
             if (fieldName.value.length < 6) {
                 test = true
                 message = "Пароль должен содержать более 6 символов"
-            }    
+            }
             break;
         case 'avatar':
             test = false   

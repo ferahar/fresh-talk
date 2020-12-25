@@ -1,4 +1,4 @@
-import { Component } from "../../../core/index"
+import {Component} from "../../../core/index"
 import {appStore} from "../../store/appStore"
 import {User} from "../user/user"
 import {appEvents} from "../../store/events"

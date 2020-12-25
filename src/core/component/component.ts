@@ -1,5 +1,5 @@
-import { DomElement, $ } from "../util/dom-element"
-import { EventBus } from "../index"
+import {DomElement, $} from "../util/dom-element"
+import {EventBus} from "../index"
 
 
 export type ListComponents = {

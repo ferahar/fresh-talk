@@ -1,4 +1,4 @@
-import { util } from "./util";
+import {util} from "./util"
 
 export class DomElement {
     nativeElement: HTMLElement | null
@@ -39,18 +39,16 @@ export class DomElement {
         }
       }
     
-    getHtml(): string | boolean {
+    getHtml() {
         if (this.nativeElement) {
             return this.nativeElement.innerHTML
         }
-        return false
       }
 
-    getText(): string | boolean {
+    getText() {
         if (this.nativeElement) {
             return this.nativeElement.innerText
         }
-        return false
     }
 
     append(el: DomElement) {
@@ -102,25 +100,10 @@ export class DomElement {
         this.nativeElement!.className = style
     }
 
-
     removeClass(className: string) {
         if (this.nativeElement) this.nativeElement.classList.remove(className);
         return this;
     }
-
-        // css(styles) {
-    //     if (util.isUndefind(styles)) return this.nativeElement.style;
-    //     Object.keys(styles).forEach(key => {
-    //         this.nativeElement.style[key] = styles[key]
-    //     })
-    //     return this;
-    // }
-
-
-    // hasClass(className) {
-    //     return this.nativeElement.classList.contains(className);
-    // }
-
 
 }
 

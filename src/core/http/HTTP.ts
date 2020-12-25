@@ -1,5 +1,5 @@
 import {queryStringify, StringIndexed} from './queryStringify'
-import {getGlobalObject} from "../util/globalObject";
+import {getGlobalObject} from "../util/globalObject"
 
 export interface Headers {
     [index: string]: string
@@ -65,7 +65,6 @@ export class HTTP {
                 })
             }
 
-            // xhr.onload = () => {
             xhr.onreadystatechange = () => {
                 if (xhr.readyState !== 4) {
                     return;

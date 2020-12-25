@@ -1,4 +1,4 @@
-export type StringIndexed = Record<string, unknown>;
+export type StringIndexed = Record<string, unknown>
 
 export function queryStringify(data: StringIndexed): string | never {
     if (typeof data !== 'object') {
@@ -8,7 +8,7 @@ export function queryStringify(data: StringIndexed): string | never {
     const keys = Object.keys(data);
     return keys.reduce((result, key, index) => {
         const value = data[key];
-        const endLine = index < keys.length - 1 ? '&' : '';
+        const endLine = index < keys.length - 1 ? '&' : ''
 
         if (Array.isArray(value)) {
             const arrayValue = value.reduce<StringIndexed>((result, arrData, index) => ({
@@ -16,7 +16,7 @@ export function queryStringify(data: StringIndexed): string | never {
                 [`${key}[${index}]`]: arrData,
             }), {});
 
-            return `${result}${queryStringify(arrayValue)}${endLine}`;
+            return `${result}${queryStringify(arrayValue)}${endLine}`
         }
 
         if (typeof value === 'object') {
@@ -25,9 +25,9 @@ export function queryStringify(data: StringIndexed): string | never {
                 [`${key}[${objKey}]`]: (value as StringIndexed)[objKey],
             }), {});
 
-            return `${result}${queryStringify(objValue)}${endLine}`;
+            return `${result}${queryStringify(objValue)}${endLine}`
         }
 
-        return `${result}${key}=${value}${endLine}`;
+        return `${result}${key}=${value}${endLine}`
     }, '');
 }

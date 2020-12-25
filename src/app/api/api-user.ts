@@ -1,5 +1,5 @@
-import { userAPIInstance } from './api-base';
-import {errorRequest} from "../../core/util/error";
+import {userAPIInstance} from './api-base'
+import {errorRequest} from "../../core/util/error"
 
 class ApiUser {
     saveProfil(data={}) {
@@ -38,4 +38,4 @@ class ApiUser {
     }
 }
 
-export const apiUser = new ApiUser;
+export const apiUser = new ApiUser

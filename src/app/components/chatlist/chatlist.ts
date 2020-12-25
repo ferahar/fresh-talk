@@ -1,8 +1,8 @@
 import {Component} from "../../../core/index"
 import {Chatitem} from "../chatitem/chatitem"
 import {capbox} from "../capbox/index"
-import {appStore} from "../../store/appStore";
-import {appEvents} from "../../store/events";
+import {appStore} from "../../store/appStore"
+import {appEvents} from "../../store/events"
 
 
 

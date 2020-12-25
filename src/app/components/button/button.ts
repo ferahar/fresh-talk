@@ -1,4 +1,4 @@
-import { Component } from "../../../core/component/component"
+import {Component} from "../../../core/component/component"
 
 
 export class Button extends Component {

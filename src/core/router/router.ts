@@ -1,34 +1,34 @@
-import { Component } from "../component/component";
-import { Store } from "../store/store";
-import { $, DomElement } from "../util/dom-element"
+import {Component} from "../component/component";
+import {Store} from "../store/store";
+import {$, DomElement} from "../util/dom-element"
 
 
 type Route = {
     path: string,
-    component: Component;
+    component: Component
 }
 
 export class Router {
 
-    private static __instance: Router;
+    private static __instance: Router
     private _rootQuery = 'app-root'
     private disablePath = [
         '/login',
-        '/registr',
+        '/register',
     ]
 
-    history = window.history;
+    history = window.history
     routes: Route[] | undefined = []
 
 
     constructor(rootQuery?: string) {
         if (Router.__instance) {
-            return Router.__instance;
+            return Router.__instance
         }
         if (rootQuery) {
             this._rootQuery = rootQuery
         }
-        Router.__instance = this;
+        Router.__instance = this
     }
 
     use(path: string, component: Component) {
@@ -37,7 +37,7 @@ export class Router {
             this.routes.push({
                 path: path,
                 component: component
-            });
+            })
         }
 
         return this
@@ -47,25 +47,25 @@ export class Router {
         window.onpopstate = ((event: Event) => {
             if (!event.currentTarget) return
             this._onRoute( location.pathname )
-        }).bind(this);
+        }).bind(this)
 
         const isLogin = new Store().getState('isLogin')
         const pathname = window.location.pathname
-        if (!isLogin && pathname!=='/login' && pathname!=='/registr') {
+        if (!isLogin && pathname!=='/login' && pathname!=='/register') {
             this.go('/login')
             return
-        } else if (isLogin && (pathname ==='/login' || pathname ==='/registr')) {
+        } else if (isLogin && (pathname ==='/login' || pathname ==='/register')) {
             this.go('/')
             return
         }
-        this._onRoute(pathname);
+        this._onRoute(pathname)
     }
 
     private _onRoute(pathname: string) {
-        let route = this.getRoute(pathname);
+        let route = this.getRoute(pathname)
         const isLogin = new Store().getState('isLogin')
 
-        if (!isLogin && pathname!=='/login' && pathname!=='/registr') {
+        if (!isLogin && pathname!=='/login' && pathname!=='/register') {
             this.go('/login')
             return
         }
@@ -95,12 +95,12 @@ export class Router {
     }
 
     go(pathname: string) {
-        this.history.pushState({ path: pathname }, "", pathname);
-        this._onRoute(pathname);
+        this.history.pushState({ path: pathname }, "", pathname)
+        this._onRoute(pathname)
     }
 
     back() {
-        this.history.back();
+        this.history.back()
     }
 
     forward() {
@@ -120,7 +120,7 @@ export class Router {
     }
 
     onClick(event: Event) {
-        event.preventDefault();
+        event.preventDefault()
         const target = $(event.target as HTMLElement)
         const href = target.attr('href')
         if (href) {

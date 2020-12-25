@@ -1,4 +1,4 @@
-import { Component, Router, DomElement } from "../../../core/index"
+import {Component, Router, DomElement} from "../../../core/index"
 
 
 class Page404 extends Component {

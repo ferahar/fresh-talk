@@ -5,8 +5,8 @@ import {lentaEditor} from "../lentaeditor/index"
 import {Message} from "../message/message"
 import {modalwindowAddUsers} from "../modalwindow/index"
 import {formResponse} from "../formresponse/index"
-import {appEvents} from "../../store/events";
-import {appStore} from "../../store/appStore";
+import {appEvents} from "../../store/events"
+import {appStore} from "../../store/appStore"
 
 
 export class Lenta extends Component {

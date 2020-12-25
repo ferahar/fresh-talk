@@ -1,5 +1,5 @@
 import {Component} from "../../../core/index"
-import {appStore} from "../../store/appStore";
+import {appStore} from "../../store/appStore"
 
 
 export class User extends Component {

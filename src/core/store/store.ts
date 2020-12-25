@@ -1,5 +1,5 @@
-import { EventBus } from "../index"
-import { setState, findState } from "../util/index"
+import {EventBus} from "../index"
+import {setState, findState} from "../util/index"
 
 
 export class Store {
@@ -70,7 +70,6 @@ export class Store {
     dispatch(actionName: string, prop: Object|string = {}) {
         this.reduce(actionName, this.state, prop)
         if (this.eventBus) {
-            // this.eventBus.emit(Store.EVENTS.STATE_CHANGE)
             this.eventBus.emit(actionName)
         }
     }

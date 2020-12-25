@@ -1,5 +1,5 @@
-import { Component} from "../../../core/index";
-import {ListComponents} from "../../../core/type";
+import {Component} from "../../../core/index"
+import {ListComponents} from "../../../core/type"
 
 
 export class Chatnavigate extends Component {

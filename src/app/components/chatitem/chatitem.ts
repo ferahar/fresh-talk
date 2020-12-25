@@ -1,6 +1,6 @@
 import {Component, $} from "../../../core/index"
-import {apiChats} from "../../api/index";
-import {appStore} from "../../store/appStore";
+import {apiChats} from "../../api/index"
+import {appStore} from "../../store/appStore"
 
 
 export class Chatitem extends Component {
@@ -32,7 +32,7 @@ export class Chatitem extends Component {
 function unSelect(target:string, style: string) {
     const elements = document.querySelectorAll(`.${target}`)
     if (!elements) return
-    elements.forEach(element =>{
+    elements.forEach(element => {
         $(element as HTMLElement ).removeClass(style)
     })
 }
