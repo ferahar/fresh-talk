@@ -6,13 +6,14 @@
 ## UX/UI
 Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/frash_talk?node-id=6%3A0">fresh-talk</a>
 
-## Cпринт #3
-- routs
-- state/store 
-- API
-- тесты для: шаблонизатора, роутера, компонента, модуля отправки запросов
-- защита: XSS, DOS, CSP
-- внедрен препроцессор Stylus
+## Cпринт # IV
+- webpack
+- docker 
+- heroku
+- ESLint
+- precommit
+- audit
+- WebSocket
 
 ## УСТАНОВКА
 - `npm install` — установка зависимостей,
