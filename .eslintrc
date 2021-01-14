@@ -1,0 +1,28 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+
+  "extends": ["eslint:recommended", "google"],
+
+  "rules": {
+    "semi": "off",
+    "require-jsdoc": "off",
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "max-len": ["error", { "code": 120 }],
+    "arrow-parens": "off",
+    "comma-dangle": "off",
+    "no-case-declarations": "off",
+    "no-useless-escape": "off"
+  }
+}

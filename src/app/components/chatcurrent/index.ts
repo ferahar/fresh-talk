@@ -1,3 +1,3 @@
-import {Chatcurrent} from "./chatcurrent"
+import {Chatcurrent} from './chatcurrent'
 
 export const chatcurrent = new Chatcurrent()

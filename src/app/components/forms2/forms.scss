@@ -1,0 +1,16 @@
+.form {
+    box-sizing: border-box;
+    overflow: visible;
+    border-radius: 1.2rem;
+    width: 320px;
+
+    &_themeLogin {
+        background: var(--secondary-bg-color);
+        margin-top: 32px;
+    }
+
+    &-section {
+        padding: 24px;
+    }
+
+}

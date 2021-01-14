@@ -9,7 +9,6 @@ export class Btn extends Component {
 
     constructor(title: string, callback?: Function) {
         super({
-            template: Btn.TEMPLATE,
             tagName: 'button',
             style: 'button',
             props: {
@@ -26,7 +25,7 @@ export class Btn extends Component {
     }
 
     render() {
-        return renderString(this._template, this.props);
+        return renderString(Btn.TEMPLATE, this.props);
     }
 
 }

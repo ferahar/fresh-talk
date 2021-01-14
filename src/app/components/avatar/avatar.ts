@@ -1,18 +1,15 @@
-import {Component} from "../../../core/index"
+import './avatar.scss'
+import {Component} from '../../../core/'
 
+const template = require('./avatar.njk')
 
 export class Avatar extends Component {
-
-    static TEMPLATE = '../app/components/avatar/avatar.html'
-
-    constructor(props: Indexed) {
-        super({
-            template: Avatar.TEMPLATE,
-            tagName: 'div',
-            props: props
-        })
+  constructor(props: Indexed) {
+    super({
+      template,
+      tagName: 'div',
+      props,
+    })
         this.element!.setClass('avatar')
-    }
-
-
+  }
 }

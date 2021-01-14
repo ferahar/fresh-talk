@@ -1,4 +1,6 @@
 node_modules/
 help_code/
 dist/
+dist2/
+src2/
 .idea/

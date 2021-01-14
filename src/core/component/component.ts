@@ -1,5 +1,5 @@
-import {DomElement, $} from "../util/dom-element"
-import {EventBus} from "../index"
+import {DomElement, $} from '../util/dom-element'
+import {EventBus} from '../index'
 
 
 export type ListComponents = {
@@ -16,23 +16,23 @@ export type Config = {
 
 export class Component {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:Component-did-mount",
-    FLOW_CDU: "flow:Component-did-update",
-    FLOW_RENDER: "flow:render"
+    INIT: 'init',
+    FLOW_CDM: 'flow:Component-did-mount',
+    FLOW_CDU: 'flow:Component-did-update',
+    FLOW_RENDER: 'flow:render',
   }
 
   private _element: DomElement
 
-  protected _template: string = ''
+  protected template: Function
   protected components: ListComponents = {}
 
   eventBus: EventBus
   props: Indexed
 
-  constructor(config: Config){
+  constructor(config: Config) {
     this._element = $(document.createElement( config.tagName as string))
-    this._template = config.template as string
+    this.template = config.template as unknown as Function
 
     if (config.style) {
       this._element.setClass(config.style)
@@ -74,31 +74,30 @@ export class Component {
   }
 
   componentDidUpdate(newProps: Indexed, oldProps: Indexed): boolean {
-    if ( newProps && oldProps) return true
+    if (newProps && oldProps) return true
     return false
   }
 
 
   private _render(): void {
-
-    if ( this.element && this._template) {
+    if (this.element && this.template) {
       const tmpl = this.render()
       this.element.html( tmpl )
     }
 
     if (this.components) {
-      Object.keys(this.components).forEach(key=>{
+      Object.keys(this.components).forEach((key)=>{
         const compArray = this.components[key]
-        compArray.forEach(component=>{
+        compArray.forEach((component)=>{
           this.append( [component], key )
         })
       })
     }
-
   }
 
   render() {
-    return nunjucks.render(this._template, this.props)
+    // return nunjucks.render(this.template, this.props)
+    return this.template(this.props)
   }
 
   setProps = (nextProps: Indexed) => {
@@ -124,7 +123,7 @@ export class Component {
       },
       deleteProperty: () => {
         throw new Error('Нет прав')
-      }
+      },
     });
   }
 
@@ -137,17 +136,16 @@ export class Component {
   }
 
   append(components: Component[], id?: string) {
-
     if (!this.element) return
     let element: DomElement = this.element
     let node: DomElement | undefined = undefined
     if (id) {
       node = this.element.find(`#${id}`)
     }
-    if ((node !== undefined) && node.nativeElement  ) {
+    if ((node !== undefined) && node.nativeElement ) {
       element = node
     }
-    components.forEach( component => {
+    components.forEach( (component) => {
       element.append( component.element as DomElement )
     })
   }

@@ -12,6 +12,6 @@ export class CompPage extends Component {
         });
     }
     render(){
-        return renderString(this._template, this.props)
+        return renderString(this.template, this.props)
     }
 }

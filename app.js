@@ -5,7 +5,6 @@ const app = express()
 const port = 4200
 
 function startServer(port) {
-  // app.use(helmet())
   app.use(
     helmet.contentSecurityPolicy({
       directives: {

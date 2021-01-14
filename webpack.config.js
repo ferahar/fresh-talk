@@ -6,29 +6,35 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
-const filename = e => isDev ? 'bundle'+e: 'bundle[hash]'+e
-// const filename = ext => isDev ? `[name].${ext}` : `[name].[hash]${ext}`
+const filename = ext => isProd ? `bundle.${ext}` : `bundle.[hash].${ext}`
 
 module.exports = {
-  context: path.resolve(__dirname, 'src2'),
-  mode: "development",
-  entry: "./index.ts",
+  context: path.resolve(__dirname, 'src'),
+  mode: 'development',
+  entry: './index.ts',
   output: {
-    filename: "build[hash].js",
-    path: path.resolve(__dirname, 'dist2')
+    filename: filename('js'),
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '',
   },
 
   resolve: {
-    extensions: [".ts", ".js", ".njk"]
+    extensions: ['.ts', '.js', '.njk']
   },
+
+  devtool: isDev ? 'source-map': false,
 
   plugins: [
     new CleanWebpackPlugin(),
     new HTMLWebPackPlugin({
-      template: 'index.html'
+      template: 'index.html',
+      minify: {
+        removeComments: isProd,
+        collapseWhitespace: isProd,
+      }
     }),
     new MiniCssExtractPlugin({
-      filename: "index.css"
+      filename: filename('css')
     })
   ],
 
@@ -38,29 +44,47 @@ module.exports = {
       {
         test: /\.ts?$/,
         exclude: /node_modules/,
-        loader: "ts-loader"
+        loader: 'ts-loader'
       },
 
       {
-        test: /\.njk$/,
+        test: /\.(njk|html)$/,
         use: [
           {
-            loader: "simple-nunjucks-loader",
+            loader: 'simple-nunjucks-loader',
             options: {}
           }
         ]
       },
 
       {
-        test: /\.styl/i,
+        test: /\.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ],
+      },
+
+      {
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
+      },
+
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {},
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/fonts',
+            }
           },
-          'css-loader',
-          'stylus-loader'
-        ],
+        ]
       },
     ]
   }

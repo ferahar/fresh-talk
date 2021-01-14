@@ -1,0 +1,13 @@
+.notification {
+  display: block;
+  z-index: 110;
+  background: var(--primary-bg-color);
+  color: var(--primary-color);
+  width: 180px;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+}

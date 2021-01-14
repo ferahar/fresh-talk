@@ -1,24 +1,21 @@
-import {Component, Router, DomElement} from "../../../core/index"
+import {Component, Router, DomElement} from '../../../core/'
 
+const template = require('./404.html')
 
 class Page404 extends Component {
-
-    static TEMPLATE = '../app/pages/404/404.html'
-
-    constructor(props: Indexed) {
-
-        super( {
-            tagName: 'section',
-            template: Page404.TEMPLATE,
-            props
-        } );
+  constructor(props: Indexed) {
+    super( {
+      tagName: 'section',
+      template,
+      props
+    } );
         this.element!.setClass('msgSys')
-    }
+  }
 }
 
 export const page404 = new Page404({
-    title: "404",
-    message: "Ложки не существует"
+  title: '404',
+  message: 'Ложки не существует'
 })
 
 

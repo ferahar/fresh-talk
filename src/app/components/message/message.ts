@@ -1,19 +1,16 @@
-import {Component} from "../../../core/index"
+import {Component} from '../../../core/'
 
+import './message.scss'
+const template = require('./message.html')
 
 export class Message extends Component {
+  constructor(props: Indexed) {
+    super({
+      template,
+      tagName: 'div',
+      props: props
+    })
 
-    static TEMPLATE = '../app/components/message/message.html'
-
-    constructor(props: Indexed) {
-        super({
-            template: Message.TEMPLATE,
-            tagName: 'div',
-            props: props
-        })
-
-        this.element!.setClass('message')
-
-    }
-
+    this.element!.setClass('message')
+  }
 }
