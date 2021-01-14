@@ -8,7 +8,7 @@ export type ListComponents = {
 
 export type Config = {
   tagName: string,
-  template?: string,
+  template?: Function,
   components?: ListComponents,
   props?: Indexed
   style?: string
@@ -32,7 +32,7 @@ export class Component {
 
   constructor(config: Config) {
     this._element = $(document.createElement( config.tagName as string))
-    this.template = config.template as unknown as Function
+    this.template = config.template as Function
 
     if (config.style) {
       this._element.setClass(config.style)
@@ -96,7 +96,6 @@ export class Component {
   }
 
   render() {
-    // return nunjucks.render(this.template, this.props)
     return this.template(this.props)
   }
 

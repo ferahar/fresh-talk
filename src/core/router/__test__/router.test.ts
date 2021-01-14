@@ -42,9 +42,9 @@ describe('Router test:', ()=>{
         expect(pathname).not.toBe('/nonexistent')
     })
 
-    // test('Page content should be "Login"',()=>{
-    //     router.go('login')
-    //     const text = document.getElementsByTagName('div')[0].innerHTML
-    //     expect(text).toBe('Login')
-    // })
+    test('Page content should be "Login"',()=>{
+        router.go('login')
+        const text = document.getElementsByTagName('div')[0].innerHTML
+        expect(text).toBe('Login')
+    })
 })

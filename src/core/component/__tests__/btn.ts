@@ -1,9 +1,9 @@
 import {Component} from '../component';
-import {renderString} from 'nunjucks';
+import {compile} from 'nunjucks';
 
+const tmpl = compile('{{title}}')
 
 export class Btn extends Component {
-    static TEMPLATE = `{{ title }}`
     private callback: Function | null
 
     constructor(title: string, callback?: Function) {
@@ -12,7 +12,8 @@ export class Btn extends Component {
         style: 'button',
         props: {
           title
-        }
+        },
+        template: tmpl.render.bind(tmpl)
       })
 
       if (callback && this.element ) {
@@ -21,9 +22,5 @@ export class Btn extends Component {
       } else {
         this.callback = null
       }
-    }
-
-    render() {
-      return renderString(Btn.TEMPLATE, this.props);
     }
 }
