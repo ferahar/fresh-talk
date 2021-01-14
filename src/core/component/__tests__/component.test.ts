@@ -1,20 +1,22 @@
-const nunjucks = require("nunjucks")
-const { JSDOM } = require("jsdom")
-
-const dom = new JSDOM("<!DOCTYPE html><html><head></head><body></body></html>")
-//@ts-ignore
-global.window = dom.window
-global.document = dom.window.document
-global.nunjucks = nunjucks
-
-import {Btn} from "./btn"
+import {Btn} from './btn'
 
 
 describe('Components:', () => {
 
     test('Button title', () => {
         const btn = new Btn('Click me!')
+        document.body.appendChild(btn.element.nativeElement as HTMLButtonElement)
+        const result = document.querySelector('button')
+        result!.addEventListener('click', ()=>{
+
+        })
+        result!.click()
         const text = btn.element.nativeElement!.innerHTML
+        console.log(
+            btn.element.nativeElement,
+            result!.tagName
+        )
+        // btn.element.nativeElement!.innerHTML = 'cool'
         expect(text).toEqual('Click me!')
     })
 

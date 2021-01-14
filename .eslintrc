@@ -14,6 +14,11 @@
 
   "extends": ["eslint:recommended", "google"],
 
+  "ignorePatterns": [
+    "src/**/*.test.ts",
+    "src/**/__test__"
+  ],
+
   "rules": {
     "semi": "off",
     "require-jsdoc": "off",

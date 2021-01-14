@@ -7,11 +7,10 @@ export class CompPage extends Component {
             tagName: 'div',
             props: {
                 title
-            },
-            template: '{{title}}'
+            }
         });
     }
     render(){
-        return renderString(this.template, this.props)
+        return renderString('{{title}}', this.props)
     }
 }
