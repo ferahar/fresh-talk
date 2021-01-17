@@ -15,11 +15,16 @@ Heroku: <a href="https://fresh-talk.herokuapp.com/">fresh_talk</a>
 - audit
 - WebSocket
 
-## УСТАНОВКА
+## Рабочие команды
 - `npm install` — установка зависимостей,
-- `npm run build` — сборка статики для разработки
-- `npm run prod` — сборка статики для проекта
-- `npm run dev` — подготовка и запуск сервера для разработки (http://localhost:4200/)
-- `npm start` — подготовка и запуск сервера (http://localhost:4200/)
+- `npm run build` — сборка статики для размещения(deploy)
+- `npm run serve` — запуск сервера(express) для разработки (http://localhost:4200/)
 - `npm test` — тестирование, библиотека Jest
+- `npm run lint` — проверка TS стилистики
+- `npm run lint:scss'` — проверка SCSS стилистики
 
+## Heroku
+- `heroku login'` — вход в аккаунт
+- `heroku container:login'` — вход в docker
+- `heroku container:rm web'` — прерываем работу образа WEB
+- `npm run deploy'` — размещаем приложение
