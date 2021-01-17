@@ -1,0 +1,11 @@
+.margin {
+  @for $i from 1 through 10 {
+    &_s-#{$i} {
+      margin: 4px * $i;
+    }
+    &-tb_s-#{$i} {
+      margin-top: 4px * $i;
+      margin-bottom: 4px * $i;
+    }
+  }
+}

@@ -1,3 +1,3 @@
-import {Lenta} from "./lenta"
+import {Lenta} from './lenta'
 
 export const lenta = new Lenta()

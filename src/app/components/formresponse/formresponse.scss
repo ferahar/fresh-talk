@@ -1,0 +1,33 @@
+.formresponse {
+  width: 100%;
+}
+
+.formresponse-textarea {
+  font: inherit;
+  width: 100%;
+  height: 100%;
+  background: #363636;
+  border: none;
+  border-top: 1px solid #505050;
+  box-sizing: border-box;
+  //box-sizing content-box;
+  font-size: 14px;
+  outline: none;
+  padding: 12px 24px 48px 12px;
+  color: inherit;
+  resize: none;
+  overflow: hidden;
+
+}
+
+.formresponse-sendButton {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+
+.formresponse-sendButtonLeft {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+}

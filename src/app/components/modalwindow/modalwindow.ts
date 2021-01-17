@@ -1,37 +1,36 @@
-import { Component } from "../../../core/index"
-import {Button} from "../button/button"
+import {Component} from '../../../core/'
+import {Button} from '../button/button'
+
+import './modalwindow.scss'
+const template = require('./modalwindow.html')
 
 
 export class Modalwindow extends Component {
-
-    static TEMPLATE = '../app/components/modalwindow/modalwindow.html'
-
-    constructor(title: string, components:Component[],) {
-
-        super({
-            template: Modalwindow.TEMPLATE,
-            tagName: 'div',
-            props: {
-                title
-            },
-            components: {
-                content: components,
-                close: [
-                    new Button({icon: 'close'}, 'button', ()=>{ this.hide() })
-                ]
-            },
-        })
-
-        this.hide()
-
-    }
-
-    onClick(event: Event) {
-        const target = event.target as HTMLElement
-
-        if (target.tagName=='BUTTON') {
+  constructor(title: string, components:Component[],) {
+    super({
+      template,
+      tagName: 'div',
+      props: {
+        title
+      },
+      components: {
+        content: components,
+        close: [
+          new Button({icon: 'close'}, 'button', ()=>{
             this.hide()
-        }
-    }
+          })
+        ]
+      },
+    })
 
+    this.hide()
+  }
+
+  onClick(event: Event) {
+    const target = event.target as HTMLElement
+
+    if (target.tagName=='BUTTON') {
+      this.hide()
+    }
+  }
 }

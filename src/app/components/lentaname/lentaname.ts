@@ -1,26 +1,20 @@
-import {Component} from "../../../core/index"
-import {appStore} from "../../store/appStore"
+import {Component} from '../../../core/'
+import {appStore} from '../../store/appStore'
 
-type Indexed = {
-    [key in string]: unknown
-}
+const template = require('./lentaname.html')
+
 
 export class LentaName extends Component {
+  constructor(props: Indexed) {
+    super({
+      template,
+      tagName: 'div',
+      props
+    })
+    this.element.setClass('chatItem')
 
-    static TEMPLATE = '../app/components/lentaname/lentaname.html'
-
-    constructor(props: Indexed) {
-
-        super({
-            template: LentaName.TEMPLATE,
-            tagName: 'div',
-            props: props
-        })
-        this.element.setClass('chatItem')
-
-        appStore.subscribe(['setCurrentChat', 'setChats'], ()=> {
-            this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
-        } )
-    }
-
+    appStore.subscribe(['setCurrentChat', 'setChats'], ()=> {
+      this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+    } )
+  }
 }

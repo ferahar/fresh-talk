@@ -1,10 +1,9 @@
 export function objectForm(data: FormData) {
+  const object: Record<string, unknown> = {}
 
-    const object: Record<string, unknown> = {}
+  for (const [name, value] of data) {
+    object[name] = value
+  }
 
-    for (let [name, value] of data) {
-        object[name] = value
-    }
-
-    return object
+  return object
 }

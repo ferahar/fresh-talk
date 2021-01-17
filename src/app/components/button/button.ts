@@ -1,30 +1,30 @@
-import {Component} from "../../../core/component/component"
+import {Component} from '../../../core/'
+
+import './button.scss'
+const template = require('./button.njk')
 
 
 export class Button extends Component {
-
-    static TEMPLATE = '../app/components/button/button.html'
     private callback: Function | null
 
     constructor(props: Indexed, className?: string, callback?: Function) {
-        super({
-            template: Button.TEMPLATE,
-            tagName: 'button',
-            props: props
-        })
+      super({
+        template,
+        tagName: 'button',
+        props,
+      })
 
-        if (className) {
+      if (className) {
             this.element!.setClass(className)
-        } else {
+      } else {
             this.element!.setClass('button')
-        }
-        
-        if (callback && this.element ) {
-            this.callback = callback
-            this.element.on( 'click', this.callback as EventListener )
-        } else {
-            this.callback = null
-        }
-    }
+      }
 
+      if (callback && this.element ) {
+        this.callback = callback
+        this.element.on( 'click', this.callback as EventListener )
+      } else {
+        this.callback = null
+      }
+    }
 }

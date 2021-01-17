@@ -1,30 +1,28 @@
-import {Component} from "../../../core/index"
-import {appStore} from "../../store/appStore"
+import {Component} from '../../../core/'
+import {appStore} from '../../store/appStore'
 
+import './user.scss'
+const template = require('./user.html')
 
 export class User extends Component {
+  constructor(props: Indexed) {
+    super({
+      template,
+      tagName: 'li',
+      props,
+      style: 'list-item'
+    })
 
-    static TEMPLATE = '../app/components/user/user.html'
-
-    constructor(props: Indexed) {
-        super({
-            template: User.TEMPLATE,
-            tagName: 'li',
-            props: props,
-            style: 'list-item'
-        })
-
-        this.element.on('click', ()=>{
+    this.element.on('click', ()=>{
             this.element.nativeElement!.classList.toggle('user_selected')
             const users = appStore.getState('userSelected') as number[]
             if (users.includes(this.props.id as number)) {
-                const newUsers = users.filter(userId=>userId!==this.props.id)
-                appStore.dispatch('setUserSelected', newUsers)
+              const newUsers = users.filter(userId=>userId!==this.props.id)
+              appStore.dispatch('setUserSelected', newUsers)
             } else {
-                users.push(this.props.id as number)
-                appStore.dispatch('setUserSelected', users)
+              users.push(this.props.id as number)
+              appStore.dispatch('setUserSelected', users)
             }
-        })
-    }
-
+    })
+  }
 }

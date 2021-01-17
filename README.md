@@ -1,24 +1,30 @@
 ## fresh-talk
-Демо: <a href="https://frash-talk.netlify.app">fresh_talk</a>
+Heroku: <a href="https://fresh-talk.herokuapp.com/">fresh_talk</a>
 - проект в разработке
 - JS(vanila) learning
 
 ## UX/UI
 Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/frash_talk?node-id=6%3A0">fresh-talk</a>
 
-## Cпринт #3
-- routs
-- state/store 
-- API
-- тесты для: шаблонизатора, роутера, компонента, модуля отправки запросов
-- защита: XSS, DOS, CSP
-- внедрен препроцессор Stylus
+## Cпринт # IV
+- webpack
+- docker 
+- heroku
+- ESLint
+- precommit
+- audit
+- WebSocket
 
-## УСТАНОВКА
+## Рабочие команды
 - `npm install` — установка зависимостей,
-- `npm run build` — сборка статики для разработки
-- `npm run prod` — сборка статики для проекта
-- `npm run dev` — подготовка и запуск сервера для разработки (http://localhost:4200/)
-- `npm start` — подготовка и запуск сервера (http://localhost:4200/)
+- `npm run build` — сборка статики для размещения(deploy)
+- `npm run serve` — запуск сервера(express) для разработки (http://localhost:4200/)
 - `npm test` — тестирование, библиотека Jest
+- `npm run lint` — проверка TS стилистики
+- `npm run lint:scss'` — проверка SCSS стилистики
 
+## Heroku
+- `heroku login'` — вход в аккаунт
+- `heroku container:login'` — вход в docker
+- `heroku container:rm web'` — прерываем работу образа WEB
+- `npm run deploy'` — размещаем приложение

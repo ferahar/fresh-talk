@@ -1,19 +1,19 @@
-import {Modalwindow} from "./modalwindow"
-import {formsCreateChat, formsSearchuser} from "../forms2/index"
-import {userSearch} from "../usersearch/index"
+import {Modalwindow} from './modalwindow'
+import {formsCreateChat, formsSearchuser} from '../forms2/'
+import {userSearch} from '../usersearch/'
 
 
 export const modalwindowCreateChat = new Modalwindow(
     'Новый чат',
     [
-        formsCreateChat
+      formsCreateChat
     ]
 )
 
 export const modalwindowAddUsers = new Modalwindow(
     'Добавить участников',
     [
-        formsSearchuser,
-        userSearch
+      formsSearchuser,
+      userSearch
     ]
 )

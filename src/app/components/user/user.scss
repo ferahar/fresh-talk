@@ -1,0 +1,6 @@
+.user {
+  &_selected {
+    color: var(--primary-color);
+    background: var(--primary-bg-color);
+  }
+}

@@ -1,44 +1,48 @@
-import {setState} from '../../core/util/index'
+import {setState} from '../../core/util/'
 
 type Prop = Record<string, object | string>
 
 export const reducer = {
 
-    init(state: Prop) {
-        return state
-    },
+  init(state: Prop) {
+    return state
+  },
 
-    isLogin(state: Prop) {
-        const value = 'success'
-        return setState(state, 'isLogin', value)
-    },
-    
-    logout(state: Prop) {
-        return setState(state, 'isLogin','')
-    },
+  isLogin(state: Prop) {
+    const value = 'success'
+    return setState(state, 'isLogin', value)
+  },
 
-    setProfile(state: Prop, prop: Prop) {
-        return setState(state, 'profile', prop)
-    },
+  logout(state: Prop) {
+    return setState(state, 'isLogin', '')
+  },
 
-    setChats(state: Prop, prop: Prop) {
-        return setState(state, 'chats', prop)
-    },
+  setProfile(state: Prop, prop: Prop) {
+    return setState(state, 'profile', prop)
+  },
 
-    setCurrentChat(state: Prop, prop: Prop) {
-        return setState(state, 'currentchat', prop)
-    },
+  setChats(state: Prop, prop: Prop) {
+    return setState(state, 'chats', prop)
+  },
 
-    setUserList(state: Prop, prop: Prop) {
-        return setState(state, 'userList', prop)
-    },
+  setCurrentChat(state: Prop, prop: Prop) {
+    return setState(state, 'currentchat', prop)
+  },
 
-    setUserSearch(state: Prop, prop: Prop) {
-        return setState(state, 'userSearch', prop)
-    },
+  setMessagesChat(state: Prop, prop: Prop) {
+    return setState(state, 'messages', prop)
+  },
 
-    setUserSelected(state: Prop, prop: Prop|string) {
-        const result = setState(state, 'userSelected', prop)
-        return result
-    }
+  setUserList(state: Prop, prop: Prop) {
+    return setState(state, 'userList', prop)
+  },
+
+  setUserSearch(state: Prop, prop: Prop) {
+    return setState(state, 'userSearch', prop)
+  },
+
+  setUserSelected(state: Prop, prop: Prop|string) {
+    const result = setState(state, 'userSelected', prop)
+    return result
+  }
 };

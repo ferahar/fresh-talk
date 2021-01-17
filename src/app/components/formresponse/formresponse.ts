@@ -1,44 +1,62 @@
-import {Component} from "../../../core/index"
-import {Button} from "../button/button"
-import {objectForm} from "../../../core/util/index"
+import {Component} from '../../../core/'
+import {Button} from '../button/button'
+import {WS} from '../../api/websocket'
+
+import './formresponse.scss'
+import {appStore} from '../../store/appStore'
+
+
+const template = require('./formresponse.html')
 
 
 export class FormResponse extends Component {
+  constructor(props: Indexed = {}) {
+    super(
+        {
+          template,
+          tagName: 'form',
+          props,
+          components: {
+            button: [
+              new Button({icon: 'send'}, 'button formresponse-sendButton' )
+            ]
+          }
+        }
+    )
+    this.element.setClass('formresponse')
+    this.element.on('submit', this.onSubmit.bind(this), true)
+  }
 
-    static TEMPLATE = '../app/components/formresponse/formresponse.html'
-
-    constructor(props: Indexed = {}) {
-        super(
-            {
-                template: FormResponse.TEMPLATE,
-                tagName: 'form',
-                props: props,
-                components: {
-                    button: [
-                        new Button({icon:'send'}, 'button formresponse-sendButton' )
-                    ]
-                }
-            }
-        )
-        this.element.setClass('formresponse')
-        this.element.on('submit', this.onSubmit.bind(this), true)
-        // this.element.on('keydown', autosize)
-
+  onSubmit(e: Event) {
+    e.preventDefault()
+    const textArea = this.element.find('#textarea')
+    const content = textArea.getText()
+    const currentchat:Indexed = appStore.getState('currentchat') as {}
+    const name = `${currentchat.id}`
+    const socket = new WS().getSockets()[name] as WebSocket
+    if (content !== '') {
+      socket.send(JSON.stringify({content, type: 'message'}))
+      console.log(appStore.getState('messages'))
+      this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
     }
+  }
 
-    onSubmit(e: Event) {
-        e.preventDefault()
-        const form = this.element.nativeElement as HTMLFormElement
-        let data = new FormData(form)
-        console.log(objectForm(data))
+  componentWillMount() {
+    const textArea = this.element.find('#textarea')
+
+    if (textArea) {
+      textArea.on('blur', ()=>{
+        const content = textArea.getText()!.trim()
+        if (content === '') {
+          textArea.nativeElement!.innerHTML = this.props.placeholder as string
+        }
+      })
+      textArea.on('focus', ()=>{
+        const content = textArea.getText()!.trim()
+        if (content === this.props.placeholder ) {
+          textArea.nativeElement!.innerHTML = ''
+        }
+      })
     }
-
+  }
 }
-
-// function autosize(e: Event){
-//     const el = e.target as HTMLElement
-//     setTimeout(function(){
-//         el.style.cssText = 'height:auto; padding:0';
-//         el.style.cssText = 'height:' + el.scrollHeight + 'px';
-//     },0);
-// }
