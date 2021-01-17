@@ -29,11 +29,18 @@ export class Chatitem extends Component {
           appStore.dispatch('setUserList', data)
           const currentchat:Indexed = appStore.getState('currentchat') as {}
           const name = `${currentchat.id}`
-          const socket = new WS().getSockets()[name]
-          socket.send(JSON.stringify({
-            content: '0',
-            type: 'get old',
-          }))
+          const ws = new WS()
+          const socket = ws.getSockets()[name]
+          if (!socket) {
+            // ws.add(this.props.id as string)
+            console.log(ws.getSockets())
+            console.log(appStore.getState('chats'))
+          } else {
+            socket.send(JSON.stringify({
+              content: '0',
+              type: 'get old',
+            }))
+          }
         })
         .catch((error)=>console.log(error.message))
   }

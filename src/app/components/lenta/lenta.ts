@@ -27,7 +27,6 @@ export class Lenta extends Component {
   render() {
     const currentchat = appStore.getState('currentchat') as Indexed
     const messages = appStore.getState('messages') as []
-    console.log('messages: ', messages)
     this.components = {
       headerleft: [
         new LentaName(currentchat),

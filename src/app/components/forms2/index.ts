@@ -73,7 +73,7 @@ export const formsCreateChat = new Forms(
     {
       inputs: inputsCreateChat,
       buttons: [
-        new Button({title: 'Создать'}, 'button button_primary', ()=> {
+        new Button({title: 'Создать чат'}, 'button button_primary', ()=> {
           setTimeout(()=>{
             if (formsCreateChat.validation) {
               modalwindowCreateChat.hide()

@@ -12,9 +12,8 @@
   box-sizing: border-box;
   //box-sizing content-box;
   font-size: 14px;
-  line-height: 14px;
   outline: none;
-  padding: 24px 6rem;
+  padding: 12px 24px 48px 12px;
   color: inherit;
   resize: none;
   overflow: hidden;
@@ -24,7 +23,7 @@
 .formresponse-sendButton {
   position: absolute;
   right: 12px;
-  bottom: 12px;
+  top: 12px;
 }
 
 .formresponse-sendButtonLeft {

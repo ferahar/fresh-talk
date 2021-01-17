@@ -1,10 +1,9 @@
 import {Component} from '../../../core/'
 import {Button} from '../button/button'
-import {objectForm} from '../../../core/util/'
 import {WS} from '../../api/websocket'
 
 import './formresponse.scss'
-import {appStore} from '../../store/appStore';
+import {appStore} from '../../store/appStore'
 
 
 const template = require('./formresponse.html')
@@ -30,19 +29,34 @@ export class FormResponse extends Component {
 
   onSubmit(e: Event) {
     e.preventDefault()
-    const form = this.element.nativeElement as HTMLFormElement
-    const data = objectForm(new FormData(form))
-
+    const textArea = this.element.find('#textarea')
+    const content = textArea.getText()
     const currentchat:Indexed = appStore.getState('currentchat') as {}
     const name = `${currentchat.id}`
     const socket = new WS().getSockets()[name] as WebSocket
-    if (data.content !== '') {
-      socket.send(JSON.stringify({
-        content: data.content,
-        type: 'message',
-      }))
+    if (content !== '') {
+      socket.send(JSON.stringify({content, type: 'message'}))
       console.log(appStore.getState('messages'))
       this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+    }
+  }
+
+  componentWillMount() {
+    const textArea = this.element.find('#textarea')
+
+    if (textArea) {
+      textArea.on('blur', ()=>{
+        const content = textArea.getText()!.trim()
+        if (content === '') {
+          textArea.nativeElement!.innerHTML = this.props.placeholder as string
+        }
+      })
+      textArea.on('focus', ()=>{
+        const content = textArea.getText()!.trim()
+        if (content === this.props.placeholder ) {
+          textArea.nativeElement!.innerHTML = ''
+        }
+      })
     }
   }
 }

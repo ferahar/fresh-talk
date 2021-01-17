@@ -1,4 +1,4 @@
-import {apiAuth, apiChats} from './index'
+import {apiChats} from './index'
 import {appStore} from '../store/appStore'
 
 declare type IndexedWebSocket = {
@@ -17,33 +17,42 @@ export class WS {
       this.websockets()
       WS.__instance = this
     }
+
     getSockets() {
       return this.sockets
     }
 
-    private websockets() {
-      const id:Indexed = {}
-      apiAuth.user()
-          .then(data=>{
-            id.user = data.id
-            return apiChats.chats()
-          })
-          .then(data=>{
-            const chats = data as []
-            chats.forEach(chat => {
-              const idChat = (chat as Indexed).id
-              id.chat = idChat
-              apiChats.token({id: idChat})
-                  .then(token => {
-                    const name = `${idChat}`
-                    this.sockets[name] = socketEvents({
-                      user: id.user,
-                      chat: idChat,
-                      token
-                    })
-                  })
+    run() {
+      this.websockets()
+    }
+
+    add(id: string) {
+      return apiChats.token({id})
+          .then(token => {
+            const socket = socketEvents({
+              chat: id,
+              user: (appStore.getState('profile') as Indexed).id,
+              token
             })
+            this.sockets[id as string] = socket
+            return socket
           })
+    }
+
+    private websockets() {
+      const chats = appStore.getState('chats') as Indexed[]
+      chats.forEach(chat => {
+        const idChat = (chat as Indexed).id
+        apiChats.token({id: idChat})
+            .then(token => {
+              const name = `${idChat}`
+              this.sockets[name] = socketEvents({
+                user: (appStore.getState('profile') as Indexed).id,
+                chat: idChat,
+                token
+              })
+            })
+      })
     }
 }
 
@@ -60,7 +69,7 @@ function socketEvents(props: Indexed):WebSocket {
 
   socket.addEventListener('close', event => {
     if (event.wasClean) {
-      console.log('Соединение закрыто чисто')
+      console.log('Connect closed')
     } else {
       console.log(`Lost connection`, event)
     }
@@ -69,7 +78,6 @@ function socketEvents(props: Indexed):WebSocket {
   socket.addEventListener('message', event => {
     const message = JSON.parse(event.data) as Indexed
     if (message.type !=='error') {
-      console.log('Получены данные', message)
       if (Array.isArray(message)) {
         message.sort(sortDate).map(formatProps)
         appStore.dispatch('setMessagesChat', message)
@@ -83,7 +91,7 @@ function socketEvents(props: Indexed):WebSocket {
   })
 
   socket.addEventListener('error', event => {
-    console.log('Ошибка', (event as any).message)
+    console.log('Error', (event as any).message)
   })
   return socket
 }
@@ -103,12 +111,5 @@ function formatProps(props:Indexed) {
   }
   return props
 }
-
-
-// Получены данные
-// {content: "Something's wrong. Try again", type: "error"}
-// content: "Something's wrong. Try again"
-// type: "error"
-// __proto__: Object
 
 

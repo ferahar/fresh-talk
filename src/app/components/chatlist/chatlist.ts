@@ -5,6 +5,7 @@ import {appStore} from '../../store/appStore'
 import {appEvents} from '../../store/events'
 
 import './chatlist.scss'
+import {WS} from '../../api/websocket'
 const template = require('./chatlist.html')
 
 export class Chatlist extends Component {
@@ -29,6 +30,11 @@ export class Chatlist extends Component {
         const chatItem = new Chatitem(chat as Indexed)
         if (currentchat && chat.id === currentchat.id) {
           chatItem.element.addClass('chatItem_selected')
+        }
+        const ws = new WS()
+        const socket = ws.getSockets()[chat.id as string]
+        if (!socket) {
+          ws.add(chat.id as string)
         }
         components.push(chatItem)
       })
