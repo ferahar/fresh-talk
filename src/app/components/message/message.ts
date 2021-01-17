@@ -8,6 +8,8 @@ export class Message extends Component {
   constructor(props: Indexed) {
     const owner = appStore.getState('profile') as Indexed
     props['owner'] = owner
+    const time = new Date(props.time as string)
+    props['date'] = `${time.getHours()}:${time.getMinutes()}`
     super({
       template,
       tagName: 'div',
@@ -20,3 +22,5 @@ export class Message extends Component {
     }
   }
 }
+
+

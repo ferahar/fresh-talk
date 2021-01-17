@@ -41,6 +41,7 @@ export class FormResponse extends Component {
         content: data.content,
         type: 'message',
       }))
+      console.log(appStore.getState('messages'))
       this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
     }
   }

@@ -10,7 +10,7 @@
     "lint": "eslint 'src/**/*.ts'",
     "test": "jest",
     "serve": "npm run start && node app.js",
-    "deploy": "npm run build && heroku container:rm web && heroku container:push web && heroku container:release web"
+    "deploy": "npm run build && heroku container:login && heroku container:rm web && heroku container:push web && heroku container:release web"
   },
   "jest": {
     "testEnvironment": "jsdom"

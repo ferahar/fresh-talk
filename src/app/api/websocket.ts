@@ -95,8 +95,6 @@ function sortDate(propsA:Indexed, propsB:Indexed) {
 }
 
 function formatProps(props:Indexed) {
-  const time = new Date(props.time as string)
-  props.time = `${time.getHours()}:${time.getMinutes()}, ${time.getDate()}.${time.getMonth()}.${time.getFullYear()}`
   const userList = appStore.getState('userList') as Indexed[]
   if (props.user_id) {
     props['user'] = userList.find(item => item.id===props.user_id)
