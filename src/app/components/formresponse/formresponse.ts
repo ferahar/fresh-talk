@@ -36,10 +36,12 @@ export class FormResponse extends Component {
     const currentchat:Indexed = appStore.getState('currentchat') as {}
     const name = `${currentchat.id}`
     const socket = new WS().getSockets()[name] as WebSocket
-
-    socket.send(JSON.stringify({
-      content: data.content,
-      type: 'message',
-    }))
+    if (data.content !== '') {
+      socket.send(JSON.stringify({
+        content: data.content,
+        type: 'message',
+      }))
+      this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+    }
   }
 }

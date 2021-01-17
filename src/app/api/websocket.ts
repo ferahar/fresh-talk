@@ -71,12 +71,12 @@ function socketEvents(props: Indexed):WebSocket {
     if (message.type !=='error') {
       console.log('Получены данные', message)
       if (Array.isArray(message)) {
-        message.sort(sortDate)
+        message.sort(sortDate).map(formatProps)
         appStore.dispatch('setMessagesChat', message)
-      } else {
+      } else if (message.type !== 'user connected') {
         const messages = appStore.getState('messages') as Indexed[]
         messages.push(message)
-        messages.sort(sortDate)
+        messages.sort(sortDate).map(formatProps)
         appStore.dispatch('setMessagesChat', messages)
       }
     }
@@ -93,6 +93,19 @@ function sortDate(propsA:Indexed, propsB:Indexed) {
   const timeB = Date.parse(propsB.time as string)
   return timeA-timeB
 }
+
+function formatProps(props:Indexed) {
+  const time = new Date(props.time as string)
+  props.time = `${time.getHours()}:${time.getMinutes()}, ${time.getDate()}.${time.getMonth()}.${time.getFullYear()}`
+  const userList = appStore.getState('userList') as Indexed[]
+  if (props.user_id) {
+    props['user'] = userList.find(item => item.id===props.user_id)
+  } else {
+    props['user'] = userList.find(item => item.id===props.userId)
+  }
+  return props
+}
+
 
 // Получены данные
 // {content: "Something's wrong. Try again", type: "error"}

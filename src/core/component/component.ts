@@ -63,11 +63,13 @@ export class Component {
   }
 
   private _componentDidMount(): void {
-    this.componentDidMount();
     this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
+    this.componentDidMount()
   }
 
   componentDidMount() {}
+
+  componentWillMount() {}
 
   private _componentDidUpdate<T extends Indexed>(newProps: T, oldProps: T): boolean {
     return this.componentDidUpdate(newProps, oldProps)
@@ -93,6 +95,8 @@ export class Component {
         })
       })
     }
+
+    this.componentWillMount()
   }
 
   render() {

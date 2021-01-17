@@ -25,16 +25,17 @@ export class Chatitem extends Component {
     this.element.addClass('chatItem_selected')
     appStore.dispatch('setCurrentChat', this.props)
     apiChats.users(this.props)
-        .then((data) => appStore.dispatch('setUserList', data ))
+        .then((data) => {
+          appStore.dispatch('setUserList', data)
+          const currentchat:Indexed = appStore.getState('currentchat') as {}
+          const name = `${currentchat.id}`
+          const socket = new WS().getSockets()[name]
+          socket.send(JSON.stringify({
+            content: '0',
+            type: 'get old',
+          }))
+        })
         .catch((error)=>console.log(error.message))
-    const currentchat:Indexed = appStore.getState('currentchat') as {}
-    const name = `${currentchat.id}`
-    const socket = new WS().getSockets()[name]
-
-    socket.send(JSON.stringify({
-      content: '0',
-      type: 'get old',
-    }))
   }
 }
 

@@ -54,6 +54,14 @@ class ApiChats {
       }
     })
   }
+
+  token(data:Indexed={}) {
+    return chatAPIInstance.post(`/token/${data.id}`)
+        .then(data => {
+          const response = JSON.parse((data as XMLHttpRequest).response) as Indexed
+          return response.token
+        }, errorRequest)
+  }
 }
 
 export const apiChats = new ApiChats
