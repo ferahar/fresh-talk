@@ -29,6 +29,10 @@ export const reducer = {
     return setState(state, 'currentchat', prop)
   },
 
+  setMessagesChat(state: Prop, prop: Prop) {
+    return setState(state, 'messages', prop)
+  },
+
   setUserList(state: Prop, prop: Prop) {
     return setState(state, 'userList', prop)
   },

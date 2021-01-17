@@ -1,14 +1,20 @@
+<div class="avatar">
+    {% if user.avatar %}
+    <img src="https://ya-praktikum.tech/{{ avatar }}" alt="">
+    {% endif %}
+</div>
 <div class="message-user message-user_thy">
+    <h6 class="h6">{{ user.first_name }}</h6>
     <div class="message-content">
         <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique aliquid maxime nostrum eius quam? Quisquam, distinctio! In laudantium, nisi fuga deleniti velit ex id?
+            {{ content }}
         </p>
     </div>
     <div class="message-info">
-                    <span class="message-status">
-                        <i class="material-icons message-iconDone message-iconDone_read">done_all</i>
-                    </span>
-        <time class="caption message-time">12:00</time>
+        <span class="message-status">
+            <i class="material-icons message-iconDone message-iconDone_read">done_all</i>
+        </span>
+        <time class="caption message-time">{{ time }}</time>
     </div>
 </div>
 
@@ -18,3 +24,13 @@
 <!--        <h4 class="h4">11 февраля 2020</h4>-->
 <!--    </div>-->
 <!--</div>-->
+
+<!--<script>-->
+<!--  { -->
+<!--    'content': "тормозит экситон.",-->
+<!--    'type': "message",-->
+<!--    'time': "2021-01-17T07:37:26+00:00",-->
+<!--    'userId': 45,-->
+<!--    'id': 6 -->
+<!--  }-->
+<!--</script>-->

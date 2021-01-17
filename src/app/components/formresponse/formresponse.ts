@@ -1,8 +1,12 @@
 import {Component} from '../../../core/'
 import {Button} from '../button/button'
 import {objectForm} from '../../../core/util/'
+import {WS} from '../../api/websocket'
 
 import './formresponse.scss'
+import {appStore} from '../../store/appStore';
+
+
 const template = require('./formresponse.html')
 
 
@@ -27,7 +31,15 @@ export class FormResponse extends Component {
   onSubmit(e: Event) {
     e.preventDefault()
     const form = this.element.nativeElement as HTMLFormElement
-    const data = new FormData(form)
-    console.log(objectForm(data))
+    const data = objectForm(new FormData(form))
+
+    const currentchat:Indexed = appStore.getState('currentchat') as {}
+    const name = `${currentchat.id}`
+    const socket = new WS().getSockets()[name] as WebSocket
+
+    socket.send(JSON.stringify({
+      content: data.content,
+      type: 'message',
+    }))
   }
 }

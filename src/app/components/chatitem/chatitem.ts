@@ -1,6 +1,7 @@
 import {Component, $} from '../../../core/'
 import {apiChats} from '../../api/'
 import {appStore} from '../../store/appStore'
+import {WS} from '../../api/websocket'
 
 import './chatitem.scss'
 const template = require('./chatitem.html')
@@ -26,6 +27,14 @@ export class Chatitem extends Component {
     apiChats.users(this.props)
         .then((data) => appStore.dispatch('setUserList', data ))
         .catch((error)=>console.log(error.message))
+    const currentchat:Indexed = appStore.getState('currentchat') as {}
+    const name = `${currentchat.id}`
+    const socket = new WS().getSockets()[name]
+
+    socket.send(JSON.stringify({
+      content: '0',
+      type: 'get old',
+    }))
   }
 }
 

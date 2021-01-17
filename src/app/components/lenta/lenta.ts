@@ -19,13 +19,31 @@ export class Lenta extends Component {
       props
     })
 
-    appStore.subscribe(appEvents.SET_CURCHAT, ()=> {
+    appStore.subscribe([appEvents.SET_CURCHAT, appEvents.SET_MSG], ()=> {
       this.eventBus.emit(Component.EVENTS.FLOW_RENDER)
     } )
   }
 
   render() {
     const currentchat = appStore.getState('currentchat') as Indexed
+    const messages = appStore.getState('messages') as []
+    console.log('messages: ', messages)
+    // const messages = [
+    //   {
+    //     user: {
+    //       first_name: 'Ferahar'
+    //     },
+    //     content: 'Еще в ранних работах Л.Д.Ландау показано, что зеркало когерентно трансформирует восприятия.',
+    //     time: '12:00'
+    //   },
+    //   {
+    //     user: {
+    //       first_name: 'Luck'
+    //     },
+    //     content: 'я все сказал',
+    //     time: '00:44'
+    //   }
+    // ]
     this.components = {
       headerleft: [
         new LentaName(currentchat),
@@ -39,9 +57,7 @@ export class Lenta extends Component {
         }
         )
       ],
-      msgList: [
-        new Message({})
-      ],
+      msgList: arrayComponentMessage(messages),
       msgSend: [
         formResponse
       ]
@@ -49,3 +65,22 @@ export class Lenta extends Component {
     return super.render()
   }
 }
+
+function arrayComponentMessage(data:Indexed[]):Component[] {
+  const result: Component[] = []
+  data.forEach(props=>{
+    result.push(new Message(props as Indexed))
+  })
+  return result
+}
+
+// function getUserProfile(profile:Indexed){
+//
+// }
+// {
+//   user_id: 45,
+//   chat_id: 55,
+//   content: "Hi",
+//   time: "2021-01-16T20:58:19+00:00",
+//   id: 12
+// }

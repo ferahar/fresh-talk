@@ -5,6 +5,7 @@ export const appEvents = {
   SET_PROFILE: 'setProfile',
   SET_CHATS: 'setChats',
   SET_CURCHAT: 'setCurrentChat',
+  SET_MSG: 'setMessagesChat',
   SET_USER_LIST: 'setUserList',
   SET_USER_SEARCH: 'setUserSearch',
   SET_USER_SELECT: 'setUserSelected'

@@ -11,6 +11,7 @@ export const state = {
   },
   chats: [],
   currentchat: '',
+  messages: [],
   userList: [],
   userSearch: [],
   userSelected: [],

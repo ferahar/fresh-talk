@@ -36,6 +36,15 @@ class ApiUser {
       }
     })
   }
+
+  findUserID(id:number) {
+    return userAPIInstance.post('/search', {
+      data: JSON.stringify({id}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
 }
 
 export const apiUser = new ApiUser

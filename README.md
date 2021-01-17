@@ -1,5 +1,5 @@
 ## fresh-talk
-Демо: <a href="https://frash-talk.netlify.app">fresh_talk</a>
+Heroku: <a href="https://fresh-talk.herokuapp.com/">fresh_talk</a>
 - проект в разработке
 - JS(vanila) learning
 
