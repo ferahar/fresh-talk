@@ -31,16 +31,11 @@ export class Chatitem extends Component {
           const name = `${currentchat.id}`
           const ws = new WS()
           const socket = ws.getSockets()[name]
-          if (!socket) {
-            // ws.add(this.props.id as string)
-            console.log(ws.getSockets())
-            console.log(appStore.getState('chats'))
-          } else {
-            socket.send(JSON.stringify({
-              content: '0',
-              type: 'get old',
-            }))
-          }
+          if (!socket) return
+          socket.send(JSON.stringify({
+            content: '0',
+            type: 'get old',
+          }))
         })
         .catch((error)=>console.log(error.message))
   }
@@ -48,7 +43,6 @@ export class Chatitem extends Component {
 
 function unSelect(target:string, style: string) {
   const elements = document.querySelectorAll(`.${target}`)
-  if (!elements) return
   elements.forEach((element) => {
     $(element as HTMLElement ).removeClass(style)
   })

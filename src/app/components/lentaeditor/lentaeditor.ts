@@ -47,7 +47,9 @@ export class Lentaeditor extends Component {
       ]
       this.components.forms = [formsEditChat]
       this.components.userlist = [userlist]
-      return this.template(this.props)
+      if (this.template) {
+        return this.template(this.props)
+      }
     }
 }
 

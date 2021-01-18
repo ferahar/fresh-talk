@@ -24,7 +24,7 @@ export class Input extends Component {
   }
 
   render() {
-    if (this.props.store) {
+    if (this.props.store && this.template) {
       const props = Object.assign({}, this.props)
       if (this.props.image) {
         props.avatar = appStore.getState(this.props.store as string)
@@ -33,6 +33,8 @@ export class Input extends Component {
       }
       return this.template(props)
     }
-    return this.template(this.props)
+    if (this.template) {
+      return this.template(this.props)
+    }
   }
 }

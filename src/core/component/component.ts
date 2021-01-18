@@ -24,7 +24,7 @@ export class Component {
 
   private _element: DomElement
 
-  protected template: Function
+  protected template: Function | undefined = undefined
   protected components: ListComponents = {}
 
   eventBus: EventBus
@@ -32,19 +32,22 @@ export class Component {
 
   constructor(config: Config) {
     this._element = $(document.createElement( config.tagName as string))
-    this.template = config.template as Function
+    if (config.template) {
+      this.template = config.template as Function
+    }
+
 
     if (config.style) {
       this._element.setClass(config.style)
     }
 
     if (config.components) {
-      this.components = config.components as ListComponents
+      this.components = config.components
     }
 
     if (config.props) {
-      this.props = this._makePropsProxy(config.props as {});
-    } else this.props = this._makePropsProxy({});
+      this.props = this._makePropsProxy(config.props)
+    } else this.props = this._makePropsProxy({})
 
     this.eventBus = new EventBus()
     this._registerEvents(this.eventBus)
@@ -100,7 +103,9 @@ export class Component {
   }
 
   render() {
-    return this.template(this.props)
+    if (this.template) {
+      return this.template(this.props)
+    }
   }
 
   setProps = (nextProps: Indexed) => {

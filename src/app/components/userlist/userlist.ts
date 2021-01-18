@@ -36,6 +36,9 @@ export class Userlist extends Component {
     this.components = {
       chats: components
     }
-    return this.template(this.props)
+
+    if (this.template) {
+      return this.template(this.props)
+    }
   }
 }
