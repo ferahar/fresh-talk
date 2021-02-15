@@ -1,0 +1,34 @@
+.form {
+  box-sizing: border-box;
+  padding: 1.2rem;
+  border-radius: 1.2rem;
+  width: 320px;
+}
+.form_themeLogin {
+  background: var(--secondary-bg-color);
+  margin-top: 32px;
+}
+.form-section {
+  padding: 24px;
+}
+.form-label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.2rem;
+  font-size: 1.2rem;
+}
+.form-input {
+  margin-top: 0.8rem;
+}
+.form-input:focus {
+  box-shadow: 0 0 0 1px var(--focus-border-color);
+}
+.form-textErorr {
+  font-size: 1rem;
+  color: var(--error-color);
+  margin-top: 0.8rem;
+}
+.form-button {
+  margin-top: 2.4rem;
+  margin-bottom: 1.2rem;
+}

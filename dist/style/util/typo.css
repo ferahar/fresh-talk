@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+html {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 10px;
+}
+.h1 {
+  font-size: 4rem;
+  line-height: 4rem;
+  margin: 0;
+}
+.h2 {
+  font-size: 3.2rem;
+  line-height: 4rem;
+  margin: 0;
+}
+.h3 {
+  font-size: 2rem;
+  line-height: 2rem;
+  margin: 0;
+}
+.h4 {
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  margin: 0;
+}
+.text {
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  margin: 0;
+}
+.caption {
+  font-size: 0.9rem;
+  line-height: 1rem;
+  margin: 0;
+}

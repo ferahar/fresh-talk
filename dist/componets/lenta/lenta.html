@@ -1,0 +1,93 @@
+
+<header class="header">
+    <section class="header-section chatItem">
+        <div class="avatar">
+            {% if chat.image %}
+                <img src="{{chat.image}}" alt="{{chat.name}}">
+            {% endif %}
+        </div>
+        <div class="chatItem-intro">
+            <h4 class="h4">{{chat.title}}</h4>
+            <p class="text chatItem-msgLast">{{chat.online}}</p>
+        </div>
+    </section>
+    <div class="splitter header-splitter"></div>
+</header>
+
+<ul class="container container_isColumn container_size_auto">
+    {% for item in msgs %}
+        {% if item.system %}
+            <li class="message">
+                <div class="message-system">
+                    <h4 class="h4">{{item.title}}</h4>
+                </div> 
+            </li>
+        {% elif item.tome %}
+        <div class="message">
+            {% if item.image %}
+            <div class="message-user message_image">
+                <img src="{{item.image}}" alt="cup">
+                <div class="message-info message-info_img">
+                    <span class="message-status"></span>   
+                    <time class="caption message-time">{{item.date}}</time>
+                </div>   
+            </div>
+            {% else %}
+            <div class="message-user">
+                <div class="message-content">
+                    <p>{{item.message}}</p>
+                </div>
+                <div class="message-info">
+                    <time class="caption message-time">{{item.date}}</time>
+                </div>   
+            </div>
+            {% endif %}
+            
+        </div>
+        {% else %}
+        <div class="message message_right">
+            {% if item.image %}
+                <div class="message-user message_image">
+                    <img src="{{item.image}}" alt="cup">
+                    <div class="message-info message-info_img">
+                        <span class="message-status"></span>   
+                        <time class="caption message-time">{{item.date}}</time>
+                    </div>   
+                </div>
+            {% else %}
+                <div class="message-user message-user_thy">
+                    <div class="message-content">
+                        <p>{{item.message}}</p>
+                    </div>
+                    <div class="message-info">
+                        {% if item.status %}
+                            <span class="message-status">
+                                {% if item.status.done_all %}
+                                    <i class="material-icons message-iconDone message-iconDone_read">done_all</i>
+                                {% else %}
+                                    <i class="material-icons message-iconDone">done</i>
+                                {% endif %}
+                            </span>   
+                        {% endif %} 
+                        <time class="caption message-time">{{item.date}}</time>
+                    </div>   
+                </div>
+            {% endif %} 
+        </div>
+        {% endif %}
+    {% else %}
+        <li>Нет сообщений</li>
+    {% endfor %}
+</ul>
+
+<footer class="container container_size_fix">
+    <form class="container container_size_12">
+        <textarea class="lenta-send" placeholder="Напишиете что-нибудь..." name="message"></textarea> 
+        <button class="button button_ghost button_square lenta-sendButtonLeft" type="submit">
+            <i class="material-icons">attach_file</i>
+        </button>
+        <button class="button button_square lenta-sendButton" type="submit">
+            <i class="material-icons">send</i>
+        </button>
+    </form>
+</footer>

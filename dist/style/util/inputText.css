@@ -1,0 +1,22 @@
+.inputText {
+  height: 3.2rem;
+  background: var(--defoult-bg-color);
+  border: 1px solid var(--defoult-border-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 12px;
+  outline: none;
+  padding: 0 12px;
+  color: inherit;
+}
+.inputText_iconLeft {
+  padding-left: 36px;
+}
+.inputText_error {
+  border: 1px solid var(--error-color);
+}
+.inputText-icon {
+  position: absolute;
+  left: 8px;
+}

@@ -1,0 +1,12 @@
+@import 'util/base.css';
+.msgSys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.msgSys-title {
+  margin-bottom: 2.4rem;
+}
+.msgSys-text {
+  margin-bottom: 2.4rem;
+}
