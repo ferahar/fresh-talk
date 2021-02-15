@@ -1,0 +1,25 @@
+{% if title %}
+<h6 class="input-title">{{ title }}</h6>
+{% endif %}
+
+{% if image %}
+<div class="avatar avatar_large">
+    {% if avatar %}
+    <img src="https://ya-praktikum.tech/{{ avatar }}" alt="">
+    {% else %}
+    <div class="avatar-clear caption">
+        нет изображения
+    </div>
+    {% endif %}
+    <input class="input-avatar" type="file" name="{{ name }}">
+    <span class="input-error" style="display: none;">{{error}}</span>
+</div>
+{% else %}
+<input class="input-text" autocomplete="off" type="{{ type }}" value="{{ value }}"  placeholder="{{ placeholder }}" name="{{ name }}" >
+<span class="input-error" style="display: none;">{{error}}</span>
+{% endif %}
+
+
+
+
+

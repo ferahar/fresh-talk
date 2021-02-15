@@ -1,13 +1,30 @@
-
-## WEB-CHAT
-Демо: <a href="https://ferahar-msg.netlify.app/">Ferahar-msg</a>
+## fresh-talk
+Heroku: <a href="https://fresh-talk.herokuapp.com/">fresh_talk</a>
 - проект в разработке
-- js learning
+- JS(vanila) learning
 
 ## UX/UI
-Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/ferahar-msgr?node-id=0%3A1&viewport=466%2C373%2C0.47879621386528015">ferahar-msgg</a>
+Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/frash_talk?node-id=6%3A0">fresh-talk</a>
 
-## УСТАНОВКА
+## Cпринт # IV
+- webpack
+- docker 
+- heroku
+- ESLint
+- precommit
+- audit
+- WebSocket
+
+## Рабочие команды
 - `npm install` — установка зависимостей,
-- `npm start` — запуск версии для разработчика (http://localhost:4200/)
-- `npm run build` — сборка проекта
+- `npm run build` — сборка статики для размещения(deploy)
+- `npm run serve` — запуск сервера(express) для разработки (http://localhost:4200/)
+- `npm test` — тестирование, библиотека Jest
+- `npm run lint` — проверка TS стилистики
+- `npm run lint:scss'` — проверка SCSS стилистики
+
+## Heroku
+- `heroku login'` — вход в аккаунт
+- `heroku container:login'` — вход в docker
+- `heroku container:rm web'` — прерываем работу образа WEB
+- `npm run deploy'` — размещаем приложение

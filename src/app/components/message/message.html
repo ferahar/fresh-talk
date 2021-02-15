@@ -1,0 +1,23 @@
+{% if user.id == owner.id %}
+<div class="message-user">
+{% else %}
+<div class="avatar">
+    {% if user.avatar %}
+    <img src="https://ya-praktikum.tech/{{ user.avatar }}" alt="">
+    {% endif %}
+</div>
+<div class="message-user message-user_thy">
+{% endif %}
+    <h6 class="h6">{{ user.first_name }}</h6>
+    <div class="message-content">
+        <p>
+            {{ content }}
+        </p>
+    </div>
+    <div class="message-info">
+<!--        <span class="message-status">-->
+<!--            <i class="material-icons message-iconDone message-iconDone_read">done_all</i>-->
+<!--        </span>-->
+        <time class="caption message-time">{{ date }}</time>
+    </div>
+</div>

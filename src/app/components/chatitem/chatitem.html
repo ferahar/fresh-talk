@@ -1,0 +1,15 @@
+<div class="avatar">
+    {% if avatar %}
+        <img src="https://ya-praktikum.tech/{{ avatar }}" alt="">
+    {% endif %}
+</div>
+<div class="chatItem-intro">
+    <h4 class="h4 chatItem-title">{{title}}</h4>
+</div>
+{% if counter %}
+    <div class="chatItem-atribute">
+        <div class="text chatItem-counter">
+            {{counter}}
+        </div>
+    </div>
+{% endif %}
