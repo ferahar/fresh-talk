@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const helmet = require('helmet')
 const app = express()
-const port = 4200
+const port = process.env.PORT || 4200
 
 function startServer(port) {
   app.use(
