@@ -1,10 +1,5 @@
-## fresh-talk
-Heroku: <a href="https://fresh-talk.herokuapp.com/">fresh_talk</a>
-- проект в разработке
-- JS(vanila) learning
-
 ## UX/UI
-Файл Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/frash_talk?node-id=6%3A0">fresh-talk</a>
+Figma <a href="https://www.figma.com/file/KKfDj7ZXqhzazW3yBuTyrG/frash_talk?node-id=6%3A0">fresh-talk</a>
 
 ## Cпринт # IV
 - webpack
@@ -16,15 +11,13 @@ Heroku: <a href="https://fresh-talk.herokuapp.com/">fresh_talk</a>
 - WebSocket
 
 ## Рабочие команды
-- `npm install` — установка зависимостей,
-- `npm run build` — сборка статики для размещения(deploy)
-- `npm run serve` — запуск сервера(express) для разработки (http://localhost:4200/)
-- `npm test` — тестирование, библиотека Jest
-- `npm run lint` — проверка TS стилистики
-- `npm run lint:scss'` — проверка SCSS стилистики
+- `npm install` — installation of dependencies,
+- `npm run build` — build statics for deployment
+- `npm run serve` — run the server (express) for development (http: // localhost: 4200 /)
+- `npm test` — testing, Jest library
+- `npm run lint` — check TS style
+- `npm run lint:scss'` — check SCSS style
 
 ## Heroku
-- `heroku login'` — вход в аккаунт
-- `heroku container:login'` — вход в docker
-- `heroku container:rm web'` — прерываем работу образа WEB
-- `npm run deploy'` — размещаем приложение
+- `heroku container:rm web'`
+- `npm run deploy'`
